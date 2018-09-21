@@ -1,0 +1,149 @@
+<import src="../common/swiper_index.wxml"/>
+
+<view wx:if="{{!hasUserInfo && canIUse}}" class="container">
+  <view class="userinfo">
+      <text class="textRemark">微信授权登陆后</text>
+      <text class="textRemark">你的信息和数据将受到保护\n\n\n</text>
+      <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登陆 </button>
+  </view>
+</view>
+<block wx:else>
+  <view class="head">
+    <template is="swiper_index" data="{{url}}"/>
+  </view>
+  <!-- <view class='head'>
+    <image src='http://192.168.1.77/ss/xiaochengx/img3.png'></image>
+  </view> -->
+  <view class='headText'>
+    <view class='left'>
+      <view class='title'>
+        <text decode='{{true}}'>Or野自然----SkovSkolen丹麦森林教育基地</text>
+      </view>
+      <view class='title1'>
+        <text decode='{{true}}' class='garden'>⚪</text>
+        <text decode='{{true}}'>深圳第一家引自森林教育发源地丹麦的品牌</text>
+      </view>
+      <view class='textImg'>
+        <text decode='{{true}}' class='garden'>⚪</text>
+        <text decode='{{true}}'>北欧同步课程</text>
+      </view>
+      <view class='textImg'>
+        <text decode='{{true}}' class='garden'>⚪</text>
+        <text decode='{{true}}'>多种教学法</text>
+      </view>
+      <view class='textImg'>
+        <text decode='{{true}}' class='garden'>⚪</text>
+        <text decode='{{true}}'>森林导师均由丹麦培训认证</text>
+      </view>
+    </view>
+  </view>
+  <view class='naviga1'>
+    <view class='item' bindtap='toDetail' data-id="1">
+      <image src='{{url}}/upload/slimg.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n森林教育</text>
+    </view>
+    <view class='item' bindtap='toDetail' data-id="2">
+      <image src='{{url}}/upload/ctt.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n传统教育</text>
+    </view>
+    <view class='item' bindtap='toDetail' data-id="3">
+      <image src='{{url}}/upload/ye.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n关于我们</text>
+    </view>
+  </view>
+  <view class='naviga2'>
+    <view class='item' bindtap='toDetail' data-id="4">
+      <image src='{{url}}/upload/we.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n森林课程</text>
+    </view>
+    <view class='item' bindtap='toDetail' data-id="5">
+      <image src='{{url}}/upload/zsicon.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n定制课程</text>
+    </view>
+    <view class='item' bindtap='toHome'>
+      <image src='{{url}}/upload/call.png' mode='widthFix'></image>
+      <text decode='{{true}}'>\n预约体验</text>
+    </view>
+  </view>
+  
+  <view class='allInfo'>
+    <view class="info">
+      <view class='{{isCheck1?"is_check":"item"}}' bindtap='clicks1'>
+        <text>热门课程</text>
+      </view>
+      <view class='{{isCheck2?"is_check":"item"}}' bindtap='clicks2'>
+        <text>站点地区</text>
+      </view>
+      <view class='{{isCheck3?"is_check":"item"}}' bindtap='clicks3'>
+        <text>教师信息</text>
+      </view>
+    </view>
+  </view>
+  
+  <view wx:if="{{isCheck1}}" class='course'>
+    <block wx:for="{{courseList.dataList}}" wx:key="index">
+      <view class='main'>
+          <image src='{{item.imgUrl}}' mode='widthFix'></image>
+          <text class='title'>{{item.courseName}}</text> 
+      </view>
+    </block>
+  </view>
+  <view wx:if="{{isCheck2}}" class='course'>
+    <block wx:for="{{placeList.dataList}}" wx:key="index">
+      <view class='main' data-name="{{item.courseAddr}}" data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" bindtap='placeMap'>
+        <image src='{{item.placeUrl}}' mode='widthFix'></image>
+        <text class='title'>{{item.courseAddr}}</text>
+      </view>
+    </block>
+  </view>
+  
+
+  <view class='contair' wx:if="{{isCheck3}}">
+    <block wx:for="{{teacherList.dataList}}" wx:key="index">
+      <view class='item' >
+        <view class='photo'>
+          <image src='{{item.photoUrl}}' mode='scaleToFill'></image>
+        </view>
+        <scroll-view class='main' scroll-y="true">
+          <view class='title'>
+            <view class='name'>{{item.name}}</view>
+            <view class='job'>{{item.job}}</view>
+          </view>
+          <view class='remark' >
+            <text>{{item.remark}}</text>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+  </view>
+
+
+
+  <view class="bottom">
+    <!-- <view class="title">
+      <text>联系我们</text>
+    </view>
+    <view class='row'></view>
+    <view class="text">
+      电话：<text>{{contact.phone}}</text>
+    </view>
+    <view class="text">
+      手机：<text decode='{{true}}' class='moblie'>+86&ensp;{{contact.moblie}}</text>
+    </view>
+    <view class="text">
+      邮箱：<text>{{contact.email}}</text>
+    </view>
+    <view class="text">
+      地址：<text>{{contact.address}}</text>
+    </view>
+    <view class="text">
+      网址：<text>{{contact.web}}</text>
+    </view> -->
+   
+    <view class="title">
+      <text>联系我们</text>
+    </view>
+    <view class='row'></view>
+    <image class='qr' src='{{url}}/upload/conimg/QR.jpg' mode='widthFix' bindtap='toLook'></image>
+  </view>
+</block>

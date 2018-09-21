@@ -1,0 +1,85 @@
+<import src="templates/news.wxml"/>
+<import src="../common/swiper.wxml"/>
+
+<view class="head">
+  <template is="swiper" data="{{url}}"/>
+</view>
+
+<view class='middle'>
+<view class="topic">
+    <view class="box">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{pickersIndex}}" range="{{pickers}}" range-key="name">
+          <view class="picker">
+            {{pickers[2][pickersIndex[2]].name}}>
+          </view>
+        </picker>
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{pickersIndex1}}" range="{{pickers1}}" range-key="name">
+          <view class="picker1">
+            {{pickers1[1][pickersIndex1[1]].name}}>
+          </view>
+        </picker>
+        <picker mode="selector" bindchange="bindMultiPickerChange2" value="{{selectIndex}}" range="{{selectArray}}">
+          <view class="picker2">
+            {{selectArray[selectIndex]}}>
+          </view>
+        </picker>
+    </view>
+    <!-- <picker mode="date" value="{{date}}" start="2015-09-01" bindchange="bindDateChange">
+      <view class="picker">
+        {{date}}>
+      </view>
+    </picker> -->
+    <view class='date'>
+      <checkbox-group name="checkbox" class="check">
+        <label bindtap='clicks' wx:for="{{checks}}" wx:key="{{checks}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+
+          <block wx:if="{{index!=4}}">
+            <checkbox value="{{item.name}}" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </block>
+          <block wx:if="{{index==4}}">
+            <text data-status="1" bindtap="setModalStatus" checked='{{item.checked}}'>{{str}}</text>
+            <!-- <checkbox value="{{item.name}}" bindtap="setModalStatus" data-status="1" data-val="{{item.name}}" hidden='false' checked='{{item.checked}}' /> {{item.name}} -->
+          </block>
+        </label>
+      </checkbox-group> 
+    </view> 
+</view>
+</view>
+<view class="news">
+  <template is="news" data="{{courseTable: courseTable.dataList}}"/>
+</view>
+
+<view class="loading">
+    <view wx:if="{{hasMore}}"><text>玩命加载中...</text></view>
+    <!-- <view wx:else><text>没有更多内容了</text></view> -->
+</view>
+
+<view class="drawer_screen" bindtap="setModalStatus" data-status="0" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+    <view class="selected_date">
+      <view bindtap="preMonth">
+        <image class="select_icon" src="/assets/img/left.png"></image>
+      </view>
+      <view class="text_center">{{curYear+'-'+curMonth}}</view>
+      <view style="text-align:right;" bindtap="nextMonth">
+        <image class="select_icon" src="/assets/img/right.png"></image>
+      </view>
+    </view>
+    <view class="calendar_panel">
+      <view class="calendar_box">
+        <view class="weekday_label">日</view>
+        <view class="weekday_label">一</view>
+        <view class="weekday_label">二</view>
+        <view class="weekday_label">三</view>
+        <view class="weekday_label">四</view>
+        <view class="weekday_label">五</view>
+        <view class="weekday_label">六</view>
+      </view>
+      <view class="calendar_box" wx:for="{{dateList}}" wx:for-item="week">
+        <view class="weekday_label" wx:for="{{week}}">
+          <text class="{{item.value==selectedDate?'active_date':''}}" bindtap="selectDate" data-date="{{item}}">{{item.date}}</text>
+        </view>
+      </view>
+      <button bindtap='subDate' class='btnDate'>确定</button>
+    </view>
+</view>

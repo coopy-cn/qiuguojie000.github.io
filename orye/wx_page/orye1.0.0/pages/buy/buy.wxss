@@ -1,0 +1,22 @@
+/* pages/buy/buy.wxss */
+.body{
+  padding: 0 20rpx;
+  font-size: 28rpx;
+}
+
+.title{
+  font-weight: bold;
+}
+.img{
+  padding-top: 30rpx; 
+}
+image{
+  width: 94vw;
+}
+.text{
+  line-height: 50rpx;
+  padding-bottom:15rpx; 
+}
+.btn{
+  background-color: #349f73;
+}

@@ -1,0 +1,19 @@
+<!--pages/teach/teach.wxml-->
+<view class='contair'>
+  <block wx:for="{{teacherList.dataList}}" wx:key="index">
+    <view class='item'>
+      <view class='photo'>
+        <image src='{{item.photoUrl}}' mode='scaleToFill'></image>
+      </view>
+      <view class='main'>
+        <view class='title'>
+          <view class='name'>{{item.name}}</view>
+          <view class='job'>{{item.job}}</view>
+        </view>
+        <view class='remark'>
+          <text>{{item.remark}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

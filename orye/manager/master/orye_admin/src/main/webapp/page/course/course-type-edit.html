@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<#include "lib/lib.html" />
+<title>添加课类</title>
+</head>
+<body>
+	<form action="${basePath}/courseType/edit.do" method="post" class="form form-horizontal" id="form">
+	<input hidden="hidden" name="oldName" value="${obj.name}"/>
+	<input hidden="hidden" name="id" value="${obj.id}"/>
+	<div class="pop_main" style="padding-left:30px;width: 95%;">
+		<div class="panel panel-primary mt-20">
+	    	<div class="panel-header">基础信息</div>
+	    	<div class="panel-body">
+	    		<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<tbody>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>课类名称：</strong></td>
+	    		    		<td>
+	    		    			<input style="width:300px;" class="dd_input input-text size-M" type="text" placeholder="请输入课类名称" id="name" name="name" datatype="*"  nullmsg="请输入课类名称" value="${obj.name}">
+	    		    		</td>
+	    		    	</tr>
+    		    	</tbody>
+			    </table>
+	    	</div>
+    	</div>
+		
+		<div class="submit_btn">
+			<button style="width:100px;height:40px;" type="button" name="" value="提    交" onclick="submitButt()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe676;</i> 提    交</button>
+		</div>
+	</div>
+	</form>
+<script type="text/javascript">
+		$(function(){
+			$("#form").Validform({
+				tiptype:3,
+				showAllError:true,   //表单提交时显示所有提示信息
+				ignoreHidden: true,  //隐藏的表单元素不校验
+				ajaxPost:true,
+				callback:function(data){
+					$.Hidemsg();
+					if(data.resultCode==200){
+						layer.msg('保存成功!', {
+							icon : 1,
+							time : 1000
+						});
+						//parent.location.replace("${basePath}/payv2PayWayRate/payv2PayWayRateListAll.do?payWayId="+$("#payViewType").val());
+						setTimeout(function () { 
+					        layer_close();
+					    }, 1000);
+					}else if(data.resultCode==201){
+						layer.msg('课类名称已存在!', {icon: 2});
+						$("#name").focus();
+						return false;
+					}else{
+						$("#form").resetForm();
+						layer.msg('保存失败，请你检查数据!', {
+							icon : 1,
+							time : 1000
+						});
+					}
+				}
+			});
+		});
+		
+
+		function submitButt(){
+			$("#form").attr(
+					"action",
+					"${basePath}/courseType/edit.do").submit(); 
+		}
+		
+</script>
+</body>
+</html>

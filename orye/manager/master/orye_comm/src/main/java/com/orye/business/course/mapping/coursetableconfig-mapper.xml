@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.course.mapper.CourseTableConfigMapper">
+
+	<resultMap id="coursetableconfig_result_map" type="com.orye.business.course.entity.CourseTableConfig" >
+		<id column="id" property="id" />
+		<result column="place_id" property="placeId"/>
+		<result column="teach_id" property="teachId"/>
+		<result column="course_id" property="courseId"/>
+		<result column="teach_date" property="teachDate"/>
+		<result column="max_count" property="maxCount"/>
+		<result column="status" property="status"/>
+		<result column="is_delete" property="isDelete"/>
+		<result column="create_time" property="createTime"/>
+		
+		<result column="course_name" property="courseName"/>
+		<result column="teacher_name" property="teacherName"/>
+		<result column="course_addr" property="courseAddr"/>
+		<result column="teach_time" property="teachTime"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="buy_count" property="buyCount"/>
+		<result column="amount" property="amount"/>
+		<result column="exp_amount" property="expAmount"/>
+		<result column="amountType" property="amountType"/>
+		<result column="course_use" property="courseUse"/>
+		<result column="remark" property="remark"/>
+		<result column="min_year" property="minYear"/>
+		<result column="max_year" property="maxYear"/>
+		<result column="min_month" property="minMonth"/>
+		<result column="max_month" property="maxMonth"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from course_table_config  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and course_id = #{courseId}
+			</if>
+			<if test="teachDateBegin!=null and teachDateBegin!=''">
+				and teach_date <![CDATA[ >= ]]> str_to_date(#{teachDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="teachDateEnd!=null and teachDateEnd!=''">
+				and teach_date <![CDATA[ <= ]]> str_to_date(#{teachDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and max_count = #{maxCount}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.course.entity.CourseTableConfig" useGeneratedKeys="true" keyProperty="id">
+		insert into course_table_config
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="placeId!=null ">
+				place_id,
+			</if>
+      		<if test="teachId!=null ">
+				teach_id,
+			</if>
+      		<if test="courseId!=null ">
+				course_id,
+			</if>
+      		<if test="teachDate!=null ">
+				teach_date,
+			</if>
+      		<if test="maxCount!=null ">
+				max_count,
+			</if>
+      		<if test="status!=null ">
+				status,
+			</if>
+      		<if test="isDelete!=null ">
+				is_delete,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="placeId!=null ">
+      			#{placeId},
+			</if>
+      		<if test="teachId!=null ">
+      			#{teachId},
+			</if>
+      		<if test="courseId!=null ">
+      			#{courseId},
+			</if>
+      		<if test="teachDate!=null ">
+      			#{teachDate},
+			</if>
+      		<if test="maxCount!=null ">
+      			#{maxCount},
+			</if>
+      		<if test="status!=null ">
+      			#{status},
+			</if>
+      		<if test="isDelete!=null ">
+      			#{isDelete},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.course.entity.CourseTableConfig">
+		delete from course_table_config
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+      		<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+      		<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+      		<if test="teachDate!=null ">
+				and teach_date=#{teachDate}
+			</if>
+      		<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+      		<if test="status!=null ">
+				and status=#{status}
+			</if>
+      		<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.course.entity.CourseTableConfig">
+		update course_table_config
+		<set>
+			<if test="placeId!=null ">
+				place_id=#{placeId},
+			</if>
+			<if test="teachId!=null ">
+				teach_id=#{teachId},
+			</if>
+			<if test="courseId!=null ">
+				course_id=#{courseId},
+			</if>
+			<if test="teachDate!=null ">
+				teach_date=#{teachDate},
+			</if>
+			<if test="maxCount!=null ">
+				max_count=#{maxCount},
+			</if>
+			<if test="status!=null ">
+				status=#{status},
+			</if>
+			<if test="isDelete!=null ">
+				is_delete=#{isDelete},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.course.entity.CourseTableConfig" resultMap="coursetableconfig_result_map">
+		select id,place_id,teach_id,course_id,teach_date,max_count,status,is_delete,create_time from course_table_config
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+			<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+			<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+			<if test="teachDate!=null ">
+				and teach_date=#{teachDate}
+			</if>
+			<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="coursetableconfig_result_map" >
+		select id,place_id,teach_id,course_id,teach_date,max_count,status,is_delete,create_time from course_table_config
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+			<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+			<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+			<if test="teachDate!=null ">
+				and teach_date=#{teachDate}
+			</if>
+			<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="coursetableconfig_result_map" >
+		
+		SELECT id,place_id,teach_id,course_id,teach_date,max_count,status,is_delete,create_time FROM course_table_config 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and course_id = #{courseId}
+			</if>
+			<if test="teachDateBegin!=null and teachDateBegin!=''">
+				and teach_date <![CDATA[ >= ]]> str_to_date(#{teachDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="teachDateEnd!=null and teachDateEnd!=''">
+				and teach_date <![CDATA[ <= ]]> str_to_date(#{teachDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and max_count = #{maxCount}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="pageListCount" resultType="java.lang.Integer">
+		select count(*) from course_table_config ctc
+		join course_info ci on ctc.course_id=ci.id
+		join teacher_info ti on ctc.teach_id=ti.id
+		join teach_place tp on ctc.place_id=tp.id 
+		<where>
+			ctc.teach_date > now() 
+			<if test="id!=null and id!=''">
+				and ctc.id = #{id}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and ctc.place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and ctc.teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and ctc.course_id = #{courseId}
+			</if>
+			<if test="teachDateBegin!=null and teachDateBegin!=''">
+				and ctc.teach_date <![CDATA[ >= ]]> str_to_date(#{teachDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="teachDateEnd!=null and teachDateEnd!=''">
+				and ctc.teach_date <![CDATA[ <= ]]> str_to_date(#{teachDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and ctc.max_count = #{maxCount}
+			</if>
+			<if test="status!=null and status!=''">
+				and ctc.status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and ctc.is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and ctc.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and ctc.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="time!=null and time!=''">
+				and DATE_FORMAT(ctc.teach_date,'%H:%i') = #{time}
+			</if>
+			<if test="date!=null and date!=''">
+				and DATE_FORMAT(ctc.teach_date,'%Y-%m-%d') in 
+				<foreach collection="date" item="item" index="index" open="(" separator="," close=")" >
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageList" resultMap="coursetableconfig_result_map" >
+		select ctc.*,ci.course_name,ti.`name` teacher_name,tp.course_addr
+		,CONCAT(DATE_FORMAT(ctc.teach_date,'%Y.%m.%d %H:%i'),'-',DATE_FORMAT(DATE_ADD(ctc.teach_date,INTERVAL ci.course_time_len MINUTE),'%H:%i')) teach_time
+		,ci.img_url,(select count(*) from course_order co where co.con_id=ctc.id and co.status=2) buy_count
+		,ci.amount,ci.exp_amount,ci.course_use,ci.remark,ci.min_year,ci.max_year,ci.min_month,ci.max_month,#{amountType} amountType
+		from course_table_config ctc
+		join course_info ci on ctc.course_id=ci.id
+		join teacher_info ti on ctc.teach_id=ti.id
+		join teach_place tp on ctc.place_id=tp.id
+		<where>
+			ctc.teach_date > now() 
+			<if test="id!=null and id!=''">
+				and ctc.id = #{id}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and ctc.place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and ctc.teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and ctc.course_id = #{courseId}
+			</if>
+			<if test="teachDateBegin!=null and teachDateBegin!=''">
+				and ctc.teach_date <![CDATA[ >= ]]> str_to_date(#{teachDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="teachDateEnd!=null and teachDateEnd!=''">
+				and ctc.teach_date <![CDATA[ <= ]]> str_to_date(#{teachDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and ctc.max_count = #{maxCount}
+			</if>
+			<if test="status!=null and status!=''">
+				and ctc.status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and ctc.is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and ctc.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and ctc.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="time!=null and time!=''">
+				and DATE_FORMAT(ctc.teach_date,'%H:%i') = #{time}
+			</if>
+			<if test="date!=null and date!=''">
+				and DATE_FORMAT(ctc.teach_date,'%Y-%m-%d') in 
+				<foreach collection="date" item="item" index="index" open="(" separator="," close=")" >
+					#{item}
+				</foreach>
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 批量上架下架 -->
+	<update id="batchUpdate">
+		update course_table_config set 
+		<if test="status!=null and status!=''">
+			status=#{status} 
+		</if>
+		<if test="isDelete!=null and isDelete!=''">
+			is_delete=#{isDelete}
+		</if>
+		where id in (${ids})
+	</update>
+</mapper>

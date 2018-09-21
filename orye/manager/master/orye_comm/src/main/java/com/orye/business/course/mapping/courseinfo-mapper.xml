@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.course.mapper.CourseInfoMapper">
+
+	<resultMap id="courseinfo_result_map" type="com.orye.business.course.entity.CourseInfo" >
+		<id column="id" property="id" />
+		<result column="type_id" property="typeId"/>
+		<result column="course_name" property="courseName"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="img_urls" property="imgUrls"/>
+		<result column="textImg" property="textImg"/>
+		<result column="remark" property="remark"/>
+		<result column="amount" property="amount"/>
+		<result column="exp_amount" property="expAmount"/>
+		<result column="max_count" property="maxCount"/>
+		<result column="min_year" property="minYear"/>
+		<result column="min_month" property="minMonth"/>
+		<result column="max_year" property="maxYear"/>
+		<result column="max_month" property="maxMonth"/>
+		<result column="course_time_len" property="courseTimeLen"/>
+		<result column="course_use" property="courseUse"/>
+		<result column="sort_num" property="sortNum"/>
+		<result column="status" property="status"/>
+		<result column="is_delete" property="isDelete"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from course_info  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="typeId!=null and typeId!=''">
+				and type_id = #{typeId}
+			</if>
+			<if test="courseName!=null and courseName!=''">
+				and course_name like CONCAT('%',#{courseName},'%')
+			</if>
+			<if test="imgUrl!=null and imgUrl!=''">
+				and img_url like CONCAT('%',#{imgUrl},'%')
+			</if>
+			<if test="imgUrls!=null and imgUrls!=''">
+				and img_urls like CONCAT('%',#{imgUrls},'%')
+			</if>
+			<if test="textImg!=null and textImg!=''">
+				and textImg like CONCAT('%',#{textImg},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="expAmount!=null and expAmount!=''">
+				and exp_amount = #{expAmount}
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and max_count = #{maxCount}
+			</if>
+			<if test="minYear!=null and minYear!=''">
+				and min_year = #{minYear}
+			</if>
+			<if test="minMonth!=null and minMonth!=''">
+				and min_month = #{minMonth}
+			</if>
+			<if test="maxYear!=null and maxYear!=''">
+				and max_year = #{maxYear}
+			</if>
+			<if test="maxMonth!=null and maxMonth!=''">
+				and max_month = #{maxMonth}
+			</if>
+			<if test="courseTimeLen!=null and courseTimeLen!=''">
+				and course_time_len = #{courseTimeLen}
+			</if>
+			<if test="courseUse!=null and courseUse!=''">
+				and course_use = #{courseUse}
+			</if>
+			<if test="sortNum!=null and sortNum!=''">
+				and sort_num = #{sortNum}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.course.entity.CourseInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into course_info
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="typeId!=null ">
+				type_id,
+			</if>
+      		<if test="courseName!=null ">
+				course_name,
+			</if>
+      		<if test="imgUrl!=null ">
+				img_url,
+			</if>
+      		<if test="imgUrls!=null ">
+				img_urls,
+			</if>
+      		<if test="textImg!=null ">
+				textImg,
+			</if>
+      		<if test="remark!=null ">
+				remark,
+			</if>
+      		<if test="amount!=null ">
+				amount,
+			</if>
+      		<if test="expAmount!=null ">
+				exp_amount,
+			</if>
+      		<if test="maxCount!=null ">
+				max_count,
+			</if>
+      		<if test="minYear!=null ">
+				min_year,
+			</if>
+      		<if test="minMonth!=null ">
+				min_month,
+			</if>
+      		<if test="maxYear!=null ">
+				max_year,
+			</if>
+      		<if test="maxMonth!=null ">
+				max_month,
+			</if>
+      		<if test="courseTimeLen!=null ">
+				course_time_len,
+			</if>
+      		<if test="courseUse!=null ">
+				course_use,
+			</if>
+      		<if test="sortNum!=null ">
+				sort_num,
+			</if>
+      		<if test="status!=null ">
+				status,
+			</if>
+      		<if test="isDelete!=null ">
+				is_delete,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="typeId!=null ">
+      			#{typeId},
+			</if>
+      		<if test="courseName!=null ">
+      			#{courseName},
+			</if>
+      		<if test="imgUrl!=null ">
+      			#{imgUrl},
+			</if>
+      		<if test="imgUrls!=null ">
+      			#{imgUrls},
+			</if>
+      		<if test="textImg!=null ">
+      			#{textImg},
+			</if>
+      		<if test="remark!=null ">
+      			#{remark},
+			</if>
+      		<if test="amount!=null ">
+      			#{amount},
+			</if>
+      		<if test="expAmount!=null ">
+      			#{expAmount},
+			</if>
+      		<if test="maxCount!=null ">
+      			#{maxCount},
+			</if>
+      		<if test="minYear!=null ">
+      			#{minYear},
+			</if>
+      		<if test="minMonth!=null ">
+      			#{minMonth},
+			</if>
+      		<if test="maxYear!=null ">
+      			#{maxYear},
+			</if>
+      		<if test="maxMonth!=null ">
+      			#{maxMonth},
+			</if>
+      		<if test="courseTimeLen!=null ">
+      			#{courseTimeLen},
+			</if>
+      		<if test="courseUse!=null ">
+      			#{courseUse},
+			</if>
+      		<if test="sortNum!=null ">
+      			#{sortNum},
+			</if>
+      		<if test="status!=null ">
+      			#{status},
+			</if>
+      		<if test="isDelete!=null ">
+      			#{isDelete},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.course.entity.CourseInfo">
+		delete from course_info
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="typeId!=null ">
+				and type_id=#{typeId}
+			</if>
+      		<if test="courseName!=null ">
+				and course_name=#{courseName}
+			</if>
+      		<if test="imgUrl!=null ">
+				and img_url=#{imgUrl}
+			</if>
+      		<if test="imgUrls!=null ">
+				and img_urls=#{imgUrls}
+			</if>
+      		<if test="textImg!=null ">
+				and textImg=#{textImg}
+			</if>
+      		<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+      		<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+      		<if test="expAmount!=null ">
+				and exp_amount=#{expAmount}
+			</if>
+      		<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+      		<if test="minYear!=null ">
+				and min_year=#{minYear}
+			</if>
+      		<if test="minMonth!=null ">
+				and min_month=#{minMonth}
+			</if>
+      		<if test="maxYear!=null ">
+				and max_year=#{maxYear}
+			</if>
+      		<if test="maxMonth!=null ">
+				and max_month=#{maxMonth}
+			</if>
+      		<if test="courseTimeLen!=null ">
+				and course_time_len=#{courseTimeLen}
+			</if>
+      		<if test="courseUse!=null ">
+				and course_use=#{courseUse}
+			</if>
+      		<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+      		<if test="status!=null ">
+				and status=#{status}
+			</if>
+      		<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.course.entity.CourseInfo">
+		update course_info
+		<set>
+			<if test="typeId!=null ">
+				type_id=#{typeId},
+			</if>
+			<if test="courseName!=null ">
+				course_name=#{courseName},
+			</if>
+			<if test="imgUrl!=null ">
+				img_url=#{imgUrl},
+			</if>
+			<if test="imgUrls!=null ">
+				img_urls=#{imgUrls},
+			</if>
+			<if test="textImg!=null ">
+				textImg=#{textImg},
+			</if>
+			<if test="remark!=null ">
+				remark=#{remark},
+			</if>
+			<if test="amount!=null ">
+				amount=#{amount},
+			</if>
+			<if test="expAmount!=null ">
+				exp_amount=#{expAmount},
+			</if>
+			<if test="maxCount!=null ">
+				max_count=#{maxCount},
+			</if>
+			<if test="minYear!=null ">
+				min_year=#{minYear},
+			</if>
+			<if test="minMonth!=null ">
+				min_month=#{minMonth},
+			</if>
+			<if test="maxYear!=null ">
+				max_year=#{maxYear},
+			</if>
+			<if test="maxMonth!=null ">
+				max_month=#{maxMonth},
+			</if>
+			<if test="courseTimeLen!=null ">
+				course_time_len=#{courseTimeLen},
+			</if>
+			<if test="courseUse!=null ">
+				course_use=#{courseUse},
+			</if>
+			<if test="sortNum!=null ">
+				sort_num=#{sortNum},
+			</if>
+			<if test="status!=null ">
+				status=#{status},
+			</if>
+			<if test="isDelete!=null ">
+				is_delete=#{isDelete},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.course.entity.CourseInfo" resultMap="courseinfo_result_map">
+		select id,type_id,course_name,img_url,img_urls,textImg,remark,amount,exp_amount,max_count,min_year,min_month,max_year,max_month,course_time_len,course_use,sort_num,status,is_delete,create_time from course_info
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="typeId!=null ">
+				and type_id=#{typeId}
+			</if>
+			<if test="courseName!=null ">
+				and course_name=#{courseName}
+			</if>
+			<if test="imgUrl!=null ">
+				and img_url=#{imgUrl}
+			</if>
+			<if test="imgUrls!=null ">
+				and img_urls=#{imgUrls}
+			</if>
+			<if test="textImg!=null ">
+				and textImg=#{textImg}
+			</if>
+			<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="expAmount!=null ">
+				and exp_amount=#{expAmount}
+			</if>
+			<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+			<if test="minYear!=null ">
+				and min_year=#{minYear}
+			</if>
+			<if test="minMonth!=null ">
+				and min_month=#{minMonth}
+			</if>
+			<if test="maxYear!=null ">
+				and max_year=#{maxYear}
+			</if>
+			<if test="maxMonth!=null ">
+				and max_month=#{maxMonth}
+			</if>
+			<if test="courseTimeLen!=null ">
+				and course_time_len=#{courseTimeLen}
+			</if>
+			<if test="courseUse!=null ">
+				and course_use=#{courseUse}
+			</if>
+			<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="courseinfo_result_map" >
+		select id,type_id,course_name,img_url,img_urls,textImg,remark,amount,exp_amount,max_count,min_year,min_month,max_year,max_month,course_time_len,course_use,sort_num,status,is_delete,create_time from course_info
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="typeId!=null ">
+				and type_id=#{typeId}
+			</if>
+			<if test="courseName!=null ">
+				and course_name=#{courseName}
+			</if>
+			<if test="imgUrl!=null ">
+				and img_url=#{imgUrl}
+			</if>
+			<if test="imgUrls!=null ">
+				and img_urls=#{imgUrls}
+			</if>
+			<if test="textImg!=null ">
+				and textImg=#{textImg}
+			</if>
+			<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="expAmount!=null ">
+				and exp_amount=#{expAmount}
+			</if>
+			<if test="maxCount!=null ">
+				and max_count=#{maxCount}
+			</if>
+			<if test="minYear!=null ">
+				and min_year=#{minYear}
+			</if>
+			<if test="minMonth!=null ">
+				and min_month=#{minMonth}
+			</if>
+			<if test="maxYear!=null ">
+				and max_year=#{maxYear}
+			</if>
+			<if test="maxMonth!=null ">
+				and max_month=#{maxMonth}
+			</if>
+			<if test="courseTimeLen!=null ">
+				and course_time_len=#{courseTimeLen}
+			</if>
+			<if test="courseUse!=null ">
+				and course_use=#{courseUse}
+			</if>
+			<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="isDelete!=null ">
+				and is_delete=#{isDelete}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="courseinfo_result_map" >
+		
+		SELECT id,type_id,course_name,img_url,img_urls,textImg,remark,amount,exp_amount,max_count,min_year,min_month,max_year,max_month,course_time_len,course_use,sort_num,status,is_delete,create_time FROM course_info 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="typeId!=null and typeId!=''">
+				and type_id = #{typeId}
+			</if>
+			<if test="courseName!=null and courseName!=''">
+				and course_name like  CONCAT('%',#{courseName},'%')
+			</if>
+			<if test="imgUrl!=null and imgUrl!=''">
+				and img_url like  CONCAT('%',#{imgUrl},'%')
+			</if>
+			<if test="imgUrls!=null and imgUrls!=''">
+				and img_urls like  CONCAT('%',#{imgUrls},'%')
+			</if>
+			<if test="textImg!=null and textImg!=''">
+				and textImg like  CONCAT('%',#{textImg},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and remark like  CONCAT('%',#{remark},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="expAmount!=null and expAmount!=''">
+				and exp_amount = #{expAmount}
+			</if>
+			<if test="maxCount!=null and maxCount!=''">
+				and max_count = #{maxCount}
+			</if>
+			<if test="minYear!=null and minYear!=''">
+				and min_year = #{minYear}
+			</if>
+			<if test="minMonth!=null and minMonth!=''">
+				and min_month = #{minMonth}
+			</if>
+			<if test="maxYear!=null and maxYear!=''">
+				and max_year = #{maxYear}
+			</if>
+			<if test="maxMonth!=null and maxMonth!=''">
+				and max_month = #{maxMonth}
+			</if>
+			<if test="courseTimeLen!=null and courseTimeLen!=''">
+				and course_time_len = #{courseTimeLen}
+			</if>
+			<if test="courseUse!=null and courseUse!=''">
+				and course_use = #{courseUse}
+			</if>
+			<if test="sortNum!=null and sortNum!=''">
+				and sort_num = #{sortNum}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="isDelete!=null and isDelete!=''">
+				and is_delete = #{isDelete}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<select id="queryDetail" resultMap="courseinfo_result_map">
+		select ci.min_year,ci.min_month,ci.max_year,ci.max_month,ci.id,ci.course_name,ctc.max_count,ci.amount,ci.exp_amount,ci.course_use from course_info ci
+		join course_table_config ctc on ci.id=ctc.course_id
+		where ctc.id=#{conId} and ctc.is_delete=2 and ctc.status=1
+	</select>
+</mapper>

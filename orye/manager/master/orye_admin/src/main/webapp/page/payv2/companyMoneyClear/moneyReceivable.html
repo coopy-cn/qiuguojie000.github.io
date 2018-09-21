@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<#include "lib/lib.html" />
+<title>商户财务管理</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+</head>
+
+<body style="background-color: #F0F0F0">
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
+		财务清算管理<span class="c-gray en">&gt;</span>账单管理<a
+			class="btn btn-success radius r mr-20"
+			style="line-height: 1.6em; margin-top: 3px"
+			href="javascript:location.replace(location.href);" title="刷新"> <i
+			class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	
+
+
+	<div class="pd-20">
+		
+		<div class="panel panel-default">
+			<div class="panel-header" style="height: 30px;">
+				<div style="float: left;font-size: 15px;">条件筛选</div>
+				<div style="float: right;">
+					<button class="layui-btn layui-btn-small" onclick="dataRuquest()">
+						<i class="layui-icon" style="line-height:12px;">&#xe615;</i>搜索
+					</button>
+					<a class="layui-btn layui-btn-small" onclick="exportExcel()">
+						<i class="layui-icon" style="line-height:26px;">&#xe601;</i>导出
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<form action="" id="myForm">
+					<table class="table table-sort">
+						<tr>
+							<td>
+								<label>来源商户：</label>
+								<select class="select"  name="companyId" id="companyId">
+									<option value="">全部</option>
+									<#if companyList?? && companyList?size gt 0>
+									<#list companyList as dl >
+										<option value="${dl.id}">${dl.companyName}</option>
+									</#list>
+									</#if>
+								</select>
+							</td>
+							<td>
+								<label>支付通道：</label>
+								<select class="select"  name="payWayId" id="payWayId">
+									<option value="">全部</option>
+									<#if rateList?? && rateList?size gt 0>
+									<#list rateList as dl >
+										<option value="${dl.id}">${dl.rateName}</option>
+									</#list>
+									</#if>
+								</select>
+							</td>
+							<td>
+								<label>账单时间：</label>
+							  	<input  name="clearTimeBegin"  type="text"  onfocus="WdatePicker({startDate:'%y-%M-{%d-1}',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-{%d-1}',onpicked:pickedFunc})" id="logmin" class="input-text Wdate" style="width:200px;" placeholder="选择账单起始时间">
+								<span>--</span>
+								<input type="text" name="clearTimeEnd"   onfocus="picker2rule(this)" id="logmax" class="input-text Wdate" style="width:200px;" placeholder="选择账单截止时间">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+
+		<div class="panel panel-default mt-20">
+			<div class="panel-header" style="height: 30px;">
+				<div style="float: left; font-size: 15px;">日账单列表</div>
+			</div>
+			<div class="panel-body">
+				<!-- 日账单表 -->
+				<div id="dayClear" class="">
+					<table class="table table-border table-bordered table-hover">
+						<thead>
+							<tr class="text-c">
+		    					<td>时间</td>
+		    					<td>来源商户</td>
+		    					<td>支付通道</td>
+		    					<td>已支付订单金额</td>
+		    					<td>银行结算费率</td>
+		    					<td>银行结算方式</td>
+		    					<td>退款金额</td>
+		    					<td>应收金额</td>
+		    					<td>商户结算费率</td>
+		    					<td>应付金额</td>
+							</tr>
+						</thead>
+						<tbody id="dayClearDate" class="text-c">
+						</tbody>
+					</table>
+					<div calss="text-c mt-20" id="page_list" style="text-align: center;"></div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</body>
+	<script type="text/plain" id="trmode">
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</script>
+	<script type="text/javascript" >
+		var isChange = 0; 
+		$(document).ready(function() {
+		    $('select').searchableSelect();
+		    isChange++;
+		})
+		var param = {};
+			param.companyId = "";
+			param.payWayId = "";
+			param.clearTimeBegin = "";
+			param.clearTimeEnd = "";
+		var md=new Date(); //第二个输入框最大值的全局变量  
+	        //第一个输入框选择好日期的时候操作  
+	        function pickedFunc(){
+	        var Y=$dp.cal.getP('y'); //用内置方法获取到选中的年月日  
+	        var M=$dp.cal.getP('M');  
+	        var D=$dp.cal.getP('d');  
+	        M=parseInt(M,10)-1;
+	        D=parseInt(D,10)+30;　//字符串的数字转换成int再运算。并且如果超过30天，也能自动处理。  
+	        var d = new Date()  
+	        d.setFullYear(Y,M,D) //设置时间  
+	        var nowDate=new Date();　  
+	        if(nowDate<=d){ //现在的时间比较，如果算出来的值大于现在时间，修改全局变量md为现在时间。
+	        	        	
+	            md=GetDateStr(-1);
+	        }else{ //全局变量设置为算出来的值得   
+	            var month=d.getMonth()+1; //月份的范围是（0到11）;  
+	            md=d.getFullYear()+"-"+month+"-"+d.getDate(); //直接把d给过去会有问题，所以拼成字符串发过去  
+	        }
+	    }
+
+	    //给第二个输入框定义规则
+	    function picker2rule(ele){
+	        // WdatePicker({el:ele,minDate:'#F{$dp.$D(\'datepicker1\')}',maxDate:md})
+	        WdatePicker({startDate:'%y',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'logmin\')}',maxDate:md})
+	    }  
+
+		//页面加载日期控件默认值
+		$(document).ready(function() {
+		   $("#logmin").val(GetDateStr(-1));
+		   $("#logmax").val(GetDateStr(-1));
+		   md=GetDateStr(-1);
+		}); 
+
+		//自定义日期
+		function GetDateStr(AddDayCount) {
+			var dd = new Date(); 
+			dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期 
+			var y = dd.getFullYear(); 
+			var m = dd.getMonth()+1;
+			if(m<10){
+				m = "0"+m;
+			}
+			//获取当前月份的日期
+			var d = dd.getDate();
+			if(d<10){
+				d = "0"+d;
+			}
+			return y+"-"+m+"-"+d; 
+		}
+		
+		function dataRuquest(curPage,pageData){
+			param.companyId = $("#companyId").val();
+			param.payWayId = $("#payWayId").val();
+			param.clearTimeBegin = $("#logmin").val();
+			param.clearTimeEnd = $("#logmax").val();
+			param.curPage = curPage;
+			param.pageData = pageData;
+			$.ajax({
+				type:"get",
+				data:param,
+				url:"${basePath}/Payv2CompanyMoneyClear/moneyReceivePage.do",
+				async:true,
+				success:function(data){
+					if(!!data&&data.resultCode==200){
+						fillData(data.Data);
+						pageData=data.Data.list.pageData;
+						totalData=data.Data.list.totalData;
+						curPage=data.Data.list.curPage;
+						print(curPage,totalData,pageData);
+					}else{
+						alert(data.message);
+					}
+				}
+			});
+		}
+		function FormatDate (strTime) {
+		    var date = new Date(strTime);
+		    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+		}		
+
+		function print(curr,totalData,pageData){
+			if($("#dayClearDate").find("tr").length > 0){
+				$("#page_list").css("display","block");
+			}else{
+				$("#page_list").css("display","none");
+			}
+			layui.use(['laypage', 'layer'], function(){
+		        var laypage = layui.laypage,layer = layui.layer;
+		        laypage.render({
+		            elem: 'page_list',  //容器。值支持id名、原生dom对象，jquery对象
+		            count: totalData, //数据总数。一般通过服务端得到
+		            //groups: 5,  //连续出现的页码个数
+		            limit: pageData,
+		            limits: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+		            curr: curr, //获取起始页
+		            layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+		            jump: function(obj, first){
+		              if (!first) {
+		                dataRuquest(obj.curr,obj.limit);
+		            }
+		            }
+		        });
+		    });
+		}		
+		
+		//导出Excel
+		function exportExcel(){
+			if($("#dayClearDate").find("tr").length > 0){
+				window.location.href="${basePath}/Payv2CompanyMoneyClear/moneyReceiveExport.do?clearTimeBegin="+$('#logmin').val()+"&clearTimeEnd="+$('#logmax').val()+"&companyId="+$('#companyId').val()+"&payWayId="+$('#payWayId').val()
+			}else{
+				alert("没有数据可导出");
+				// return false;
+			}
+		}
+		function fillData(obj){
+			var str="",
+			list=obj.list.dataList;
+			if(list.length==0){
+				layer.msg("未查询到数据",{
+	            	icon : 3,
+					time : 1000
+	            })
+	            $("#dayClearDate").html(str);
+			}else{
+				for(var i=0;i<list.length;i++){
+					str+=$("#trmode").html();
+				}
+				$("#dayClearDate").html(str);
+				var tradeMoney = null;
+				for(var i=0;i<list.length;i++){
+					$("#dayClearDate tr").eq(i).attr("clearId",list[i].id);
+					$("#dayClearDate tr").eq(i).find("td").eq(0).html(FormatDate(list[i].clearTime));
+					$("#dayClearDate tr").eq(i).find("td").eq(1).html(list[i].companyName);
+					$("#dayClearDate tr").eq(i).find("td").eq(2).html(list[i].rateName);
+					$("#dayClearDate tr").eq(i).find("td").eq(3).html(list[i].successMoney);
+					$("#dayClearDate tr").eq(i).find("td").eq(4).html(list[i].bankRate+"‰");
+					if (list[i].bankRateType == 1) {
+						$("#dayClearDate tr").eq(i).find("td").eq(5).html("银行直清");
+					}else if (list[i].bankRateType == 2) {
+						$("#dayClearDate tr").eq(i).find("td").eq(5).html("公司清算");
+					}else if (list[i].bankRateType == 3) {
+						$("#dayClearDate tr").eq(i).find("td").eq(5).html("遂宁清算");
+					}
+					$("#dayClearDate tr").eq(i).find("td").eq(6).html(list[i].refundMoney);
+					tradeMoney = list[i].successMoney-list[i].bankRateMoney-list[i].refundMoney;
+					$("#dayClearDate tr").eq(i).find("td").eq(7).html(tradeMoney.toFixed(2));
+					$("#dayClearDate tr").eq(i).find("td").eq(8).html(list[i].bussWayRate);
+					tradeMoney = list[i].successMoney-list[i].bussWayRateMoney-list[i].refundMoney;
+					$("#dayClearDate tr").eq(i).find("td").eq(9).html(tradeMoney.toFixed(2));
+				}
+			}
+		}
+		$(document).keypress(function(e) {
+		  // 回车键事件  
+	      if(e.which == 13) {
+	  		jQuery(".confirmButton").click();
+	  		dataRuquest()
+	      }  
+		});
+	</script>
+</html>

@@ -1,0 +1,16 @@
+<template name="swiper">
+  <swiper indicator-dots="false"autoplay="true" interval="5000" duration="1000" class="swiper" bindtap='toDetail' data-id="5">
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/banner/img4.png"/>
+    </swiper-item>
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/banner/img1.png"/>
+    </swiper-item>
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/banner/img2.png"/>
+    </swiper-item>
+  </swiper>
+</template>

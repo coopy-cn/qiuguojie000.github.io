@@ -1,0 +1,51 @@
+/* pages/teach/teach.wxss */
+.contair{
+  width: 100%;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contair .item{
+  width: 90%;
+  height: 210rpx;
+  border: 1rpx solid rgb(167, 162, 162);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top:20rpx; 
+}
+.contair .item .photo{
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.photo image{
+  width: 90%;
+  height: 190rpx;
+  border-radius: 160rpx;
+}
+.contair .item .main{
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+}
+.contair .item .main .title{
+  line-height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.contair .item .main .title .job{
+  padding-left: 60rpx;
+  font-size: 32rpx;
+}
+.contair .item .main .remark{
+  padding-right: 20rpx;
+  font-size: 20rpx;
+}

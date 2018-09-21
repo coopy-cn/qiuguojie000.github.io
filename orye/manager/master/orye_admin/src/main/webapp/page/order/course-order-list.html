@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<#include "lib/lib.html" />
+<title>预约订单</title>
+</head>
+<body style="background-color: #F0F0F0">
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
+		订单管理 <span class="c-gray en">&gt;</span> 预约订单
+		<a class="btn btn-success radius r mr-20" id="refresh" style="line-height: 1.6em; margin-top: 3px" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	
+	<div class="pd-20 text-c">
+		<div class="panel panel-default">
+			<div class="panel-header" style="height: 30px">
+				<div style="float: left; font-size: 15px;">条件筛选</div>
+				<div style="float:right;" class="layui-btn-group">
+				  <button type="submit" class="layui-btn layui-btn-small" onclick="tosubmit()">
+				  	<i class="layui-icon" style="line-height: 12px;">&#xe615;</i> 搜索
+				  </button>
+				  <!-- <input type="button" class="layui-btn layui-btn-small" onclick="exportExcel()" value="导出Excel"> -->
+				  <button class="layui-btn layui-btn-small" onclick="exportExcel()">
+				  	<i class="layui-icon" style="line-height: 12px;">&#xe601;</i>导出
+				  </button>
+				  
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="text-c">
+					<form id="from" action="" method="post">
+						<input type="hidden" id="curPage" name="curPage" value="1">
+						<input type="hidden" id="pageData" name="pageData" value="${list.pageData!'10'}">
+						
+						 <table class="table table-hover table-bg table-sort">
+							<tbody>
+								<tr>
+									<td><strong>预约时间：</strong><input placeholder="开始时间"
+											name="createTimeBegin" type="text"
+											value="${map.createTimeBegin!}"
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00',maxDate:'#F{$dp.$D(\'logmax\')}'})"
+											id="logmin" class="input-text Wdate" style="width:150px;">
+											<strong>至</strong> <input type="text" placeholder="结束时间"
+											name="createTimeEnd" value="${map.createTimeEnd!}"
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 23:59:59',minDate:'#F{$dp.$D(\'logmin\')}'})"
+											id="logmax" class="input-text Wdate" style="width:150px;">
+											<input type="hidden" id="appId" value="${map.appId!}"
+											name="appId" /></td>
+									<td>
+										<strong>课程名称：</strong> 
+										<select class="select" id="courseId" name="courseId" style="width: 150px">
+											<option value="">全部</option> 
+											<#if courseList?? && courseList?size gt 0> 
+												<#list courseList as dl>
+													<option value="${dl.id!}"<#if dl.id == map.courseId> selected="selected" </#if>>${dl.courseName}</option> 
+												</#list> 
+											</#if>
+										</select>
+									</td>
+									<td>
+										<strong>教师名称：</strong> 
+										<select class="select" id="teachId" name="teachId" style="width: 150px">
+											<option value="">全部</option> 
+											<#if teachList?? && teachList?size gt 0> 
+												<#list teachList as dl>
+													<option value="${dl.id!}"<#if dl.id == map.teachId> selected="selected" </#if>>${dl.name!}</option> 
+												</#list> 
+											</#if>
+										</select>
+									</td>
+									<td>
+										<strong>站点名：</strong> 
+										<select class="select" id="placeId" name="placeId" style="width: 150px">
+											<option value="">全部</option> 
+											<#if placeList?? && placeList?size gt 0> 
+												<#list placeList as dl>
+													<option value="${dl.id!}"<#if dl.id == map.placeId> selected="selected" </#if>>${dl.courseAddr!}</option> 
+												</#list> 
+											</#if>
+										</select>
+									</td>		
+									
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default mt-20">
+			<div class="panel-header" style="height: 30px">
+				<div style="float: left; font-size: 15px;">用户列表</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="10%">预约时间</th>
+							<th width="">课程名称</th>
+							<th width="12%">教师名称</th>
+							<th width="17%">站点</th>
+							<th width="6%">孩子姓名</th>
+							<th width="4%">性别</th>
+							<th width="10%">出生日期</th>
+							<th width="8%">预约类型</th>
+							<th width="6%">状态</th>
+							<th width="15%">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<input type="hidden" id="totalPages" value="${list.totalPage!'0'}">
+						<#if list.dataList?? && list.dataList?size gt 0>
+						<#list list.dataList as dl >
+							<tr class="text-c">
+								<td>
+									<#if dl.createTime??>
+										${dl.createTime?string("yyyy-MM-dd HH:mm:ss")}
+									</#if>
+								</td>
+								<td>${dl.courseName!}</td>
+								<td>${dl.teacherName!}</td>
+								<td>${dl.courseAddr!}</td>
+								<td>${dl.chirldName!}</td>
+								<td>
+									<#if dl.sex ==1>
+										男
+									<#else>
+										女
+									</#if>
+								</td>
+								<td>
+									<#if dl.birthDate??>
+										${dl.birthDate?string("yyyy-MM-dd")}
+									</#if>
+								</td>
+								<td>
+									<#if dl.memId??> 
+										${dl.memberName!}
+									<#else> 
+										<#if dl.status ==2>
+											微信支付
+										<#else> 
+											——
+										</#if>
+									</#if>
+								</td>
+								<td>
+									<#if dl.status ==2> 
+										<span class="label label-success radius">预约成功</span> 
+									<#elseif dl.status ==1> 
+										<span class="label red radius">预约失败</span>
+									<#else> 
+										<span class="label red radius">其他</span> 
+									</#if>
+								</td>
+								<td class="td-manage">
+									<a title="查看" href="javascript:;" onclick="layerShow('查看', '${basePath}/courseOrder/detail.do?id='+${dl.id}, '1280', '650')" style="text-decoration:none"><i class="Hui-iconfont Hui-iconfont-edit" style="color:blue;"> 查看</i></a>
+								</td>
+							</tr>
+						</#list>
+						</#if>
+					</tbody>
+				</table>
+				</br>
+				<div id="page_list"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		function tosubmit(){
+			// alert(000)
+			$("#from").attr(
+						"action",
+						"${basePath}/courseOrder/list.do").submit();
+		}
+
+		function exportExcel() {
+			if($("#totalPages").val() > 0){
+				$("#from").attr(
+						"action",
+						"${basePath}/courseOrder/expoxt.do").submit();
+			}else{
+				layer.msg('没有数据可导出', function(){});
+				return false;
+			}
+			
+		}
+		// $(document).ready(function(){
+		// 	// $('#companyIdByGive').searchableSelect();
+		// });
+		layui.use(['laypage', 'layer'], function(){
+	  		var laypage = layui.laypage,layer = layui.layer;
+			laypage.render({
+			    elem: 'page_list',	//容器。值支持id名、原生dom对象，jquery对象
+			    count: ${list.totalData!'0'},	//数据总数。一般通过服务端得到
+			    //groups: 5,	//连续出现的页码个数
+			    limit: ${list.pageData!'10'},
+			    limits: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+				curr: ${list.curPage!'1'}, //获取起始页
+			    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+			    jump: function(obj, first){
+			      if (!first) {
+						window.location.href="${basePath}/courseOrder/list.do?curPage="+obj.curr 
+								+"&pageData="+obj.limit
+								+"&courseId="+$("#courseId").val()
+								+"&placeId="+$("#placeId").val()
+								+"&teachId="+$("#teachId").val()
+								+ "&createTimeBegin="
+								+ $("#logmin").val()
+								+ "&createTimeEnd="
+								+ $("#logmax").val();
+					}
+			    }
+			  });
+		});
+		
+		$(document).ready(function(){
+			$('select').searchableSelect();
+		});
+		
+		function batchOption(type){
+			var gids=new Array();
+			var isc=new Array();
+       		$("input[name='idCheckBox']:checkbox").each(function(){
+       			if ($(this).is(':checked')) {
+    				gids.push($(this).val());
+    				isc.push($(this).attr("isClose"));
+				}
+         	});
+         	if(gids.length==0){
+            	layer.msg('你一个通道都没勾选...', function(){});
+		        return;
+            }
+         	if(type==2){
+	         	if(isc.indexOf("1") > -1) {
+	         		layer.msg('不能删除开启状态的通道...', function(){});
+			        return;
+	         	}
+         	}
+            var ids = gids.join(",");
+            layer.confirm('再给你一次机会!确认要这样做吗？', function(index) {
+				var data = {};
+				data.gids = ids;
+				data.type = type;
+				//后台请求保存数据
+				$.axse("${basePath}/payv2PayWayRate/batchUpdatePayv2PayWayRate.do",  data, function(d){
+					if(d.resultCode == 200){
+						layer.msg('操作成功!', {
+							icon : 1,
+							time : 1000
+						});
+						location.replace(location.href);
+					}else{
+						layer.msg('操作失败了...联系技术员', {icon: 2});
+					}
+				},
+				function(d){
+					layer.msg('操作失败了...联系技术员', {icon: 2});
+				});
+			});
+		}
+		
+		//打开窗口
+		function layerShow(title, url, w, h){
+			layer_show(title, url, w, h);
+		}
+		
+		$(document).keypress(function(e) {			
+	    	// 回车键事件  
+	       if(e.which == 13) {  
+	   		jQuery(".confirmButton").click();
+	   		tosubmit()
+	       }  
+		}); 
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.teach.mapper.TeachPlaceMapper">
+
+	<resultMap id="teachplace_result_map" type="com.orye.business.teach.entity.TeachPlace" >
+		<id column="id" property="id" />
+		<result column="reg_id" property="regId"/>
+		<result column="course_addr" property="courseAddr"/>
+		<result column="longitude" property="longitude"/>
+		<result column="latitude" property="latitude"/>
+		<result column="place_url" property="placeUrl"/>
+		<result column="remark" property="remark"/>
+		<result column="sort_num" property="sortNum"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		
+		<result column="regName" property="regName"/>
+		<result column="cityName" property="cityName"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from teach_place  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="regId!=null and regId!=''">
+				and reg_id = #{regId}
+			</if>
+			<if test="courseAddr!=null and courseAddr!=''">
+				and course_addr like CONCAT('%',#{courseAddr},'%')
+			</if>
+			<if test="longitude!=null and longitude!=''">
+				and longitude like CONCAT('%',#{longitude},'%')
+			</if>
+			<if test="latitude!=null and latitude!=''">
+				and latitude like CONCAT('%',#{latitude},'%')
+			</if>
+			<if test="placeUrl!=null and placeUrl!=''">
+				and place_url like CONCAT('%',#{placeUrl},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="sortNum!=null and sortNum!=''">
+				and sort_num = #{sortNum}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.teach.entity.TeachPlace" useGeneratedKeys="true" keyProperty="id">
+		insert into teach_place
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="regId!=null ">
+				reg_id,
+			</if>
+      		<if test="courseAddr!=null ">
+				course_addr,
+			</if>
+      		<if test="longitude!=null ">
+				longitude,
+			</if>
+      		<if test="latitude!=null ">
+				latitude,
+			</if>
+      		<if test="placeUrl!=null ">
+				place_url,
+			</if>
+      		<if test="remark!=null ">
+				remark,
+			</if>
+      		<if test="sortNum!=null ">
+				sort_num,
+			</if>
+      		<if test="status!=null ">
+				status,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="regId!=null ">
+      			#{regId},
+			</if>
+      		<if test="courseAddr!=null ">
+      			#{courseAddr},
+			</if>
+      		<if test="longitude!=null ">
+      			#{longitude},
+			</if>
+      		<if test="latitude!=null ">
+      			#{latitude},
+			</if>
+      		<if test="placeUrl!=null ">
+      			#{placeUrl},
+			</if>
+      		<if test="remark!=null ">
+      			#{remark},
+			</if>
+      		<if test="sortNum!=null ">
+      			#{sortNum},
+			</if>
+      		<if test="status!=null ">
+      			#{status},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.teach.entity.TeachPlace">
+		delete from teach_place
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="regId!=null ">
+				and reg_id=#{regId}
+			</if>
+      		<if test="courseAddr!=null ">
+				and course_addr=#{courseAddr}
+			</if>
+      		<if test="longitude!=null ">
+				and longitude=#{longitude}
+			</if>
+      		<if test="latitude!=null ">
+				and latitude=#{latitude}
+			</if>
+      		<if test="placeUrl!=null ">
+				and place_url=#{placeUrl}
+			</if>
+      		<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+      		<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+      		<if test="status!=null ">
+				and status=#{status}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.teach.entity.TeachPlace">
+		update teach_place
+		<set>
+			<if test="regId!=null ">
+				reg_id=#{regId},
+			</if>
+			<if test="courseAddr!=null ">
+				course_addr=#{courseAddr},
+			</if>
+			<if test="longitude!=null ">
+				longitude=#{longitude},
+			</if>
+			<if test="latitude!=null ">
+				latitude=#{latitude},
+			</if>
+			<if test="placeUrl!=null ">
+				place_url=#{placeUrl},
+			</if>
+			<if test="remark!=null ">
+				remark=#{remark},
+			</if>
+			<if test="sortNum!=null ">
+				sort_num=#{sortNum},
+			</if>
+			<if test="status!=null ">
+				status=#{status},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.teach.entity.TeachPlace" resultMap="teachplace_result_map">
+		select id,reg_id,course_addr,longitude,latitude,place_url,remark,sort_num,status,create_time from teach_place
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="regId!=null ">
+				and reg_id=#{regId}
+			</if>
+			<if test="courseAddr!=null ">
+				and course_addr=#{courseAddr}
+			</if>
+			<if test="longitude!=null ">
+				and longitude=#{longitude}
+			</if>
+			<if test="latitude!=null ">
+				and latitude=#{latitude}
+			</if>
+			<if test="placeUrl!=null ">
+				and place_url=#{placeUrl}
+			</if>
+			<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+			<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="teachplace_result_map" >
+		select id,reg_id,course_addr,longitude,latitude,place_url,remark,sort_num,status,create_time from teach_place
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="regId!=null ">
+				and reg_id=#{regId}
+			</if>
+			<if test="courseAddr!=null ">
+				and course_addr=#{courseAddr}
+			</if>
+			<if test="longitude!=null ">
+				and longitude=#{longitude}
+			</if>
+			<if test="latitude!=null ">
+				and latitude=#{latitude}
+			</if>
+			<if test="placeUrl!=null ">
+				and place_url=#{placeUrl}
+			</if>
+			<if test="remark!=null ">
+				and remark=#{remark}
+			</if>
+			<if test="sortNum!=null ">
+				and sort_num=#{sortNum}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="teachplace_result_map" >
+		
+		SELECT id,reg_id,course_addr,longitude,latitude,place_url,remark,sort_num,status,create_time FROM teach_place 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="regId!=null and regId!=''">
+				and reg_id = #{regId}
+			</if>
+			<if test="courseAddr!=null and courseAddr!=''">
+				and course_addr like  CONCAT('%',#{courseAddr},'%')
+			</if>
+			<if test="longitude!=null and longitude!=''">
+				and longitude like  CONCAT('%',#{longitude},'%')
+			</if>
+			<if test="latitude!=null and latitude!=''">
+				and latitude like  CONCAT('%',#{latitude},'%')
+			</if>
+			<if test="placeUrl!=null and placeUrl!=''">
+				and place_url like  CONCAT('%',#{placeUrl},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and remark like  CONCAT('%',#{remark},'%')
+			</if>
+			<if test="sortNum!=null and sortNum!=''">
+				and sort_num = #{sortNum}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="getPageListCout" resultType="java.lang.Integer">
+		SELECT count(*) FROM teach_place tp
+		LEFT JOIN city_region cr on tp.reg_id=cr.id
+		<where>
+			<if test="id!=null and id!=''">
+				and tp.id = #{id}
+			</if>
+			<if test="regId!=null and regId!=''">
+				and tp.reg_id = #{regId}
+			</if>
+			<if test="parentId!=null and parentId!=''">
+				and cr.parent_id = #{parentId}
+			</if>
+			<if test="courseAddr!=null and courseAddr!=''">
+				and tp.course_addr like CONCAT('%',#{courseAddr},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and tp.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="status!=null and status!=''">
+				and tp.status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and tp.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and tp.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="getPageList" resultMap="teachplace_result_map" >
+		
+		SELECT tp.id,reg_id,course_addr,tp.longitude,tp.latitude,tp.place_url,remark,status,create_time,cr.`name` regName
+		,(select `name` from city_region cr1 where cr1.id=cr.parent_id) cityName
+		FROM teach_place tp
+		LEFT JOIN city_region cr on tp.reg_id=cr.id
+		
+		<where>
+			<if test="id!=null and id!=''">
+				and tp.id = #{id}
+			</if>
+			<if test="regId!=null and regId!=''">
+				and tp.reg_id = #{regId}
+			</if>
+			<if test="parentId!=null and parentId!=''">
+				and cr.parent_id = #{parentId}
+			</if>
+			<if test="courseAddr!=null and courseAddr!=''">
+				and tp.course_addr like CONCAT('%',#{courseAddr},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and tp.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="status!=null and status!=''">
+				and tp.status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and tp.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and tp.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="getList" resultMap="teachplace_result_map" >
+		
+		SELECT tp.id,reg_id,course_addr,tp.place_url,remark,status,create_time,cr.`name` regName
+		,(select `name` from city_region cr1 where cr1.id=cr.parent_id) cityName
+		FROM teach_place tp
+		LEFT JOIN city_region cr on tp.reg_id=cr.id
+		
+		<where>
+			<if test="id!=null and id!=''">
+				and tp.id = #{id}
+			</if>
+			<if test="regId!=null and regId!=''">
+				and tp.reg_id = #{regId}
+			</if>
+			<if test="parentId!=null and parentId!=''">
+				and cr.parent_id = #{parentId}
+			</if>
+			<if test="courseAddr!=null and courseAddr!=''">
+				and tp.course_addr like CONCAT('%',#{courseAddr},'%')
+			</if>
+			<if test="remark!=null and remark!=''">
+				and tp.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="status!=null and status!=''">
+				and tp.status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and tp.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and tp.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询单个 -->
+	<select id="queryDetail" resultMap="teachplace_result_map">
+		SELECT tp.id,reg_id,course_addr,tp.place_url,remark,status,create_time,cr.`name` regName
+		,(select `name` from city_region cr1 where cr1.id=cr.parent_id) cityName
+		FROM teach_place tp
+		LEFT JOIN city_region cr on tp.reg_id=cr.id
+		<where>
+			<if test="id!=null ">
+				and tp.id=#{id}
+			</if>
+			<if test="regId!=null ">
+				and tp.reg_id=#{regId}
+			</if>
+			<if test="courseAddr!=null ">
+				and tp.course_addr=#{courseAddr}
+			</if>
+			<if test="remark!=null ">
+				and tp.remark=#{remark}
+			</if>
+			<if test="status!=null ">
+				and tp.status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and tp.create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

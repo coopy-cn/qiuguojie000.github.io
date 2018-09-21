@@ -1,0 +1,20 @@
+<template name="swiper_index">
+  <swiper indicator-dots="false"autoplay="true" interval="5000" duration="1000" class="swiper" bindtap='toDetail' data-id="5">
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/15367484224651/banner0.png"/>
+    </swiper-item>
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/1536748535498/banner2.jpg"/>
+    </swiper-item>
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/indexs_3.png"/>
+    </swiper-item>
+    <swiper-item>
+      <text class="title"></text>
+      <image src="{{url}}/upload/indexs_4.jpg"/>
+    </swiper-item>
+  </swiper>
+</template>

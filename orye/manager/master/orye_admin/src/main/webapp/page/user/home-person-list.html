@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<#include "lib/lib.html" />
+<title>家庭成员</title>
+</head>
+<body style="background-color: #F0F0F0">
+	<div class="pd-20 text-c">
+		<div class="panel panel-default mt-20">
+			<div class="panel-header" style="height: 30px">
+				<div style="float: left; font-size: 15px;">家庭成员</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="">姓名</th>
+							<th width="20%">微信openid</th>
+							<th width="8%">关系</th>
+							<th width="8%">性别</th>
+							<th width="10%">出生日期（小孩）</th>
+							<th width="10%">手机</th>
+							<th width="10%">邮箱</th>
+							<th width="15%">地址</th>
+							<th width="10%">创建时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#if list?? && list?size gt 0>
+						<#list list as dl >
+							<tr class="text-c">
+								<td>${dl.name!}</td>
+								<td>${dl.openId!}</td>
+								<td>
+									<#if dl.type ==1>
+										爸爸
+									<#elseif dl.type=2>
+										妈妈
+									<#else>
+										孩子
+									</#if>
+								</td>
+								<td>
+									<#if dl.sex ==1>
+										男
+									<#else>
+										女
+									</#if>
+								</td>
+								<td>
+									<#if dl.birthDate??>
+										${dl.birthDate?string("yyyy-MM-dd")}
+									</#if>
+								</td>
+								<td>${dl.phone!}</td>
+								<td>${dl.email!}</td>
+								<td>${dl.address!}</td>
+								<td>
+									<#if dl.createTime??>
+										${dl.createTime?string("yyyy-MM-dd")}
+									</#if>
+								</td>
+							</tr>
+						</#list>
+						</#if>
+					</tbody>
+				</table>
+				</br>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+	</script>
+</body>
+</html>

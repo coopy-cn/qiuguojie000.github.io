@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.course.mapper.CourseOrderMapper">
+
+	<resultMap id="courseorder_result_map" type="com.orye.business.course.entity.CourseOrder" >
+		<id column="id" property="id" />
+		<result column="con_id" property="conId"/>
+		<result column="place_id" property="placeId"/>
+		<result column="teach_id" property="teachId"/>
+		<result column="course_id" property="courseId"/>
+		<result column="mem_id" property="memId"/>
+		<result column="order_id" property="orderId"/>
+		<result column="amount" property="amount"/>
+		<result column="fat_name" property="fatName"/>
+		<result column="mot_name" property="motName"/>
+		<result column="fat_phone" property="fatPhone"/>
+		<result column="mot_phone" property="motPhone"/>
+		<result column="email" property="email"/>
+		<result column="address" property="address"/>
+		<result column="chirld_name" property="chirldName"/>
+		<result column="sex" property="sex"/>
+		<result column="birth_date" property="birthDate"/>
+		<result column="open_id" property="openId"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="lock_time" property="lockTime"/>
+		
+		<result column="course_name" property="courseName"/>
+		<result column="teacher_name" property="teacherName"/>
+		<result column="course_addr" property="courseAddr"/>
+		<result column="teach_time" property="teachTime"/>
+		<result column="teach_date" property="teachDate"/>
+		<result column="reg_name" property="regName"/>
+		<result column="city_name" property="cityName"/>
+		<result column="type_name" property="typeName"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="member_name" property="memberName"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from course_order  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="conId!=null and conId!=''">
+				and con_id = #{conId}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and course_id = #{courseId}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and mem_id = #{memId}
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and order_id like CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="fatName!=null and fatName!=''">
+				and fat_name like CONCAT('%',#{fatName},'%')
+			</if>
+			<if test="motName!=null and motName!=''">
+				and mot_name like CONCAT('%',#{motName},'%')
+			</if>
+			<if test="fatPhone!=null and fatPhone!=''">
+				and fat_phone like CONCAT('%',#{fatPhone},'%')
+			</if>
+			<if test="motPhone!=null and motPhone!=''">
+				and mot_phone like CONCAT('%',#{motPhone},'%')
+			</if>
+			<if test="email!=null and email!=''">
+				and email like CONCAT('%',#{email},'%')
+			</if>
+			<if test="address!=null and address!=''">
+				and address like CONCAT('%',#{address},'%')
+			</if>
+			<if test="chirldName!=null and chirldName!=''">
+				and chirld_name like CONCAT('%',#{chirldName},'%')
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex = #{sex}
+			</if>
+			<if test="birthDateBegin!=null and birthDateBegin!=''">
+				and birth_date <![CDATA[ >= ]]> str_to_date(#{birthDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="birthDateEnd!=null and birthDateEnd!=''">
+				and birth_date <![CDATA[ <= ]]> str_to_date(#{birthDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like CONCAT('%',#{openId},'%')
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="lockTimeBegin!=null and lockTimeBegin!=''">
+				and lock_time <![CDATA[ >= ]]> str_to_date(#{lockTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="lockTimeEnd!=null and lockTimeEnd!=''">
+				and lock_time <![CDATA[ <= ]]> str_to_date(#{lockTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.course.entity.CourseOrder" useGeneratedKeys="true" keyProperty="id">
+		insert into course_order
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="conId!=null ">
+				con_id,
+			</if>
+      		<if test="placeId!=null ">
+				place_id,
+			</if>
+      		<if test="teachId!=null ">
+				teach_id,
+			</if>
+      		<if test="courseId!=null ">
+				course_id,
+			</if>
+      		<if test="memId!=null ">
+				mem_id,
+			</if>
+      		<if test="orderId!=null ">
+				order_id,
+			</if>
+      		<if test="amount!=null ">
+				amount,
+			</if>
+      		<if test="fatName!=null ">
+				fat_name,
+			</if>
+      		<if test="motName!=null ">
+				mot_name,
+			</if>
+      		<if test="fatPhone!=null ">
+				fat_phone,
+			</if>
+      		<if test="motPhone!=null ">
+				mot_phone,
+			</if>
+      		<if test="email!=null ">
+				email,
+			</if>
+      		<if test="address!=null ">
+				address,
+			</if>
+      		<if test="chirldName!=null ">
+				chirld_name,
+			</if>
+      		<if test="sex!=null ">
+				sex,
+			</if>
+      		<if test="birthDate!=null ">
+				birth_date,
+			</if>
+      		<if test="openId!=null ">
+				open_id,
+			</if>
+      		<if test="status!=null ">
+				status,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+      		<if test="lockTime!=null ">
+				lock_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="conId!=null ">
+      			#{conId},
+			</if>
+      		<if test="placeId!=null ">
+      			#{placeId},
+			</if>
+      		<if test="teachId!=null ">
+      			#{teachId},
+			</if>
+      		<if test="courseId!=null ">
+      			#{courseId},
+			</if>
+      		<if test="memId!=null ">
+      			#{memId},
+			</if>
+      		<if test="orderId!=null ">
+      			#{orderId},
+			</if>
+      		<if test="amount!=null ">
+      			#{amount},
+			</if>
+      		<if test="fatName!=null ">
+      			#{fatName},
+			</if>
+      		<if test="motName!=null ">
+      			#{motName},
+			</if>
+      		<if test="fatPhone!=null ">
+      			#{fatPhone},
+			</if>
+      		<if test="motPhone!=null ">
+      			#{motPhone},
+			</if>
+      		<if test="email!=null ">
+      			#{email},
+			</if>
+      		<if test="address!=null ">
+      			#{address},
+			</if>
+      		<if test="chirldName!=null ">
+      			#{chirldName},
+			</if>
+      		<if test="sex!=null ">
+      			#{sex},
+			</if>
+      		<if test="birthDate!=null ">
+      			#{birthDate},
+			</if>
+      		<if test="openId!=null ">
+      			#{openId},
+			</if>
+      		<if test="status!=null ">
+      			#{status},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+      		<if test="lockTime!=null ">
+      			#{lockTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.course.entity.CourseOrder">
+		delete from course_order
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="conId!=null ">
+				and con_id=#{conId}
+			</if>
+      		<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+      		<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+      		<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+      		<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+      		<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+      		<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+      		<if test="fatName!=null ">
+				and fat_name=#{fatName}
+			</if>
+      		<if test="motName!=null ">
+				and mot_name=#{motName}
+			</if>
+      		<if test="fatPhone!=null ">
+				and fat_phone=#{fatPhone}
+			</if>
+      		<if test="motPhone!=null ">
+				and mot_phone=#{motPhone}
+			</if>
+      		<if test="email!=null ">
+				and email=#{email}
+			</if>
+      		<if test="address!=null ">
+				and address=#{address}
+			</if>
+      		<if test="chirldName!=null ">
+				and chirld_name=#{chirldName}
+			</if>
+      		<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+      		<if test="birthDate!=null ">
+				and birth_date=#{birthDate}
+			</if>
+      		<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+      		<if test="status!=null ">
+				and status=#{status}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+      		<if test="lockTime!=null ">
+				and lock_time=#{lockTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.course.entity.CourseOrder">
+		update course_order
+		<set>
+			<if test="conId!=null ">
+				con_id=#{conId},
+			</if>
+			<if test="placeId!=null ">
+				place_id=#{placeId},
+			</if>
+			<if test="teachId!=null ">
+				teach_id=#{teachId},
+			</if>
+			<if test="courseId!=null ">
+				course_id=#{courseId},
+			</if>
+			<if test="memId!=null ">
+				mem_id=#{memId},
+			</if>
+			<if test="orderId!=null ">
+				order_id=#{orderId},
+			</if>
+			<if test="amount!=null ">
+				amount=#{amount},
+			</if>
+			<if test="fatName!=null ">
+				fat_name=#{fatName},
+			</if>
+			<if test="motName!=null ">
+				mot_name=#{motName},
+			</if>
+			<if test="fatPhone!=null ">
+				fat_phone=#{fatPhone},
+			</if>
+			<if test="motPhone!=null ">
+				mot_phone=#{motPhone},
+			</if>
+			<if test="email!=null ">
+				email=#{email},
+			</if>
+			<if test="address!=null ">
+				address=#{address},
+			</if>
+			<if test="chirldName!=null ">
+				chirld_name=#{chirldName},
+			</if>
+			<if test="sex!=null ">
+				sex=#{sex},
+			</if>
+			<if test="birthDate!=null ">
+				birth_date=#{birthDate},
+			</if>
+			<if test="openId!=null ">
+				open_id=#{openId},
+			</if>
+			<if test="status!=null ">
+				status=#{status},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+			<if test="lockTime!=null ">
+				lock_time=#{lockTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.course.entity.CourseOrder" resultMap="courseorder_result_map">
+		select id,con_id,place_id,teach_id,course_id,mem_id,order_id,amount,fat_name,mot_name,fat_phone,mot_phone,email,address,chirld_name,sex,birth_date,open_id,status,create_time,lock_time from course_order
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="conId!=null ">
+				and con_id=#{conId}
+			</if>
+			<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+			<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+			<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+			<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+			<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="fatName!=null ">
+				and fat_name=#{fatName}
+			</if>
+			<if test="motName!=null ">
+				and mot_name=#{motName}
+			</if>
+			<if test="fatPhone!=null ">
+				and fat_phone=#{fatPhone}
+			</if>
+			<if test="motPhone!=null ">
+				and mot_phone=#{motPhone}
+			</if>
+			<if test="email!=null ">
+				and email=#{email}
+			</if>
+			<if test="address!=null ">
+				and address=#{address}
+			</if>
+			<if test="chirldName!=null ">
+				and chirld_name=#{chirldName}
+			</if>
+			<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+			<if test="birthDate!=null ">
+				and birth_date=#{birthDate}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+			<if test="lockTime!=null ">
+				and lock_time=#{lockTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="courseorder_result_map" >
+		select id,con_id,place_id,teach_id,course_id,mem_id,order_id,amount,fat_name,mot_name,fat_phone,mot_phone,email,address,chirld_name,sex,birth_date,open_id,status,create_time,lock_time from course_order
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="conId!=null ">
+				and con_id=#{conId}
+			</if>
+			<if test="placeId!=null ">
+				and place_id=#{placeId}
+			</if>
+			<if test="teachId!=null ">
+				and teach_id=#{teachId}
+			</if>
+			<if test="courseId!=null ">
+				and course_id=#{courseId}
+			</if>
+			<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+			<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="fatName!=null ">
+				and fat_name=#{fatName}
+			</if>
+			<if test="motName!=null ">
+				and mot_name=#{motName}
+			</if>
+			<if test="fatPhone!=null ">
+				and fat_phone=#{fatPhone}
+			</if>
+			<if test="motPhone!=null ">
+				and mot_phone=#{motPhone}
+			</if>
+			<if test="email!=null ">
+				and email=#{email}
+			</if>
+			<if test="address!=null ">
+				and address=#{address}
+			</if>
+			<if test="chirldName!=null ">
+				and chirld_name=#{chirldName}
+			</if>
+			<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+			<if test="birthDate!=null ">
+				and birth_date=#{birthDate}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+			<if test="lockTime!=null ">
+				and lock_time=#{lockTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="courseorder_result_map" >
+		
+		SELECT id,con_id,place_id,teach_id,course_id,mem_id,order_id,amount,fat_name,mot_name,fat_phone,mot_phone,email,address,chirld_name,sex,birth_date,open_id,status,create_time,lock_time FROM course_order 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="conId!=null and conId!=''">
+				and con_id = #{conId}
+			</if>
+			<if test="placeId!=null and placeId!=''">
+				and place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and course_id = #{courseId}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and mem_id = #{memId}
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and order_id like  CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="fatName!=null and fatName!=''">
+				and fat_name like  CONCAT('%',#{fatName},'%')
+			</if>
+			<if test="motName!=null and motName!=''">
+				and mot_name like  CONCAT('%',#{motName},'%')
+			</if>
+			<if test="fatPhone!=null and fatPhone!=''">
+				and fat_phone like  CONCAT('%',#{fatPhone},'%')
+			</if>
+			<if test="motPhone!=null and motPhone!=''">
+				and mot_phone like  CONCAT('%',#{motPhone},'%')
+			</if>
+			<if test="email!=null and email!=''">
+				and email like  CONCAT('%',#{email},'%')
+			</if>
+			<if test="address!=null and address!=''">
+				and address like  CONCAT('%',#{address},'%')
+			</if>
+			<if test="chirldName!=null and chirldName!=''">
+				and chirld_name like  CONCAT('%',#{chirldName},'%')
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex = #{sex}
+			</if>
+			<if test="birthDateBegin!=null and birthDateBegin!=''">
+				and birth_date <![CDATA[ >= ]]> str_to_date(#{birthDateBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="birthDateEnd!=null and birthDateEnd!=''">
+				and birth_date <![CDATA[ <= ]]> str_to_date(#{birthDateEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like  CONCAT('%',#{openId},'%')
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="lockTimeBegin!=null and lockTimeBegin!=''">
+				and lock_time <![CDATA[ >= ]]> str_to_date(#{lockTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="lockTimeEnd!=null and lockTimeEnd!=''">
+				and lock_time <![CDATA[ <= ]]> str_to_date(#{lockTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<select id="queryLast" resultMap="courseorder_result_map">
+		SELECT id,con_id,fat_name,mot_name,fat_phone,mot_phone,email,address,chirld_name,sex,birth_date,open_id,status,create_time,lock_time FROM course_order
+		where open_id=#{openId} 
+		<if test="status!=null and status!=''">
+			and status = #{status}
+		</if>
+		order by create_time desc limit 1
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="pageListCount" resultType="java.lang.Integer">
+		select count(*) from course_order co
+		join course_table_config ctc on co.con_id=ctc.id
+		join course_info ci on co.course_id=ci.id
+		join teacher_info ti on co.teach_id=ti.id
+		join teach_place tp on co.place_id=tp.id 
+		where co.open_id=#{openId} and co.status=#{status}
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageList" resultMap="courseorder_result_map" >
+		
+		select co.*,ci.course_name,ti.`name` teacher_name,tp.course_addr,ctc.teach_date,ctc.teach_date teach_time,ci.img_url from course_order co
+		join course_table_config ctc on co.con_id=ctc.id
+		join course_info ci on co.course_id=ci.id
+		join teacher_info ti on co.teach_id=ti.id
+		join teach_place tp on co.place_id=tp.id 
+		where co.open_id=#{openId} and co.status=#{status}
+		order by co.create_time desc
+		
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="noTogoCount" resultType="java.lang.Integer">
+		select count(*) from course_order co
+		join course_table_config ctc on co.con_id=ctc.id
+		where co.open_id=#{openId} and co.status=#{status} and ctc.teach_date>NOW()
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="adminPageListCount" resultType="java.lang.Integer">
+		select count(*) from course_order co
+		join course_table_config ctc on co.con_id=ctc.id
+		join course_info ci on co.course_id=ci.id
+		join teacher_info ti on co.teach_id=ti.id
+		join teach_place tp on co.place_id=tp.id 
+		<where>
+			<if test="placeId!=null and placeId!=''">
+				and co.place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and co.teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and co.course_id = #{courseId}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and co.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and co.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="adminPageList" resultMap="courseorder_result_map" >
+		
+		select co.*,ci.course_name,ti.`name` teacher_name,tp.course_addr,ctc.teach_date,ctc.teach_date teach_time,mi.member_name from course_order co
+		join course_table_config ctc on co.con_id=ctc.id
+		join course_info ci on co.course_id=ci.id
+		join teacher_info ti on co.teach_id=ti.id
+		join teach_place tp on co.place_id=tp.id 
+		left join member_info mi on co.mem_id=mi.id 
+		<where>
+			<if test="placeId!=null and placeId!=''">
+				and co.place_id = #{placeId}
+			</if>
+			<if test="teachId!=null and teachId!=''">
+				and co.teach_id = #{teachId}
+			</if>
+			<if test="courseId!=null and courseId!=''">
+				and co.course_id = #{courseId}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and co.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and co.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+		</where>
+		order by co.create_time desc
+		
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<select id="queryDetail" resultMap="courseorder_result_map">
+		select co.*,ci.course_name,tp.course_addr,ti.`name` teacher_name,cr.`name` reg_name,
+		(select `name` from city_region cr1 where cr1.id=cr.parent_id) city_name,
+		ct.`name` type_name,ctc.teach_date 
+		from course_order co 
+		join course_info ci on co.course_id=ci.id
+		join teach_place tp on co.place_id=tp.id
+		join teacher_info ti on co.teach_id=ti.id
+		join city_region cr on tp.reg_id=cr.id
+		join course_type ct on ci.type_id=ct.id
+		join course_table_config ctc on co.con_id=ctc.id
+		where co.id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,130 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script type="text/javascript" src="${basePath}/public/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/public/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/public/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="${basePath}/public/js/utils/util.js"></script>
+<script type="text/javascript" src="${basePath}/public/js/md5/md5.js"></script>
+<script type="text/javascript" src="${basePath}/public/lib/layer/3.0.3/layer.js"></script>
+
+<title>官方后台管理系统</title>
+</head>
+<body>	
+	<div class="bg">
+		<div class="login">
+			<div class="login_param">
+				<div class="title">
+					<label class="title_txt">官方后台管理系统</label>
+				</div>
+				<div class="param">
+					<label>用户名</label>
+					<input type="text" name="userName" id="userName">
+					<label>密码</label>
+					<input type="password" name="password" id="password">
+					<label>验证码</label>
+					<input type="text" name="codes" id="codes">
+					<img src="${basePath}/static/PictureCheckCode.jpeg" />
+					<a id="kanbuq" href="javascript:;">换一张</a>
+					<div id="subLogin" class="subLogin">登录</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer_txt">
+				<!-- <span>由爱加密提供技术支持，</span>
+				<i></i>
+				<span>客服热线：400-605-2377</span> -->
+			</div>
+		</div>
+	</div>	
+</body>
+</html>
+<style type="text/css">
+	*{font-family: "微软雅黑"}
+	/*全屏背景图*/
+	.bg { position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#e9e8eb url(${basePath}/public/images/admin-login-bg.png) no-repeat fixed center}
+	/*登录区域*/
+	.login { position:absolute;width:870px; height: 510px; z-index:2; margin: auto auto; left:0; top:0; bottom:0; right:0;background:url(${basePath}/public/images/admin-login-img.png) no-repeat fixed center;}
+	
+	.login_param { position:absolute;left:435px; top:0; bottom:0; right:0; z-index:4;width:435px; height: 510px;float: right;}
+	.title {width: 435px; height: 80px;}
+	/*官方后台管理系统*/
+	.title_txt {font: 22px "微软雅黑"; color: #06476c;display: block;margin: auto auto;text-align: center; line-height: 80px;}
+	/*三个参数*/
+	.param {position: relative;width: 435px; height: 360px;}
+	.param input{display: block;height: 34px;width: 295px;margin:30px auto 0;font-size: 18px;}
+	.param input:nth-of-type(1){margin-top: 70px;}
+	.param input:nth-of-type(3){width: 140px;margin:30px 0 0 68px;float: left;}
+	.param label{background-color: white;position: absolute;font: 16px "微软雅黑";color: #c9c9c9;padding: 0 9px 0 9px;left: 80px;}
+	.param label:nth-of-type(1){top: -13px;}
+	.param label:nth-of-type(2){top: 57px;}
+	.param label:nth-of-type(3){top: 126px;}
+	.param img{width: 80px;height: 36px;margin: 30px 0 0 10px;}
+	.param a {font-size: 14px; text-decoration: none; cursor: pointer; color: #01a2ff; position: absolute; right: 70px; top: 150px;}
+	.subLogin {height: 36px;width: 295px; margin: 60px auto 0; background-color: #01a2ff; color: #ffffff; text-align: center; line-height: 36px;border-radius:5px; cursor: pointer;}
+	/*页脚文字*/
+	.footer {width: 100%;position: absolute; top: 50%;bottom: 0;left: 0;right: 0;font-size: 14px;color: #808080;}
+	.footer_txt {width: 400px; height: 34px; margin: 315px auto 0;}
+
+	.footer_txt i{
+		width: 32px;
+		height: 32px;
+		display: inline-block;
+		margin-bottom: -8px;
+		background: url(${basePath}/public/images/icon0.png) no-repeat center;
+	}
+</style>
+<script type="text/javascript">
+    
+	$(function(){
+		//图片验证码刷新
+		$("#kanbuq").click(function (){
+			$(this).parent().find("img").attr("src","${basePath}/static/PictureCheckCode.jpeg?d="+new Date());
+		});
+		//回车登录
+		document.onkeydown = function(evt){
+			var evt = window.event?window.event:evt;
+			if (evt.keyCode==13) {
+			  $("#subLogin").click();
+		    }
+		}
+		$("#subLogin").click(function(){
+			var data = {};   //登录入参
+			data.userName=$("#userName").val();
+			var tmp = hex_md5($("#password").val());  
+            //$("#password").val(tmp);
+            data.password=tmp;
+            data.code=$("#codes").val();
+			//var t = $(".form").serializeArray();
+			//$.each(t, function() {
+				//data[this.name] = this.value;
+			//});
+			/*调用登录接口*/
+			ajaxFunction("${basePath}/admin/login.do",data,"JSON",false,function(result){
+				if(result.resultCode == 200){
+					window.location.href='${basePath}' + "/" + result.Data;
+				}else{
+					layer.msg(result.Data,{
+			            	icon : 2,
+							time : 1500
+			            })
+					// alert(result.Data,1500);
+				}
+			},function(){
+				layer.msg("登录失败,请重新登录!",{
+			            	icon : 2,
+							time : 1500
+			            })
+				// alert("登录失败,请重新登录!",1500);
+				window.location.reload();
+			});
+		});
+	});
+</script>

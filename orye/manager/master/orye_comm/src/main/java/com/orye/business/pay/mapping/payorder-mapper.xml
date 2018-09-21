@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.pay.mapper.PayOrderMapper">
+
+	<resultMap id="payorder_result_map" type="com.orye.business.pay.entity.PayOrder" >
+		<id column="id" property="id" />
+		<result column="open_id" property="openId"/>
+		<result column="order_id" property="orderId"/>
+		<result column="transaction_id" property="transactionId"/>
+		<result column="order_name" property="orderName"/>
+		<result column="amount" property="amount"/>
+		<result column="type" property="type"/>
+		<result column="mem_id" property="memId"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		
+		<result column="member_name" property="memberName"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from pay_order  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like CONCAT('%',#{openId},'%')
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and order_id like CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="transactionId!=null and transactionId!=''">
+				and transaction_id like CONCAT('%',#{transactionId},'%')
+			</if>
+			<if test="orderName!=null and orderName!=''">
+				and order_name like CONCAT('%',#{orderName},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="type!=null and type!=''">
+				and type = #{type}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and mem_id = #{memId}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.pay.entity.PayOrder" useGeneratedKeys="true" keyProperty="id">
+		insert into pay_order
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="openId!=null ">
+				open_id,
+			</if>
+      		<if test="orderId!=null ">
+				order_id,
+			</if>
+      		<if test="transactionId!=null ">
+				transaction_id,
+			</if>
+      		<if test="orderName!=null ">
+				order_name,
+			</if>
+      		<if test="amount!=null ">
+				amount,
+			</if>
+      		<if test="type!=null ">
+				type,
+			</if>
+      		<if test="memId!=null ">
+				mem_id,
+			</if>
+      		<if test="status!=null ">
+				status,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="openId!=null ">
+      			#{openId},
+			</if>
+      		<if test="orderId!=null ">
+      			#{orderId},
+			</if>
+      		<if test="transactionId!=null ">
+      			#{transactionId},
+			</if>
+      		<if test="orderName!=null ">
+      			#{orderName},
+			</if>
+      		<if test="amount!=null ">
+      			#{amount},
+			</if>
+      		<if test="type!=null ">
+      			#{type},
+			</if>
+      		<if test="memId!=null ">
+      			#{memId},
+			</if>
+      		<if test="status!=null ">
+      			#{status},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.pay.entity.PayOrder">
+		delete from pay_order
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+      		<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+      		<if test="transactionId!=null ">
+				and transaction_id=#{transactionId}
+			</if>
+      		<if test="orderName!=null ">
+				and order_name=#{orderName}
+			</if>
+      		<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+      		<if test="type!=null ">
+				and type=#{type}
+			</if>
+      		<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+      		<if test="status!=null ">
+				and status=#{status}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.pay.entity.PayOrder">
+		update pay_order
+		<set>
+			<if test="openId!=null ">
+				open_id=#{openId},
+			</if>
+			<if test="orderId!=null ">
+				order_id=#{orderId},
+			</if>
+			<if test="transactionId!=null ">
+				transaction_id=#{transactionId},
+			</if>
+			<if test="orderName!=null ">
+				order_name=#{orderName},
+			</if>
+			<if test="amount!=null ">
+				amount=#{amount},
+			</if>
+			<if test="type!=null ">
+				type=#{type},
+			</if>
+			<if test="memId!=null ">
+				mem_id=#{memId},
+			</if>
+			<if test="status!=null ">
+				status=#{status},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.pay.entity.PayOrder" resultMap="payorder_result_map">
+		select id,open_id,order_id,transaction_id,order_name,amount,type,mem_id,status,create_time from pay_order
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+			<if test="transactionId!=null ">
+				and transaction_id=#{transactionId}
+			</if>
+			<if test="orderName!=null ">
+				and order_name=#{orderName}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="type!=null ">
+				and type=#{type}
+			</if>
+			<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="payorder_result_map" >
+		select id,open_id,order_id,transaction_id,order_name,amount,type,mem_id,status,create_time from pay_order
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="orderId!=null ">
+				and order_id=#{orderId}
+			</if>
+			<if test="transactionId!=null ">
+				and transaction_id=#{transactionId}
+			</if>
+			<if test="orderName!=null ">
+				and order_name=#{orderName}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="type!=null ">
+				and type=#{type}
+			</if>
+			<if test="memId!=null ">
+				and mem_id=#{memId}
+			</if>
+			<if test="status!=null ">
+				and status=#{status}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="payorder_result_map" >
+		
+		SELECT id,open_id,order_id,transaction_id,order_name,amount,type,mem_id,status,create_time FROM pay_order 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like  CONCAT('%',#{openId},'%')
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and order_id like  CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="transactionId!=null and transactionId!=''">
+				and transaction_id like  CONCAT('%',#{transactionId},'%')
+			</if>
+			<if test="orderName!=null and orderName!=''">
+				and order_name like  CONCAT('%',#{orderName},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="type!=null and type!=''">
+				and type = #{type}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and mem_id = #{memId}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+	<!-- 获取总数 -->
+	<select id="getPageListCount" resultType="java.lang.Integer">
+		select count(*) from pay_order  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like CONCAT('%',#{openId},'%')
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and order_id like CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="transactionId!=null and transactionId!=''">
+				and transaction_id like CONCAT('%',#{transactionId},'%')
+			</if>
+			<if test="orderName!=null and orderName!=''">
+				and order_name like CONCAT('%',#{orderName},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="type!=null and type!=''">
+				and type = #{type}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and mem_id = #{memId}
+			</if>
+			<if test="status!=null and status!=''">
+				and status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="getPageList" resultMap="payorder_result_map" >
+		
+		SELECT po.*,mi.member_name FROM pay_order po
+		left join member_info mi on po.mem_id=mi.id
+		<where>
+			<if test="id!=null and id!=''">
+				and po.id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and po.open_id like  CONCAT('%',#{openId},'%')
+			</if>
+			<if test="orderId!=null and orderId!=''">
+				and po.order_id like  CONCAT('%',#{orderId},'%')
+			</if>
+			<if test="transactionId!=null and transactionId!=''">
+				and po.transaction_id like  CONCAT('%',#{transactionId},'%')
+			</if>
+			<if test="orderName!=null and orderName!=''">
+				and po.order_name like  CONCAT('%',#{orderName},'%')
+			</if>
+			<if test="amount!=null and amount!=''">
+				and po.amount = #{amount}
+			</if>
+			<if test="type!=null and type!=''">
+				and po.type = #{type}
+			</if>
+			<if test="memId!=null and memId!=''">
+				and po.mem_id = #{memId}
+			</if>
+			<if test="status!=null and status!=''">
+				and po.status = #{status}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and po.create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and po.create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d %H:%i:%s') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY po.${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+</mapper>

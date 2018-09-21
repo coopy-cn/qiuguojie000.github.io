@@ -1,0 +1,11 @@
+<!--pages/buy/buy.wxml-->
+<view class='body'>
+  <view class='img'>
+    <image src="{{buyList.imgUrl}}" mode='widthFix'></image>
+  </view>
+  <view class='text'>
+    <view class='title'>使用规则</view>
+    <text>{{buyList.remark}}</text>
+  </view>
+  <button class='btn' bindtap='playCard'>购买</button>
+</view>

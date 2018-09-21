@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>测试页面</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no,minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/js/jquery.qrcode.min.js"></script> 
+    
+    <style type="text/css">
+    	button {
+		    width: 25%;
+		    height:30px;
+		    background: #007aff;
+		    color: #fff;
+		    border: 1px solid #fff;
+		    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+
+			-webkit-border-radius: 30px;
+			-moz-border-radius: 30px;
+			border-radius: 30px;
+		
+			-webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+			-moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+			box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		
+			-webkit-transition: all 0.15s ease;
+			-moz-transition: all 0.15s ease;
+			-o-transition: all 0.15s ease;
+			-ms-transition: all 0.15s ease;
+			transition: all 0.15s ease;
+		}
+    </style>
+  </head>
+  
+  <body>
+  		<div>
+  			<label>商户号：</label>
+  			<input type="text" id="mch_id" value="0000000003"/>
+  		</div>
+  		</br>
+  		<div>
+  			<label>&nbsp;&nbsp;&nbsp;&nbsp;金额：</label>
+  			<input type="text" id="amount" value="0.01"/>
+  		</div>
+  		</br>
+  		<div>
+  			<label>&nbsp;&nbsp;&nbsp;&nbsp;环境：</label>
+  			<input type="radio" id="checkType1" name="checkType" checked="checked"/>本地&nbsp;&nbsp;&nbsp;<input type="radio" id="checkType2" name="checkType"/>线上
+  		</div>
+  		</br>
+  		<button type="button" class="wapBut">微信H5支付</button><br/><br/>
+  		<button type="button" class="scanBut">微信扫码支付</button>&nbsp;<button type="button" class="clearBut">清空二维码</button><br/><br/><br/>
+  		<div id="qrcode"></div>
+  </body>
+  <script type="text/javascript">
+	  var param={};
+	  param.ip="192.168.1.11";
+	  param.notify_url="http://www.baidu.com";
+	  param.order_name="测试";
+	  param.pay_channel="2";
+	  param.system_type="1";
+	  
+	  $(".wapBut").on("click",function(){
+		  if(!$("#mch_id").val()&&!$("#amount").val()){
+			  alert("不能为空");
+			  return;
+		  }
+		  param.amount=$("#amount").val();
+		  param.mch_id=$("#mch_id").val();
+		  param.order_id=randomNumber();
+		  param.pay_type="1";
+		  torequest();
+		})
+		
+		$("body").on("click",".scanBut",function(){
+			  if(!$("#mch_id").val()&&!$("#amount").val()){
+				  alert("不能为空");
+				  return;
+			  }
+			  param.amount=$("#amount").val();
+			  param.mch_id=$("#mch_id").val();
+			  param.order_id=randomNumber();
+			  param.pay_type="2";
+			  torequest();
+		})
+		
+		$("body").on("click",".clearBut",function(){
+			$('#qrcode').html("");
+		})
+		
+		$("body").on("click","#checkType1",function(){
+			$("#mch_id").val("0000000003");
+		})
+		
+		$("body").on("click","#checkType2",function(){
+			$("#mch_id").val("1111111115");
+		})
+		
+		function torequest(){
+		  $.ajax({
+				type:"get",
+				url:"/testPay/test.do",
+				async:false,
+				data:param,
+				success:function(data){
+					//console.log(data);
+					//console.log(new Date().getTime())
+					if(!!data&&data.resultCode==200){
+						$.ajax({
+							type:"get",
+							url:"/order/create.do?"+data.Data.paramStr,
+							async:false,
+							success:function(data){
+								if(!!data&&data.code==200){
+									if(param.pay_type=="1"){
+										window.location.href=data.pay_url;
+									}else if(param.pay_type=="2"){
+										$('#qrcode').html("");
+										$('#qrcode').qrcode(data.pay_url);
+									}
+								}else{
+									alert(data.msg);
+								}
+							}
+						})
+					}else{
+						alert(data.message);
+					}
+				}
+			})
+	  	}
+		
+		function randomNumber() {
+			  var outTradeNo="";  //订单号
+			  for(var i=0;i<6;i++) //6位随机数，用以加在时间戳后面。
+			  {
+			      outTradeNo += Math.floor(Math.random()*10);
+			  }
+			  outTradeNo = new Date().getTime() + outTradeNo;
+		      return outTradeNo;
+		}
+  </script>
+</html>

@@ -1,0 +1,162 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errorMsg}}</view>
+
+        <form bindsubmit="formSubmit">
+            <view class="weui-cells__title">小孩信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="chirldName" value="{{homeInfo.chirldName}}" placeholder="请输入姓名"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">性别</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <radio-group bindchange="radioChange">
+                            <picker mode="selector" value="{{gender}}" name="sex" range="{{sex}}" bindchange="setSex">
+                                <view class="weui-input">{{sex[gender]}}</view>
+                            </picker>
+                        </radio-group>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出生日期</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker mode="date" name="birthDate" value="{{date}}"  bindchange="bindDateChange">
+                            <view class="weui-input">{{date}}</view>
+                        </picker>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </view>
+        
+            <view class="weui-cells__title">父母信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">妈妈姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="motName" value="{{homeInfo.motName}}" placeholder="请输入妈妈姓名"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">手机号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="motPhone" maxlength="11" value="{{homeInfo.motPhone}}" type="number" placeholder="请输入手机号"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">爸爸姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="fatName" value="{{homeInfo.fatName}}" placeholder="请输入爸爸姓名"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">手机号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="fatPhone" maxlength="11" value="{{homeInfo.fatPhone}}" type="number" placeholder="请输入手机号"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">电子邮箱</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="email" value="{{homeInfo.email}}" placeholder="请输入电子邮箱"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input StartAndStop">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">住址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-input" bindtap="sexDeparture">{{departure}}</view>                 
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__title">可排上课时间（仅供参考，具体根据课程安排）</view>
+            <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view>周六 9:00-11:00、16:00-18:00</view>
+                    <view>周日 9:00-11:00、16:00-18:00</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells__title">请选择要支付的卡</view>
+        <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input custom">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">支付卡</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <radio-group bindchange="radioChange">
+                            <picker mode="selector" value="{{num}}" name="cardPlay" range="{{cardList}}" range-key='memberName' bindchange="setCard">
+                                <view class="weui-input">{{cardList[num].memberName}}
+
+                                <block wx:if="{{cardList[num].restCount}}">
+                                  剩余次数：{{cardList[num].restCount}}
+                                </block>
+                                <block wx:if="{{cardList[num].restCount===0}}">
+                                  剩余次数：{{cardList[num].restCount}}
+                                </block>
+                                
+                                </view>
+                            </picker>
+                        </radio-group>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+                </view>
+        <!-- <checkbox-group bindchange="bindAgreeChange" name="isAgree">
+            <label class="weui-agree" for="weuiAgree">
+                <view class="weui-agree__text">
+                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+                    <view class="weui-agree__checkbox-icon">
+                        <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+                    </view>
+                    阅读并同意<navigator url="/pages/notice/index?id=1" class="weui-agree__link">《免责声明》</navigator>
+                </view>
+            </label>
+        </checkbox-group> -->
+      
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" formType="submit">确定</button>
+        </view>
+        
+        </form>
+    </view>
+    <!-- <view class='foot-card' wx:if="{{false}}">
+        <view class='play-card'>
+          <text>还没有卡？点击前去购买</text>
+          <navigator url="../my/card">购卡</navigator>
+        </view> 
+        <view class='select-card'>
+          <text>请选择卡:</text>
+          <block wx:for="{{cardList}}" key="selectKey">
+            <view class='card-box'>
+                <image src='{{item.imgUrl}}' mode='widthFix'></image>
+                <text>剩余次数{{item.restCount}}</text>    
+             </view> 
+          </block>
+         
+        </view>
+    </view> -->
+</view>

@@ -1,0 +1,38 @@
+<template name="news">
+  <block wx:for="{{courseTable}}" wx:key="index">
+    <view class='middle1'>
+      <view class="list_main1">
+      <view class="list_main cleatfix">
+        <view class='list_img'>
+          <image wx:if="{{item.imgUrl}}" src="{{item.imgUrl}}" class="img" mode='widthFix'/>
+          <view wx:else class="none">暂无图片</view>
+        </view>
+        <view class='list_title'>
+          <view class='row'>
+            <text>《{{item.courseName}}》——{{item.remark}}</text>
+          </view>
+          <view class='row'>
+            <block wx:if="{{item.amountType==2}}">
+              <text class="place">{{item.courseAddr}}/{{item.teacherName}}/￥{{item.amount/100}}</text>
+            </block>
+            <block wx:if="{{item.amountType==1}}">
+              <text class="place">{{item.courseAddr}}/{{item.teacherName}}/￥{{item.expAmount/100}}</text>
+            </block>
+          </view>
+          <view class='row'>
+            <text class="time">{{item.teachTime}}/{{item.minYear}}岁<block wx:if="{{item.minMonth!=0}}">{{item.minMonth}}个月</block>-{{item.maxYear}}岁<block wx:if="{{item.maxMonth!=0}}">{{item.maxMonth}}个月</block>儿童(<text class='count'>{{item.buyCount}}</text>/{{item.maxCount}})</text>
+          </view>
+        </view>
+        <view class='list_btn'>
+          <block wx:if="{{item.buyCount<item.maxCount}}">
+            <button type="default" class='btn' bindtap="toCourse" data-id="{{item.id}}" hover-class="other-button-hover">预约</button>
+          </block>
+          <block wx:else>
+            <button type="default" class='btn1' data-id="{{item.id}}" hover-class="other-button-hover">满</button>
+          </block>
+        </view>
+      </view>
+      </view>
+    </view>
+  </block>
+</template>

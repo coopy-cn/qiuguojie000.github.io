@@ -1,0 +1,271 @@
+/* pages/indexs/indexs.wxss */
+page {
+  font-family: 'Microsoft YaHei', sans-serif, -apple-system-font, 'Helvetica Neue', Helvetica;
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo button{
+  background-color: #349f73;
+  color: #fff
+}
+.mainImg{
+  text-align: center;
+  width: 100%;
+}
+.mainImg image{
+  width: 80%;
+  height: 100rpx;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.textRemark{
+  color:darkgray;
+  font-size:30rpx
+}
+.headText{
+  width: 100%;
+  background-color: #fff;
+  color: #5f568b;
+  font-size: 28rpx; 
+  padding-bottom: 10rpx;
+  display: flex; /*指明作为flex容器*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+}
+.headText .title{
+  width: 100%;
+  font-weight: bold;
+}
+.headText .title1{
+  width: 100%;
+}
+.headText .textImg{
+  width: 80%;
+}
+.headText text{
+  line-height: 50rpx;
+  letter-spacing:1rpx;
+  text-align: left;
+}
+.garden{
+  color: #fff;
+}
+.allInfo{
+  width: 100%;
+  padding-top: 20rpx;
+  font-size: 32rpx;
+  display: flex; /*指明作为flex容器*/
+  align-items: center;
+  justify-content: center;  
+}
+.allInfo .info{
+  width: 80%;
+  display: flex; /*指明作为flex容器*/
+  text-align: center;
+}
+.allInfo .info .item{
+  width: 33.3%;
+  border-bottom: 1px solid rgb(221, 216, 216);
+}
+.allInfo .is_check{
+  width: 33%;
+  text-align: center;
+  color: #349f73;
+  border-bottom: 1px solid #349f73;
+  font-weight: bold;
+}
+.course{
+  width: 100%;
+  display: flex; /*指明作为flex容器*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  text-align: center;
+}
+.course .main{
+  width: 80%;
+  padding-top: 10rpx;
+  font-size: 28rpx;
+  color: rgb(209, 205, 205);
+  position: relative;
+}
+.course image{
+  width: 100%;
+  border-radius: 80rpx;
+}
+.course .title{
+  width: 100%;
+  position: absolute;
+  bottom: 10rpx;
+  left: 0rpx;
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.bottom{
+  border-top: 10rpx solid rgb(221, 216, 216);
+  background-color: #fff;
+  width: 100%;
+  display: flex; /*指明作为flex容器*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+}
+/* .bottom .title{
+  width: 80%;
+  line-height: 120rpx;
+  font-size: 35rpx;
+  color: #5f568b;
+}
+.bottom .row{
+  width: 100%;
+  border-bottom: 2rpx solid rgb(221, 216, 216);
+}
+.bottom .text{
+  width: 80%;
+  line-height: 60rpx;
+  font-size: 22rpx;
+  color: #5f568b;
+}
+.bottom .moblie{
+  font-size: 32rpx;
+  font-weight: bold;
+} */
+
+/*
+  联系我们
+*/
+.bottom .tit{
+  width: 100%;
+}
+.bottom .title{
+  width: 80%;
+  line-height: 120rpx;
+  font-size: 35rpx;
+  text-align: center;
+  color: #5f568b;
+}
+.bottom .row{
+  width: 100%;
+  border-bottom: 2rpx solid rgb(221, 216, 216);
+}
+.bottom .qr{
+  width: 70%;
+  margin-top: 20rpx;
+  font-size: 45rpx;
+}
+
+.naviga1{
+  width: 100%;
+  display: flex; /*指明作为flex容器*/
+  padding-top: 20rpx;
+  font-size: 28rpx;
+  height: 180rpx;
+  color: #5f568b;
+  font-weight: bold;
+  border-top: 4px solid rgb(221, 216, 216);
+}
+.naviga1 .item{
+  width: 33.3%;
+  text-align: center;
+}
+.naviga1 image{
+  width: 50%;
+}
+.naviga2{
+  width: 100%;
+  display: flex; /*指明作为flex容器*/
+  font-size: 28rpx;
+  height: 180rpx;
+  color: #5f568b;
+  font-weight: bold;
+  padding-bottom: 10rpx;
+  border-bottom: 4px solid rgb(221, 216, 216);
+}
+.naviga2 .item{
+  width: 33.3%;
+  text-align: center;
+  
+}
+.naviga2 image{
+  width: 50%;
+}
+.swiper {
+  height: 360rpx;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  padding-top: 30rpx;
+}
+.swiper image {
+  height: 95%;
+  width: 80%;
+}
+.contair{
+  width: 100%;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30rpx; 
+}
+.contair .item{
+  width: 81%;
+  height: 210rpx;
+  border: 1rpx solid rgb(167, 162, 162);
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center; 
+  margin-top:20rpx; 
+}
+.contair .item .photo{
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.photo image{
+  width: 90%;
+  height: 190rpx;
+  border-radius: 50%;
+}
+.contair .item .main{
+  width: 60%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+}
+.contair .item .main .title{
+  line-height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.contair .item .main .title .job{
+  padding-left: 60rpx;
+  font-size: 32rpx;
+}
+.contair .item .main .remark{
+  padding-right: 20rpx;
+  font-size: 20rpx;
+}

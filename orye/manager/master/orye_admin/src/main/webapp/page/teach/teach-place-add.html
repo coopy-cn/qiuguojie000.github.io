@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<#include "lib/lib.html" />
+<title>添加教师</title>
+</head>
+<body>
+	<form action="${basePath}/teachPlace/add.do" method="post" class="form form-horizontal" id="form">
+	<div class="pop_main" style="padding-left:30px;width: 95%;">
+		<div class="panel panel-primary mt-20">
+	    	<div class="panel-header">站点信息</div>
+	    	<div class="panel-body">
+	    		<div id="hiddenDic">
+					<#if regList?? && regList?size gt 0>
+			        	<#list regList as dl>
+			        		<span id="tempSpan"><input type="hidden" id="hiddenDics" regId="${dl.id!}" parentId="${dl.parentId!}" regName="${dl.name!}""/></span>
+			        	</#list>
+			        </#if>
+				</div>
+	    		<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<tbody>
+						<tr>
+	    		    		<td style="width:120px;"><strong>市：</strong></td>
+	    		    		<td>
+	    		    			<select onchange="city(this)" style="width:250px; height: 30px;" class="select" id="parentId" name="parentId" size="1" datatype="*" nullmsg="请输入站点名称">
+									<option value="">全部</option>
+									<#if cityList?? && cityList?size gt 0> 
+										<#list cityList as dl>
+											<option value="${dl.id!}">${dl.name!}</option> 
+										</#list> 
+									</#if>
+								</select>
+								<span class="parentId"></span>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>区：</strong></td>
+	    		    		<td class="regId">
+	    		    			<select onchange="reg(this)" style="width:250px; height: 30px;" class="select" id="regId" name="regId" size="1" datatype="*" nullmsg="请输入站点名称">
+									<option value="">全部</option>
+								</select>
+								<span class="regId1"></span>
+	    		    		</td>
+	    		    	</tr>
+						<tr>
+	    		    		<td style="width:120px;"><strong>站点名称：</strong></td>
+	    		    		<td>
+	    		    			<input style="width:300px;" class="dd_input input-text size-M" type="text" placeholder="请输入站点名称" id="courseAddr" name="courseAddr" datatype="*"  nullmsg="请输入站点名称" >
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>站点图片：</strong></td>
+	    		    		<td>
+								<input style="width:300px;" readonly="readonly" type="text" class="width200 input-text size-M"  dataType="*" nullmsg="上传站点图片" name="placeUrl" id="placeUrl"/>
+								<input type="file" class="width150 fileInputClass" name="file" id="placeUrlFile" onchange="uploadFile('${basePath}/upload/addFiles.do','placeUrl','File')"/>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>排序：</strong></td>
+	    		    		<td>
+	    		    			<input style="width:300px;" class="dd_input input-text size-M" type="text" placeholder="请输入排序" id="sortNum" name="sortNum" datatype="n"  nullmsg="请输入排序">
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>详情/简介：</strong></td>
+	    		    		<td>
+	    		    			<textarea style="width:500px;height:200px;" class="input-text size-M" placeholder="详情/简介" id="remark" name="remark" datatype="*"  nullmsg="请输入详情/简介"></textarea>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>地图位置（经纬度）：</strong></td>
+	    		    		<td>
+	    		    			<input style="width:300px;" class="dd_input input-text size-M" type="text" placeholder="请输入经纬度" id="mapPosition" name="mapPosition" datatype="*"  nullmsg="请输入经纬度">
+	    		    			<input type="button" class="layui-btn  layui-btn-small" value="地图选择" onclick="sho();"/>
+	    		    		</td>
+	    		    	</tr>
+    		    	</tbody>
+			    </table>
+	    	</div>
+    	</div>
+    	
+		<div class="submit_btn">
+			<button style="width:100px;height:40px;" type="button" name="" value="提    交" onclick="submitButt()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe676;</i> 提    交</button>
+		</div>
+	</div>
+	</form>
+<script type="text/javascript">
+		$(function(){
+			$("#form").Validform({
+				tiptype:3,
+				showAllError:true,   //表单提交时显示所有提示信息
+				ignoreHidden: true,  //隐藏的表单元素不校验
+				ajaxPost:true,
+				callback:function(data){
+					$.Hidemsg();
+					if(data.resultCode==200){
+						layer.msg('保存成功!', {
+							icon : 1,
+							time : 1000
+						});
+						//parent.location.replace("${basePath}/payv2PayWayRate/payv2PayWayRateListAll.do?payWayId="+$("#payViewType").val());
+						setTimeout(function () { 
+					        layer_close();
+					    }, 1000);
+					}else{
+						$("#form").resetForm();
+						layer.msg('保存失败，请你检查数据!', {
+							icon : 1,
+							time : 1000
+						});
+					}
+				}
+			});
+		});
+		
+		var isChange=0;
+		$(document).ready(function(){
+			$('select').searchableSelect();
+			isChange++;
+		});
+
+		function city(obj) {
+			if(isChange == 0){
+				return;
+			}else{
+				var regId = $(obj).val();
+				if(regId!=""){
+					$(".parentId").html("<span class='Validform_checktip Validform_right'></span>");
+				}else{
+					$(".parentId").html("<span class='Validform_checktip Validform_wrong'>请输入城市</span>");
+				}
+				$("#regId").empty();
+				var appendOptions = "<option value=\"\" dic=\"\" >全部</option>";
+				for(var i = 0, len = $("#hiddenDic").children().length;i<len;i++){
+					var regIdH = $("#hiddenDic").children().eq(i).find("#hiddenDics").attr("regId");
+					var parentId = $("#hiddenDic").children().eq(i).find("#hiddenDics").attr("parentId");
+					var regName = $("#hiddenDic").children().eq(i).find("#hiddenDics").attr("regName");
+					if(parentId == regId || regId == "") {
+						if(parentId!=0){
+							appendOptions+='<option value="'+regIdH+'">'+regName+'</option>';
+						}
+					}
+				}
+				$("#regId").html(appendOptions);
+				$(".regId .searchable-select").remove();
+	            $('#regId').searchableSelect();
+			}		
+		}
+		
+		function reg(obj) {
+			if(isChange == 0){
+				return;
+			}else{
+				var regId = $(obj).val();
+				if(regId!=""){
+					$(".regId1").html("<span class='Validform_checktip Validform_right'></span>");
+				}else{
+					$(".regId1").html("<span class='Validform_checktip Validform_wrong'>请输入区域</span>");
+				}
+			}
+		}
+		
+		function uploadFile(url,idstr,filestr) {
+			if($("input[id='"+idstr+filestr+"']").val()==""){
+  	            layer.msg('请选择上传文件！', function(){});
+				return;
+			}
+			commonUp(url, $("input[id='"+idstr+filestr+"']"), function(data) {
+					$("#"+idstr).val(data.Data.url);
+			});
+	
+		}
+		
+		//无刷新上传文件
+		function commonUp(url, e, callback) {
+			$.ajaxFileUpload({
+				url : url,
+				secureuri : false,
+				fileElement : e,
+				dataType : "JSON",//返回数据的类型
+				success : function(data,status) {
+					if (data.resultCode == 200) {
+						if (callback) {
+							callback(data);
+						}
+					} else {
+						//alert("上传失败！");
+						alert(data.Data);
+					}
+					
+				}
+			});
+		}
+		
+		function submitButt(){
+			if(!$("#parentId").val()){
+				$(".parentId").html("<span class='Validform_checktip Validform_wrong'>请输入城市</span>");
+				return false;
+			}else{
+				$(".parentId").html("<span class='Validform_checktip Validform_right'></span>");
+			}
+			if(!$("#regId").val()){
+				$(".regId1").html("<span class='Validform_checktip Validform_wrong'>请输入区域</span>");
+				return false;
+			}else{
+				$(".regId1").html("<span class='Validform_checktip Validform_right'></span>");
+			}
+			$("#form").attr(
+					"action",
+					"${basePath}/teachPlace/add.do").submit(); 
+		}
+
+		//验证输入的数字合法性
+		function ValidateFloat(e, pnumber){ 
+			if (!/^\d+[.]?\d*$/.test(pnumber)){ 
+				$(e).val(/^\d+[.]?\d*/.exec($(e).val())); 
+			}
+			return false; 
+		}
+		
+		function sho(){
+			layer_show("地图选择","${basePath}/teachPlace/toMap.do");
+		}
+</script>
+</body>
+</html>

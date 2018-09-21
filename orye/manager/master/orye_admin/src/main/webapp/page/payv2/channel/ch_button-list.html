@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<#include "lib/lib.html" />
+<title>按钮管理</title>
+</head>
+<body>
+	<nav class="breadcrumb">
+	 	 <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 合作渠道商管理 <span class="c-gray en">&gt;</span> 按钮管理
+		 <a  class="btn btn-success radius r mr-20" style="line-height: 1.6em; margin-top: 3px" href="javascript:location.replace(location.href);" title="刷新">
+		 <i class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	<div class="pd-20 text-c">
+		<div class="panel panel-default">
+			<div class="panel-header" style="height: 30px;">
+				<div class="fl" style="font-size: 15px;">条件筛选</div>
+				<div class="r">
+					<button class="layui-btn layui-btn-small" onclick="data_form_submit()">
+						<i class="layui-icon" style="line-height:12px;">&#xe615;</i>搜索
+					</button>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="text-c">
+				    <form id="data_from" action="" method="post">
+			        	<table class="table table-hover table-bg table-sort">
+							<tbody>
+								<tr>
+									<td>
+										按钮名称：
+										<input type="text" name="butName" id="butName" placeholder="请输入按钮名称" style="width: 250px" class="input-text" value="${map.butName!}">
+									</td>									
+									<td>
+										所属页面：
+										<select class="select" id="funId" name="funId" datatype="*" nullmsg="请选择！" style="width: 150px">
+								           		<option value="">全部</option>
+								           		<#if funList?? && funList?size gt 0> 
+								           		<#list funList as dl>
+													<option value="${dl.id!}"<#if dl.id == map.funId>					selected="selected" </#if>>${dl.funName!}</option> 
+												</#list>
+												</#if>
+						      			</select>
+									</td>
+									<td width="300"></td>
+									<td width="300"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>	
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default mt-20">
+			<div class="panel-header" style="height: 30px;">
+				<div class="fl" style="font-size: 15px;">按钮列表</div>
+				<div style="float: right;">
+					<button class="layui-btn layui-btn-small" onclick="but_add()">
+						<i class="layui-icon" style="line-height: 12px;">&#xe61f;</i>新增按钮
+					</button>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="150">按钮名称</th>
+							<th width="150">所属页面</th>
+							<th width="150">图标</th>
+							<th width="150">事件</th>
+							<th width="200">按钮标签id</th>						
+							<th width="200">按钮描述</th>						
+							<th width="150">状态</th>
+							<th width="150">排序</th>
+							<th width="150">创建时间</th>
+							<th width="150">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#if butList.dataList?? && butList.dataList?size gt 0>
+						<#list butList.dataList as dl >
+							<tr class="text-c">
+								<td>${dl.butName}</td>
+								<td>${dl.funName!}</td>
+								<td>${dl.ico!}</td>
+								<td>${dl.event!}</td>
+								<td>${dl.butId!}</td>
+								<td>${dl.butDes!}</td>
+								<td>
+									<#if dl.isDelete==1>
+										<span class="label radius">已删除</span>
+									<#else>
+										<#if dl.status==1>
+											<span class="label label-success radius">有效</span>
+										<#else>
+											<span class="label radius">无效</span>
+										</#if>
+									</#if>									
+								</td>
+								<td>${dl.sort!}</td>								
+								<td>${dl.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+								<td class="td-manage">
+									<#if dl.isDelete==1>
+										已删除
+									<#else>
+										<#if dl.status==1>									
+										<a style="text-decoration:none" onClick="but_stop(this,'${dl.id!}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe60e;</i></a> 
+										<a title="编辑" href="javascript:;" onclick="but_edit('编辑按钮','${basePath}/chButton/goUpButton.do?id=${dl.id!}','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont edit-btn">&#xe6df;</i></a> 
+										<#else>
+										<a style="text-decoration:none" onClick="but_start(this,'${dl.id!}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe605;</i></a>
+										</#if>
+										<a title="删除" href="javascript:;" onclick="but_del(this,${dl.id!})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont delete-btn">&#xe6e2;</i></a>
+									</#if>
+									</td>
+							</tr>
+						</#list>
+						</#if>
+					</tbody>
+				</table>
+				
+				</br>
+				<div id="page_list"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var isChange=0;
+		$(document).ready(function(){
+			$('select').searchableSelect();
+			isChange++;
+		})
+
+		// 搜索
+		function data_form_submit(){
+			$("#data_from").attr("action","${basePath}/chButton/goButtonList.do").submit();
+		}
+		layui.use(['laypage', 'layer'], function(){
+	  		var laypage = layui.laypage,layer = layui.layer;
+		  	laypage.render({
+			    elem: 'page_list',	//容器。值支持id名、原生dom对象，jquery对象
+			    count: ${butList.totalData!'0'},	//数据总数。一般通过服务端得到
+			    //groups: 5,	//连续出现的页码个数
+			    limit: ${butList.pageData!'10'},
+			    limits: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+				curr: ${butList.curPage!'1'}, //获取起始页
+			    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+			    jump: function(obj, first){
+			      if (!first) {
+						window.location.href = "${basePath}/chButton/goButtonList.do?curPage="
+								+ obj.curr
+								+ "&pageData="
+								+ obj.limit
+								+ "&butName="
+								+ $("#butName").val()
+								+ "&funId="
+								+ $("#funId").val();
+					}
+			    }
+			});
+		});
+	
+		/*系统-菜单-添加*/
+		function but_add() {
+			var url = '${basePath}/chButton/goAddButton.do';
+			layer_show('新增按钮', url);
+		}
+		
+		/*系统-菜单-编辑*/
+		function but_edit(title, url, id, w, h) {
+			layer_show(title, url, w, h);
+		}
+		
+		/*系统-菜单-删除*/
+		function but_del(obj, id) {
+			layer.confirm('确认要删除吗？', function(index) {
+				var data = {};
+				data.id = id;
+				//后台请求保存数据
+				$.axse("${basePath}/chButton/delButton.do",  data, function(d){
+					if(d.resultCode == 200){
+						$(obj).parents("tr").remove();
+						layer.msg('已删除!', {
+							icon : 1,
+							time : 1000
+						});
+					}else{
+						Huimodal_alert("删除失败,请重试!",1500);
+					}
+				},
+				function(d){
+					Huimodal_alert("删除失败,请重试!",1500);
+				});
+			});
+		}
+		
+		/*系统-菜单-停用*/
+		function but_stop(obj, id) {
+			layer.confirm('确认要停用吗？', function(index) {
+				var data = {};
+				data.id = id;
+				data.status = 2;
+				//后台请求保存数据
+				$.axse("${basePath}/chButton/startStopBut.do",  data, function(d){
+					if(d.resultCode == 200){
+// 						$(obj).attr("title","启用");
+// 						$(obj).child().find("i").html("&#xe615;");
+						layer.msg('已停用!', {
+							icon : 1,
+							time : 1000
+						});
+						location.replace(location.href);
+					}else{
+						Huimodal_alert("停用失败,请重试!",1500);
+					}
+				},
+				function(d){
+					Huimodal_alert("停用失败,请重试!",1500);
+				});
+			});
+		}
+		
+		/*系统-菜单-启用*/
+		function but_start(obj, id) {
+			layer.confirm('确认要启用吗？', function(index) {
+				var data = {};
+				data.id = id;
+				data.status = 1;
+				//后台请求保存数据
+				$.axse("${basePath}/chButton/startStopBut.do",  data, function(d){
+					if(d.resultCode == 200){
+// 						$(obj).attr("title","停用");
+// 						$(obj).parent().find("i").html("&#xe631;");
+						layer.msg('已启用!', {
+							icon : 1,
+							time : 1000
+						});
+						location.replace(location.href);
+					}else{
+						Huimodal_alert("启用失败,请重试!",1500);
+					}
+				},
+				function(d){
+					Huimodal_alert("启用失败,请重试!",1500);
+				});
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<view class="page">
+<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errorMsg}}</view>
+ <view class="page__bd">
+<view class="weui-panel__bd">
+    <view class="null" wx:if="{{isnull}}">没有记录</view>
+    <!-- <view wx:for="{{list}}" wx:for-index="idx" wx:key="k" wx:for-item="item" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title list_title">
+                <text class="list_start">{{item.courseName}}-{{item.teacherName}}</text>
+            <text class="list_tm">{{item.tm}}1111</text></view>
+            <view class="weui-media-box__desc list_desc">{{item.courseAddr}}</view>
+            <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta list_type_{{item.tp}}">{{item.type}}1111</view>
+                <view class="weui-media-box__info__meta"><image src="/assets/img/msg_3.png" class="list_icon"></image><text>{{item.teachTime}}</text></view>
+                <view class="weui-media-box__info__meta" class="editdiv"><button class="editbtn" bindtap="edit" id="{{idx}}" type="primary">修改</button><button class="editbtn" bindtap="del" id="{{idx}}" type="warn">删除</button></view>
+            </view>
+        </view>
+    </view> -->
+
+    <block wx:for="{{list}}" wx:key="index">
+      <view class="newsitem" bindtap='toCourse' data-id="{{item.id}}" wx:if="{{item.teachDate>timestamp}}">
+        <image wx:if="{{item.imgUrl}}" src="{{item.imgUrl}}" class="img" mode="aspectFill"/>
+        <view wx:else class="none">暂无图片</view>
+        <view class="cont">
+          <text>{{item.courseName}}-{{item.teacherName}}</text>
+          <text class="place">{{item.courseAddr}}-{{item.chirldName}}</text>
+          <text class="time">{{item.teachTime}}</text>
+          <!-- <view class="weui-media-box__info__meta" class="editdiv"><button class="editbtn" bindtap="edit" id="{{idx}}" type="primary">修改</button><button class="editbtn" bindtap="del" id="{{idx}}" type="warn">删除</button></view>
+          <text class="commentnum"></text> -->
+        </view>
+      </view>
+      <view class="newsitem1" bindtap='toCourse' data-id="{{item.id}}" wx:else>
+        <image wx:if="{{item.imgUrl}}" src="{{item.imgUrl}}" class="img" mode="aspectFill"/>
+        <view wx:else class="none">暂无图片</view>
+        <view class="cont">
+          <text>{{item.courseName}}-{{item.teacherName}}</text>
+          <text class="place">{{item.courseAddr}}</text>
+          <text class="time">{{item.teachTime}}</text>
+          <!-- <view class="weui-media-box__info__meta" class="editdiv"><button class="editbtn" bindtap="edit" id="{{idx}}" type="primary">修改</button><button class="editbtn" bindtap="del" id="{{idx}}" type="warn">删除</button></view>
+          <text class="commentnum"></text> -->
+        </view>
+      </view>
+  </block>
+</view>
+</view>
+<view class="page__bd" wx:if="{{!isnull}}">
+    <view class="weui-loadmore" bindtap="onReachBottom" wx:if="{{!nomore}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{nomore}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多了~</view>
+    </view>
+</view>
+</view>

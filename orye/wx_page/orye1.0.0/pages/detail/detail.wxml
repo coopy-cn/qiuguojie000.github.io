@@ -1,0 +1,114 @@
+<!--pages/detail/detail.wxml-->
+<!-- <view wx:if="{{toImg==1}}">
+  <image src='http://192.168.1.125/upload/imsl.jpg' mode="widthFix"></image>
+</view> -->
+
+  <view wx:if="{{toImg==1}}">
+    <view class='title'>
+      <view>森林教育</view>
+      <text>打破传统教室束缚，自然即是课堂</text>
+    </view>
+    <view class='context'>
+      <text >森林教育在20世纪50年代发源于丹麦, 已风行于德国。目前，德国全境已有超过1500所森林幼儿园，而且已经拓展到了欧洲以外的地区。日本的自然教育起步于36年前，现已有近4000所自然学校；韩国自然教育已经开始对亚洲邻国进行“课程输出”；巴厘岛的森林学校典范竹子学校吸引了国内很多人去参观学习；美国、加拿大除了建有单独的自然学校外，更是在一贯的营地教育和户外教育中加入了更多的自然探索。</text>
+      <image src='{{url}}/upload/conimg/image1.jpg' mode='widthFix'></image>
+      <text>
+        “森林”只是大自然的代名词，它可以是一片森林、一座农场、一片海滩、一个公园。那么森林教育究竟在玩些什么？能收获什么呢？
+      </text>
+      <view class='text-align'>
+        <view class="txt-logo">自然里做实验</view>
+      </view>
+      <text>老师会带孩子们在森林里做一些小试验，比如在地上挖几个坑，分别将塑料袋、香蕉皮纸、玻璃等埋入，做好记号，过了几个星期后再挖出来看看发生了什么变化，孩子们会发现香蕉皮不见了，而其他东西都还在。老师会告诉孩子们哪些东西土地可以吸收，哪些东西丢到土地里会影响环境。比如玻璃土地不吸收，而且还会伤害到人和动物的脚，太阳光反射聚焦还会引起火灾，所以不可乱扔玻璃垃圾......孩子们从小就知道垃圾是怎样分类回收，从小就知道保护环境，这样也形成了一个良性循环。</text>
+    </view>
+    <image src='{{url}}/upload/conimg/image2.jpg' mode='widthFix'></image>
+    <view class='text-align'>
+      <view class="txt-logo">树，随便爬</view>
+    </view>
+    <text>老师和家长从不保护。爬树是孩子们最喜欢的活动，孩子们爬树，老师和家长不给与任何帮助，只是帮他们下来。</text>
+    <text class='gre'>在没有保护的情况下，孩子们更懂得如何保护自己。</text>
+    <text>森林教育提倡合理的冒险。“冒险是孩子们的天性”，第一次露营、第一次用火，</text>
+    <text class='gre'>一次次突破生理和心理的舒适圈就是成长。
+事实证明有冒险精神的孩子行动力更强，更具有风险评估能力和判断能力。</text>
+    <image src='{{url}}/upload/conimg/image3.jpg' mode='widthFix'></image>
+    <view class='text-align'>
+        <view class="txt-logo">自创玩具</view>
+      </view>
+    <text>你会难以想象，一群3-6岁的孩子在没有任何大人的协助下搭了一个避雪小屋，他们会自己点篝火，并且在火快灭的时候往里面添加木材。这里的孩子很少接触商业性的玩具，而是选择就地取材，在森林中寻找玩具。大自然的玩具不像商业玩具以及被赋予了特定的意义，</text>
+    <text class='gre'>森林里面找到的树枝、泥巴、小虫等更能发挥孩子的想象力与语言描绘能力。</text>
+    <image src='{{url}}/upload/conimg/image4.jpg' mode='widthFix'></image>
+    <view class='text-align'>
+        <view class="txt-logo">主题教学</view>
+    </view>
+    <text>主题课程一般都是安排好的，比如关于蜘蛛，看到蜘蛛网以后孩子们就会去思考为什么蜘蛛网不会粘住自己？老师就会做一些功课一步一步跟学生探讨，孩子们会模拟自己被蜘蛛网粘住了，来进行一些表演活动。
+这些活动无论是从专业角度还是艺术角度都能够打动人心，所以最有说服力的就是这些案例，对老师来说这就是最好的培训材料，特别需要老师有能够捕捉问题的能力。</text>
+    <image src='{{url}}/upload/conimg/image5.jpg' mode='widthFix'></image>
+    <view class='text-align'>
+        <view class="txt-logo">一年四季，风雨无阻</view>
+    </view>
+    <text>森林就是孩子们的教室，绝大多数时间，孩子们都在进行户外活动。哪怕是在德国漫长而寒冷的冬季，孩子们也没有进入过室内。</text>
+    <text class='gre'>所以孩子们很少感冒。</text>
+    <image src='{{url}}/upload/conimg/image6.jpg' mode='widthFix'></image>
+    <text class='gre'>森林教育告诉我们：亲近自然，便是最好的教育。
+生命源于自然，回归自然才能感受到最真实的世界；
+当孩子们在大自然中观察到春夏秋冬四季更替，
+当孩子们蒙上眼睛听到山林中的鸟鸣与潺潺流水，
+当孩子们闻到雨后泥土去青草的味道，
+当孩子们学会如何保护自然也学会如何保护自己，
+你会发现孩子们对未知世界的向往以及前所未有的求知欲、探索欲......</text>
+<image src='{{url}}/upload/conimg/image7.jpg' mode="widthFix"></image>
+  </view>
+
+
+<view wx:if="{{toImg==2}}">
+  <view class='title'>
+    <text>传统幼儿园</text>
+  </view>
+  <view class='context'>
+    <text>孩子天性好动，但幼儿园的室内、室外的活动场地普便较小，少数幼儿园还有“超收”的现象，不能满足幼儿活动的需求，使得孩子的天性被压制。而“过度正规”的早期教育模式使孩子的学习变成被动的灌输，而不是主动的探索，限制了孩子的想象力与创造力，极易磨灭孩子本应有的灵性与天真。
+    </text>
+    <image src='{{url}}/upload/1536748681384/1.jpg'mode="widthFix"></image>
+    <image src='{{url}}/upload/1536748704613/2.jpg' mode="widthFix"></image>
+    <image src='{{url}}/upload/1536748712987/3.jpg'mode="widthFix"></image>
+  </view>
+  <view class='title'>
+    <text>自然缺失症：</text>
+  </view>
+  <view class='context'>
+    <text>自然缺失症是一种不需要医生诊断或需要服药治疗的病症，而是当今社会的一种危险的现象，即儿童在大自然中度过的时间越来越少，从而导致了一系列行为和心理上的问题。造成自然缺失症的原因主要有：父母阻碍儿童在户外玩耍，可供玩耍场地的减少，以及电子产品的日益盛行。
+人的心智是通过感官和知觉形成在思维上的认知整合、判断、推理，如果孩子们没有真实的认知，没有与自然的接触，没有在自然中学习、探索、体验的经历，他们的感觉和知觉都会受到影响，容易变得孤独、焦躁、易怒，在道德、审美、情感、智力成长中有所缺失。人类完整的知识结构应包括社会知识、自然知识、文化知识、生活知识等等多方面，而不只是目前很多家长都在盲目追随的文化知识，这样很容易造成其他方面知识的缺失。
+“大自然缺失症”不需要医生诊断和治疗，只要投入大自然的怀抱，一切都会不治而愈，孩子的世界也随时变的平和、宁静、温暖。
+    </text>
+    <image src='{{url}}/upload/1536748842669/4.jpg' mode="widthFix"></image>
+  </view>
+</view>
+<view wx:if="{{toImg==3}}" class='color'>
+  <view class='context bg'>
+    <view class='title aglin'>
+      <text>关于Or野自然</text>
+    </view>
+    <text class='padding'>Or野自然，是引自国际绿色教育协会董事委员之一、森林教育体系倡导者、丹麦CRM创新领域的专家和领军人物——Sven Michelsen创立的ZEMS公司。我们承载了丹麦最高级别资源和教育专家团队精心研发的最优匹配中国本土化的教育资源，旨在因循丹麦森林教育成长体系理论，秉承“回归自然，大道至简”的教育理念，并结合中国儿童各个阶段身心发展特点，为中国儿童打造一套由正宗丹麦操作的中国最大最有体系的高质量的户外国际生态教育体系，让少儿在更GREEN（全球化、再生、生态、能源、自然）的环境下，激发创造力，提升幸福力。
+</text>
+  </view>
+  <view class='image-box'>
+    <image src='{{url}}/upload/1536748883528/2.jpg'  class='adaptive' mode='widthFix' ></image>
+  </view>
+  
+</view>
+<view wx:if="{{toImg==4}}">
+  <image src='{{url}}/upload/1536919906785/1.jpg' mode="widthFix"></image>
+  <image src='{{url}}/upload/3.jpg' mode="widthFix"></image>
+</view>
+<view wx:if="{{toImg==5}}" class='five'>
+  <view class='five-bg'>
+  <image src='{{url}}/upload/1536666967984/8.png' ></image>
+    <view class='service'>
+      <text class='weight'>定制服务：</text>
+      <text>我们将根据孩子年龄与周边环境等要素为您定制课程，就近设定站点，并安排自然导师上门授课。</text>
+    </view>
+    
+    <view class='table'>
+      <view wx:for="{{tab}}" class='th'>
+        <view wx:for="{{item}}" class='td'>{{item}}</view>
+      </view>
+    </view>
+  </view>
+</view>

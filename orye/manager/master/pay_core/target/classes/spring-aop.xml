@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+	<!-- 系统服务组件的切面Bean -->
+	<bean id="cacheInterceptor" class="com.core.teamwork.base.cache.aop.CacheAspect" /> 
+	<!-- 系统服务组件的切面Bean -->
+	<bean id="lockInterceptor" class="com.core.teamwork.base.cache.aop.AcquireLockAspect" /> 
+	<!-- AOP配置 -->
+	<aop:config>
+		<!-- 声明一个切面,并注入切面Bean,相当于@Aspect -->
+		<aop:aspect id="cacheAspect" ref="cacheInterceptor">
+			<!-- 配置一个切入点,相当于@Pointcut -->
+			<aop:pointcut expression="@annotation(com.core.teamwork.base.cache.annotations.Cacheable)" id="cacheAdvice"/>
+			<!-- 配置通知,相当于@Before、@After、@AfterReturn、@Around、@AfterThrowing -->
+			<aop:around pointcut-ref="cacheAdvice" method="cache"/>
+			<aop:after-throwing pointcut-ref="cacheAdvice" method="doException" throwing="ex"  />
+			
+			<!-- 配置一个切入点,相当于@Pointcut -->
+			<aop:pointcut expression="@annotation(com.core.teamwork.base.cache.annotations.CacheUpdate)" id="cacheUpdateAdvice"/>
+			<aop:after-returning pointcut-ref="cacheUpdateAdvice" method="cacheUpdate" returning="rtv"/>
+		</aop:aspect>
+		
+		
+		<!-- 声明一个切面,并注入切面Bean,相当于@Aspect -->
+		<aop:aspect id="lockAspect" ref="lockInterceptor">
+			<!-- 配置一个切入点,相当于@Pointcut -->
+			<aop:pointcut expression="@annotation(com.core.teamwork.base.cache.annotations.AcuquireLock)" id="lockAdvice"/>
+			<!-- 配置通知,相当于@Before、@After、@AfterReturn、@Around、@AfterThrowing -->
+			<aop:around pointcut-ref="lockAdvice" method="acquire"/>
+			<aop:after-throwing pointcut-ref="lockAdvice" method="doException" throwing="ex"  />
+		</aop:aspect>
+	</aop:config>
+</beans>

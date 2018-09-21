@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/course/course",
+    "pages/user/add",
+    "pages/my/index",
+    "pages/my/list",
+    "pages/detail/detail",
+    "pages/teach/teach",
+    "pages/order/order",
+    "pages/my/card",
+    "pages/buy/buy"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#349f73",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "#fff",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#FF0000",
+    "borderStyle": "#000",
+    "list": [
+      {
+        "selectedIconPath": "assets/img/shouye.png",
+        "iconPath": "assets/img/shouye1.png",
+        "pagePath": "pages/index/index",
+        "text": "Or野自然"
+      },
+      {
+        "selectedIconPath": "assets/img/xueyuan.png",
+        "iconPath": "assets/img/xueyuan1.png",
+        "pagePath": "pages/home/home",
+        "text": "课程预约"
+      },
+      {
+        "selectedIconPath": "assets/img/mine.png",
+        "iconPath": "assets/img/mine1.png",
+        "pagePath": "pages/my/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+<!--pages/my/card.wxml-->
+<view class='card-page'>
+  <block  wx:for="{{cardList}}" wx:key="cardKey">
+    <view class='card-box'>
+      <image src='{{item.imgUrl}}' mode='widthFix'></image>
+      <view class='card-wrap' >
+          <view class='card-play card-buy'>
+            <view class='buy' hover-class="click" data-cardlist='{{item}}' 
+            data-phone='{{phone}}' bindtap="skip">购买</view>
+          </view>
+          <view class='card-play card-use'  wx:if="{{item.restCount}}">
+            <view class='font'>剩余{{item.restCount}}次</view>
+            <view class='use' bindtap='playhome' hover-class="click">使用</view>
+          </view>
+      </view>
+    </view>
+  </block>
+</view>

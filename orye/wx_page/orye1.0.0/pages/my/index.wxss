@@ -1,0 +1,15 @@
+/**index.wxss**/
+@import '/weui.wxss';
+.head{display:flex;flex-direction: column;background: #efefef;width:100%;padding: 100rpx 0rpx; align-items: center;  justify-content: space-between;background: #fff}
+.head image{width:150rpx;height:150rpx;margin:0 auto;border-radius: 50%;}
+.list view{font-size:12pt;}
+.list .weui-cell{padding: 15px !important}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo button{
+  background-color: #349f73;
+  color: #fff
+}

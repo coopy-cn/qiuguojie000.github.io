@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<#include "lib/lib.html" />
+<title>课类管理</title>
+</head>
+<body style="background-color: #F0F0F0">
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
+		课程管理 <span class="c-gray en">&gt;</span> 课类管理
+		<a class="btn btn-success radius r mr-20" id="refresh" style="line-height: 1.6em; margin-top: 3px" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	
+	<div class="pd-20 text-c">
+		<div class="panel panel-default mt-20">
+			<div class="panel-header" style="height: 30px">
+				<div class="" style="float: right;">
+					<span class="r" style="margin-left: 20px;">
+						<div class="layui-btn-group">
+								<button class="layui-btn  layui-btn-small" onclick="layerShow('添加课类', '${basePath}/courseType/addToPage.do', '680', '350')"><i class="layui-icon" style="line-height: 12px;">&#xe61f;</i>添加</button>
+						</div>
+					</span> 
+					<span class="r"> 
+					</span>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="10%"><input type="checkbox"></th>
+							<th width="">课类名称</th>
+							<th width="25%">创建时间</th>
+							<th width="20%">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<input type="hidden" id="totalPages" value="${list.totalPage!'0'}">
+						<#if list.dataList?? && list.dataList?size gt 0>
+						<#list list.dataList as dl >
+							<tr class="text-c">
+								<td><input type="checkbox" value="${dl.id!}" name="idCheckBox"></td>
+								<td>${dl.name!}</td>
+								<td>
+									<#if dl.createTime??>
+										${dl.createTime?string("yyyy-MM-dd")}
+									</#if>
+								</td>
+								<td class="td-manage">
+									<a title="查看/编辑" href="javascript:;" onclick="layerShow('编辑课类', '${basePath}/courseType/editToPage.do?id='+${dl.id}, '680','350')" style="text-decoration:none"><i class="Hui-iconfont Hui-iconfont-edit"> 查看/编辑</i></a>
+								</td>
+							</tr>
+						</#list>
+						</#if>
+					</tbody>
+				</table>
+				</br>
+				<div id="page_list"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		layui.use(['laypage', 'layer'], function(){
+	  		var laypage = layui.laypage,layer = layui.layer;
+			laypage.render({
+			    elem: 'page_list',	//容器。值支持id名、原生dom对象，jquery对象
+			    count: ${list.totalData!'0'},	//数据总数。一般通过服务端得到
+			    //groups: 5,	//连续出现的页码个数
+			    limit: ${list.pageData!'10'},
+			    limits: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+				curr: ${list.curPage!'1'}, //获取起始页
+			    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+			    jump: function(obj, first){
+			      if (!first) {
+						window.location.href="${basePath}/courseType/list.do?curPage="+obj.curr +"&pageData="+obj.limit;
+					}
+			    }
+			  });
+		});
+		
+		
+		//打开窗口
+		function layerShow(title, url, w, h){
+			layer_show(title, url, w, h);
+		}
+		
+	</script>
+</body>
+</html>

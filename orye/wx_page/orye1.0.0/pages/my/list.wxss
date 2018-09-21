@@ -1,0 +1,109 @@
+@import '/weui.wxss';
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 60px;
+    text-align: center;
+}
+.list_title,.list_desc{text-align: left!important;}
+.list_title{color:black;font-size: .85rem;}
+.list_desc{margin: 5rpx 0rpx;color: #444}
+.list_type_1{background: rgb(254,230,50);padding: 0rpx 5rpx;margin-right:1rem;color:lightseagreen;}
+.list_type_2{background: lightseagreen;padding: 0rpx 5rpx;margin-right:1rem;color:rgb(254,230,50);}
+.to1{width: 60rpx;height:60rpx;position:absolute;top:12px;}
+.list_over{margin-left:60rpx;}
+.list_icon{width:30rpx;height:30rpx;position:absolute}
+.weui-media-box__info__meta text{margin:0rpx 33rpx;}
+.list_tm{float: right;color: indianred;font-size: .8rem;}
+.weui-media-box__info__meta{padding-right: .2rem!important;}
+.icon-gender{width:30rpx;height: 30rpx;bottom: 16rpx;position:absolute;left:120rpx;}
+
+.editdiv{float:right}
+.editbtn{height:60rpx;line-height:60rpx;float:left;font-size: .7rem;margin:5rpx;}
+.null{line-height: 200px;text-align: center;}
+.newsitem .cont{
+  flex: 1;
+    position: relative;font-size: 28rpx
+}
+.newsitem {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #ccc;
+  padding: 30rpx;
+  position: relative;
+}
+
+.newsitem .img {
+  width: 160rpx;
+  height: 140rpx;
+  margin-right: 15rpx;
+}
+.newsitem .time{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size:24rpx;
+    color: red;
+}
+.newsitem .place{
+    position: absolute;
+    top: 56rpx;
+    left: 0;
+    font-size:28rpx;
+}
+
+.newsitem1 {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #ccc;
+  padding: 30rpx;
+  position: relative;
+  background-color: #eee;
+}
+
+.newsitem1 .cont{
+  flex: 1;
+    position: relative;font-size: 28rpx
+}
+.newsitem1 .img {
+  width: 160rpx;
+  height: 140rpx;
+  margin-right: 15rpx;
+}
+.newsitem1 .time{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size:24rpx;
+    color: #eee;
+}
+.newsitem1 .place{
+    position: absolute;
+    top: 56rpx;
+    left: 0;
+    font-size:28rpx;
+}
+.newsitem1 .none {
+  width: 160rpx;
+  height: 140rpx;
+  margin-right: 15rpx;
+  text-align: center;
+  line-height: 140rpx;
+  font-size: 30rpx;
+  border: 1px solid #eee;
+  box-sizing: border-box
+}
+.newsitem .none {
+  width: 160rpx;
+  height: 140rpx;
+  margin-right: 15rpx;
+  text-align: center;
+  line-height: 140rpx;
+  font-size: 30rpx;
+  border: 1px solid #eee;
+  box-sizing: border-box
+}

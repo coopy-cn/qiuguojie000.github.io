@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<#include "lib/lib.html" />
+<title>安排课程</title>
+</head>
+<body>
+	<form action="${basePath}/courseTableConfig/add.do" method="post" class="form form-horizontal" id="form">
+	<div class="pop_main" style="padding-left:30px;width: 95%;">
+		<div class="panel panel-primary mt-20">
+	    	<div class="panel-header">课程安排</div>
+	    	<div class="panel-body">
+	    		<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<tbody>
+						<tr>
+	    		    		<td style="width:120px;"><strong>课程：</strong></td>
+	    		    		<td>
+	    		    			<select style="width:300px;height: 30px;" class="select size-M" id="courseId" name="courseId" size="1">
+	    		    				<#if courseList?? && courseList?size gt 0> 
+										<#list courseList as dl>
+											<option value="${dl.id!}">${dl.courseName!}</option> 
+										</#list> 
+									</#if>
+								</select>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>站点：</strong></td>
+	    		    		<td>
+	    		    			<select style="width:300px;height: 30px;" class="select size-M" id="placeId" name="placeId" size="1">
+	    		    				<#if placeList?? && placeList?size gt 0> 
+										<#list placeList as dl>
+											<option value="${dl.id!}">${dl.courseAddr!}</option> 
+										</#list> 
+									</#if>
+								</select>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>教师：</strong></td>
+	    		    		<td>
+	    		    			<select style="width:300px;height: 30px;" class="select size-M" id="teachId" name="teachId" size="1">
+	    		    				<#if teacherList?? && teacherList?size gt 0> 
+										<#list teacherList as dl>
+											<option value="${dl.id!}">${dl.name!}</option> 
+										</#list> 
+									</#if>
+								</select>
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>最大人数：</strong></td>
+	    		    		<td>
+	    		    			<input style="width:300px;" class="dd_input input-text size-M" type="text" placeholder="请输入最大上课人数" id="maxCount" name="maxCount" datatype="n"  nullmsg="请输入最大上课人数" >
+	    		    		</td>
+	    		    	</tr>
+	    		    	<tr>
+	    		    		<td style="width:120px;"><strong>上课时间：</strong></td>
+	    		    		<td>
+	    		    			<input placeholder="上课时间"
+											name="teachDate" type="text"
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00'})"
+											id="logmin" class="input-text Wdate" style="width:200px;">
+								
+												
+							</td>
+	    		    	</tr>
+    		    	</tbody>
+			    </table>
+	    	</div>
+    	</div>
+    	
+		<div class="submit_btn">
+			<button style="width:100px;height:40px;" type="button" name="" value="提    交" onclick="submitButt()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe676;</i> 提    交</button>
+		</div>
+	</div>
+	</form>
+<script type="text/javascript">
+		$(function(){
+			$("#form").Validform({
+				tiptype:3,
+				showAllError:true,   //表单提交时显示所有提示信息
+				ignoreHidden: true,  //隐藏的表单元素不校验
+				ajaxPost:true,
+				callback:function(data){
+					$.Hidemsg();
+					if(data.resultCode==200){
+						layer.msg('保存成功!', {
+							icon : 1,
+							time : 1000
+						});
+						//parent.location.replace("${basePath}/payv2PayWayRate/payv2PayWayRateListAll.do?payWayId="+$("#payViewType").val());
+						setTimeout(function () { 
+					        layer_close();
+					    }, 1000);
+					}else if(data.resultCode==201){
+						layer.msg(data.message, {
+							icon : 1,
+							time : 2000
+						});
+					}else{
+						$("#form").resetForm();
+						layer.msg('保存失败，请你检查数据!', {
+							icon : 1,
+							time : 1000
+						});
+					}
+				}
+			});
+		});
+		
+
+		$(document).ready(function(){
+			$('select').searchableSelect();
+		});
+		
+		function submitButt(){
+			$("#form").attr(
+					"action",
+					"${basePath}/courseTableConfig/add.do").submit(); 
+		}
+
+		//验证输入的数字合法性
+		function ValidateFloat(e, pnumber){ 
+			if (!/^\d+[.]?\d*$/.test(pnumber)){ 
+				$(e).val(/^\d+[.]?\d*/.exec($(e).val())); 
+			}
+			return false; 
+		}
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* pages/detail/detail.wxss */
+/* pages/indexs/indexs.wxss */
+page {
+  font-family: 'Microsoft YaHei', sans-serif, -apple-system-font, 'Helvetica Neue', Helvetica;
+  width: 100%;
+  font-size: 33rpx;
+  color: #3c3c3c;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+view{
+  padding: 20rpx;
+  line-height: 45rpx;
+}
+text{
+  letter-spacing:6rpx;
+  font-size: 36rpx;
+}
+view .title{
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 绿色字体 */
+view .gre{
+  color: green;
+}
+image{
+  width: 100%;
+}
+/* 小标题图片 */
+view .logo{
+  display: block;
+  margin: 30rpx 0; 
+  height: 150rpx;
+}
+/* diy logo */
+.text-align{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  text-align: center;
+  font-weight: bold;
+}
+
+view .txt-logo{
+  width: 60%;
+  height: 50%;
+  border-radius: 50rpx;
+  font-size: 36rpx;
+  color:#FEFBAE;
+  background-color: #57CBA5;
+}
+
+.color{
+  padding: 0; 
+  width: 100%;
+  color: #5F568B;
+}
+.bg{
+  width: 100%;
+  height: 1000rpx;
+  padding: 0; /*必须初始padding否则图片会显示不完整 */
+  padding-top: 18rpx;
+  background-image:url("http://192.168.1.125/upload/1536657014500/1.png");
+  background-repeat: no-repeat; 
+  background-size: cover	;
+  background-position: center;
+}
+.aglin{
+  margin-top: 20rpx;
+  text-align: center;
+}
+.padding{
+  display: block;
+  padding: 0 75rpx;
+}
+
+
+.gap{
+  margin-bottom: -9rpx; 
+}
+
+.five{
+  padding: 0;
+  font-size: 25rpx;
+}
+.five-bg{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+   /*background-image: url('http://192.168.1.125/upload/1536666967984/8.png');
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: center; */
+}
+.five-bg image{
+  height: 100%;
+}
+ 
+.five-bg .service{
+  position: absolute;
+  left: 5%;
+  bottom: 36%;
+  font-size: 30rpx;
+}
+.five-bg .service .weight{
+  font-weight: bold;
+}
+
+.five view{
+  padding: 0;
+ 
+}
+ .table{
+  position: absolute;
+  display: flex;
+  bottom: 1%;
+  left: 5%;
+  font-size: 25rpx;
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid #E7F5F4;
+  border-top: 1px solid #E7F5F4;
+} 
+ .th{
+  display: flex;
+} 
+
+.td{
+  display: flex;
+  border-right: 1px solid #E7F5F4;
+  border-bottom: 1px solid #E7F5F4;
+  justify-content: center;
+  align-items: center;
+  width: 14%;
+  font-weight: bold;
+ 
+}
+.td:first-child{
+  width: 30%;
+}
+.th:first-child{
+  background-color: #5F568B;
+  color: white;
+}
+.th:nth-child(even){
+  background-color: #CCC1DA;
+}
+.th:nth-child(5)>.td:nth-child(2){
+  background-color: #CCC1DA;
+}
+ /* 页面5 ipad Ari2兼容 */
+@media (min-width: 500px) {
+  /* 仅在 500px 或更宽的屏幕上生效的样式规则 */
+  .five-bg{
+    height: 1500px;
+  }
+  .five-bg .service{
+    bottom: 35%;
+  }
+}
+/* 页面5 ipad Pro10.5 +兼容
+@media (min-width: 800px) {
+   仅在 800px 或更宽的屏幕上生效的样式规则
+  .five-bg{
+    height: 2500px;
+  }
+  .five-bg .service{
+    bottom: 42%;
+    font-size: 28px;
+  }
+   .table{
+     bottom: 22%;
+     font-size: 25px;
+   }
+}  */

@@ -1,0 +1,41 @@
+<import src="../common/swiper.wxml"/>
+<div class="topic">
+<scroll-view scroll-y="true" scroll-into-view="{{toView}}" scroll-with-animation="true">
+    <view class="mutiTitle">
+      <image src="{{url}}/upload/1537156152500/img3.png"></image>
+    </view>
+
+    <view class='teacher_title'>
+      <text>{{teacherInfo.name}}</text>
+    </view>    
+
+    <view class="teacher">
+        <view class="cont">
+          <text class="place1">简介:{{teacherInfo.remark}}</text>
+        </view>
+        <view class='image'>
+          <image bindtap='imgDetail' src="{{teacherInfo.photoUrl}}" data-src="{{teacherInfo.photoUrl}}" class="img" mode="widthFix"/>
+        </view>
+    </view>
+    <view class="time">
+      <text class="text">上课时间：{{courseTableConfig.teachTime}}</text>
+    </view>
+
+    <view class="place">
+      <text class="text">地点：{{teachPlace.cityName}}{{teachPlace.regName}}-{{teachPlace.courseAddr}}</text>
+    </view>
+    <view class="remark">
+        <text class="text">课程简介：{{courseInfo.remark}}</text>
+    </view>
+    <view class="label">
+      <text class="text">适合年龄：{{courseInfo.minYear}}岁<block wx:if="{{courseInfo.minMonth!=0}}">{{courseInfo.minMonth}}个月</block>-{{courseInfo.maxYear}}岁<block wx:if="{{courseInfo.maxMonth!=0}}">{{courseInfo.maxMonth}}个月</block>      
+      </text>
+    </view>
+    <view class="cbtn" data-id="{{courseId}}">
+        <button bindtap='toSubscribe' data-id="{{courseId}}" data-use="{{courseInfo.courseUse}}" disabled="{{disabled}}" class='yyBtn'>立即预约</button>
+          <checkbox value='tr' checked='{{!disabled}}' bindtap='order'></checkbox>
+          <text bindtap ="know">预约须知</text>
+    </view>
+    
+</scroll-view>
+</div>

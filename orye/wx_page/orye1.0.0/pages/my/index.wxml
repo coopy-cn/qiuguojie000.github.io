@@ -1,0 +1,66 @@
+<view class="page">
+ <!--页头-->
+ <view class="page__hd">
+  <view class="head">
+    <view wx:if="{{!hasUserInfo && canIUse}}" class="container">
+      <view class="userinfo">
+          <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登陆 </button>
+      </view>
+    </view>
+    <block wx:else>
+      <view><image src="{{userInfo.avatarUrl}}"></image></view>
+      <view><text>{{userInfo.nickName}}</text></view>
+    </block>
+  </view>
+ </view>
+ <!--主体-->
+ <view class="page__bd"> 
+  <view class="list">
+
+    <view class="page__bd">
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/my/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="/assets/img/appointment.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">我的预约</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"><view class="weui-badge" style="margin-left: 5px;">{{count}}</view></view>
+            </navigator>
+            <!-- <navigator url="/pages/my/info" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="/assets/img/me.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">个人信息</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator> -->
+        </view>
+    </view>
+
+
+  </view>
+    <view class="list">
+
+    <view class="page__bd">
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/my/card" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="/assets/img/card.jpg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">我的预约卡</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <!-- <navigator url="/pages/my/info" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="/assets/img/me.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">个人信息</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator> -->
+        </view>
+    </view>
+
+
+  </view>
+ </view>
+ <!--没有页脚-->
+</view>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.orye.business.course.mapper.CourseUserMapper">
+
+	<resultMap id="courseuser_result_map" type="com.orye.business.course.entity.CourseUser" >
+		<id column="id" property="id" />
+		<result column="open_id" property="openId"/>
+		<result column="name" property="name"/>
+		<result column="nick_name" property="nickName"/>
+		<result column="avatar_url" property="avatarUrl"/>
+		<result column="sex" property="sex"/>
+		<result column="province" property="province"/>
+		<result column="country" property="country"/>
+		<result column="city" property="city"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from course_user  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like CONCAT('%',#{openId},'%')
+			</if>
+			<if test="name!=null and name!=''">
+				and name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				and nick_name like CONCAT('%',#{nickName},'%')
+			</if>
+			<if test="avatarUrl!=null and avatarUrl!=''">
+				and avatar_url like CONCAT('%',#{avatarUrl},'%')
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex = #{sex}
+			</if>
+			<if test="province!=null and province!=''">
+				and province like CONCAT('%',#{province},'%')
+			</if>
+			<if test="country!=null and country!=''">
+				and country like CONCAT('%',#{country},'%')
+			</if>
+			<if test="city!=null and city!=''">
+				and city like CONCAT('%',#{city},'%')
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.orye.business.course.entity.CourseUser" useGeneratedKeys="true" keyProperty="id">
+		insert into course_user
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="openId!=null ">
+				open_id,
+			</if>
+      		<if test="name!=null ">
+				name,
+			</if>
+      		<if test="nickName!=null ">
+				nick_name,
+			</if>
+      		<if test="avatarUrl!=null ">
+				avatar_url,
+			</if>
+      		<if test="sex!=null ">
+				sex,
+			</if>
+      		<if test="province!=null ">
+				province,
+			</if>
+      		<if test="country!=null ">
+				country,
+			</if>
+      		<if test="city!=null ">
+				city,
+			</if>
+      		<if test="createTime!=null ">
+				create_time,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="openId!=null ">
+      			#{openId},
+			</if>
+      		<if test="name!=null ">
+      			#{name},
+			</if>
+      		<if test="nickName!=null ">
+      			#{nickName},
+			</if>
+      		<if test="avatarUrl!=null ">
+      			#{avatarUrl},
+			</if>
+      		<if test="sex!=null ">
+      			#{sex},
+			</if>
+      		<if test="province!=null ">
+      			#{province},
+			</if>
+      		<if test="country!=null ">
+      			#{country},
+			</if>
+      		<if test="city!=null ">
+      			#{city},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.orye.business.course.entity.CourseUser">
+		delete from course_user
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+      		<if test="name!=null ">
+				and name=#{name}
+			</if>
+      		<if test="nickName!=null ">
+				and nick_name=#{nickName}
+			</if>
+      		<if test="avatarUrl!=null ">
+				and avatar_url=#{avatarUrl}
+			</if>
+      		<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+      		<if test="province!=null ">
+				and province=#{province}
+			</if>
+      		<if test="country!=null ">
+				and country=#{country}
+			</if>
+      		<if test="city!=null ">
+				and city=#{city}
+			</if>
+      		<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.orye.business.course.entity.CourseUser">
+		update course_user
+		<set>
+			<if test="openId!=null ">
+				open_id=#{openId},
+			</if>
+			<if test="name!=null ">
+				name=#{name},
+			</if>
+			<if test="nickName!=null ">
+				nick_name=#{nickName},
+			</if>
+			<if test="avatarUrl!=null ">
+				avatar_url=#{avatarUrl},
+			</if>
+			<if test="sex!=null ">
+				sex=#{sex},
+			</if>
+			<if test="province!=null ">
+				province=#{province},
+			</if>
+			<if test="country!=null ">
+				country=#{country},
+			</if>
+			<if test="city!=null ">
+				city=#{city},
+			</if>
+			<if test="createTime!=null ">
+				create_time=#{createTime},
+			</if>
+		</set>
+		<where>
+				id=#{id}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.orye.business.course.entity.CourseUser" resultMap="courseuser_result_map">
+		select id,open_id,name,nick_name,avatar_url,sex,province,country,city,create_time from course_user
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="name!=null ">
+				and name=#{name}
+			</if>
+			<if test="nickName!=null ">
+				and nick_name=#{nickName}
+			</if>
+			<if test="avatarUrl!=null ">
+				and avatar_url=#{avatarUrl}
+			</if>
+			<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+			<if test="province!=null ">
+				and province=#{province}
+			</if>
+			<if test="country!=null ">
+				and country=#{country}
+			</if>
+			<if test="city!=null ">
+				and city=#{city}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="courseuser_result_map" >
+		select id,open_id,name,nick_name,avatar_url,sex,province,country,city,create_time from course_user
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="openId!=null ">
+				and open_id=#{openId}
+			</if>
+			<if test="name!=null ">
+				and name=#{name}
+			</if>
+			<if test="nickName!=null ">
+				and nick_name=#{nickName}
+			</if>
+			<if test="avatarUrl!=null ">
+				and avatar_url=#{avatarUrl}
+			</if>
+			<if test="sex!=null ">
+				and sex=#{sex}
+			</if>
+			<if test="province!=null ">
+				and province=#{province}
+			</if>
+			<if test="country!=null ">
+				and country=#{country}
+			</if>
+			<if test="city!=null ">
+				and city=#{city}
+			</if>
+			<if test="createTime!=null ">
+				and create_time=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="courseuser_result_map" >
+		
+		SELECT id,open_id,name,nick_name,avatar_url,sex,province,country,city,create_time FROM course_user 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="openId!=null and openId!=''">
+				and open_id like  CONCAT('%',#{openId},'%')
+			</if>
+			<if test="name!=null and name!=''">
+				and name like  CONCAT('%',#{name},'%')
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				and nick_name like  CONCAT('%',#{nickName},'%')
+			</if>
+			<if test="avatarUrl!=null and avatarUrl!=''">
+				and avatar_url like  CONCAT('%',#{avatarUrl},'%')
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex = #{sex}
+			</if>
+			<if test="province!=null and province!=''">
+				and province like  CONCAT('%',#{province},'%')
+			</if>
+			<if test="country!=null and country!=''">
+				and country like  CONCAT('%',#{country},'%')
+			</if>
+			<if test="city!=null and city!=''">
+				and city like  CONCAT('%',#{city},'%')
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and create_time <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and create_time <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+</mapper>
