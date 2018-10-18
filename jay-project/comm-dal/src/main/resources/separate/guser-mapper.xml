@@ -1,0 +1,2135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.cn.jay.business.data2.mapper.GuserMapper">
+
+	<resultMap id="guser_result_map" type="com.cn.jay.business.data2.entity.Guser" >
+		<result column="userId" property="userId"/>
+		<result column="userName" property="userName"/>
+		<result column="headUrl" property="headUrl"/>
+		<result column="state" property="state"/>
+		<result column="costMoney" property="costMoney"/>
+		<result column="money" property="money"/>
+		<result column="diamond" property="diamond"/>
+		<result column="exp" property="exp"/>
+		<result column="vipExp" property="vipExp"/>
+		<result column="amount" property="amount"/>
+		<result column="actDay" property="actDay"/>
+		<result column="towerCodeId" property="towerCodeId"/>
+		<result column="towerRateId" property="towerRateId"/>
+		<result column="towerSeatId" property="towerSeatId"/>
+		<result column="towerFuncId" property="towerFuncId"/>
+		<result column="skillBulletNum" property="skillBulletNum"/>
+		<result column="lastRecTime" property="lastRecTime"/>
+		<result column="createTime" property="createTime"/>
+		<result column="loginTime" property="loginTime"/>
+		<result column="logoutTime" property="logoutTime"/>
+		<result column="addLogin" property="addLogin"/>
+		<result column="cardGainCount" property="cardGainCount"/>
+		<result column="giftGiveCount" property="giftGiveCount"/>
+		<result column="giftGainCount" property="giftGainCount"/>
+		<result column="sevenBox" property="sevenBox"/>
+		<result column="introduction" property="introduction"/>
+		<result column="specialGunCount" property="specialGunCount"/>
+		<result column="dropCardRefresh" property="dropCardRefresh"/>
+		<result column="payBackRefresh" property="payBackRefresh"/>
+		<result column="cardDemandCount" property="cardDemandCount"/>
+		<result column="cardGiveCount" property="cardGiveCount"/>
+		<result column="isNew" property="isNew"/>
+		<result column="smallGameId" property="smallGameId"/>
+		<result column="smallGameMoney" property="smallGameMoney"/>
+		<result column="piggyBankMoney" property="piggyBankMoney"/>
+		<result column="fishBookNodeId" property="fishBookNodeId"/>
+		<result column="firstRecharge" property="firstRecharge"/>
+		<result column="firstRechargeData" property="firstRechargeData"/>
+		<result column="firstRechargeTime" property="firstRechargeTime"/>
+		<result column="secondRechargeTime" property="secondRechargeTime"/>
+		<result column="thirdRechargeTime" property="thirdRechargeTime"/>
+		<result column="luckyGiftsTime" property="luckyGiftsTime"/>
+		<result column="luckyGiftsIsGet" property="luckyGiftsIsGet"/>
+		<result column="luckyGiftsRe" property="luckyGiftsRe"/>
+		<result column="dayGainMoney" property="dayGainMoney"/>
+		<result column="isYesterdayLogin" property="isYesterdayLogin"/>
+		<result column="gunPower" property="gunPower"/>
+		<result column="sevenDay" property="sevenDay"/>
+		<result column="addOnlineTime" property="addOnlineTime"/>
+		<result column="onlineRd" property="onlineRd"/>
+		<result column="isLogin" property="isLogin"/>
+		<result column="clubId" property="clubId"/>
+		<result column="clubName" property="clubName"/>
+		<result column="dayAct" property="dayAct"/>
+		<result column="weekAct" property="weekAct"/>
+		<result column="dayActBox" property="dayActBox"/>
+		<result column="weekActBox" property="weekActBox"/>
+		<result column="makeUp" property="makeUp"/>
+		<result column="catchMoneyTree" property="catchMoneyTree"/>
+		<result column="nodes" property="nodes"/>
+		<result column="maxCatch" property="maxCatch"/>
+		<result column="seaGodBill" property="seaGodBill"/>
+		<result column="isValidate" property="isValidate"/>
+		<result column="onlineTime" property="onlineTime"/>
+		<result column="income" property="income"/>
+		<result column="antiOutTime" property="antiOutTime"/>
+		<result column="recGradeValue" property="recGradeValue"/>
+		<result column="actGradeValue" property="actGradeValue"/>
+		<result column="pearlFieldId" property="pearlFieldId"/>
+		<result column="cardScore" property="cardScore"/>
+		<result column="cardContorlTime" property="cardContorlTime"/>
+		<result column="carnivalGunPower" property="carnivalGunPower"/>
+		<result column="prizeCardBulletNum" property="prizeCardBulletNum"/>
+		<result column="jackpotCardBulletNum" property="jackpotCardBulletNum"/>
+		<result column="recPackBackBulletNum" property="recPackBackBulletNum"/>
+		<result column="discountGiftTime" property="discountGiftTime"/>
+		<result column="discountGiftCount" property="discountGiftCount"/>
+		<result column="hasDoGuide" property="hasDoGuide"/>
+		<result column="ttgtBulletNum" property="ttgtBulletNum"/>
+		<result column="shellTag" property="shellTag"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from g_user  
+		<where>
+			<if test="userId!=null and userId!=''">
+				and userId = #{userId}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and userName like CONCAT('%',#{userName},'%')
+			</if>
+			<if test="headUrl!=null and headUrl!=''">
+				and headUrl like CONCAT('%',#{headUrl},'%')
+			</if>
+			<if test="state!=null and state!=''">
+				and state = #{state}
+			</if>
+			<if test="costMoney!=null and costMoney!=''">
+				and costMoney = #{costMoney}
+			</if>
+			<if test="money!=null and money!=''">
+				and money = #{money}
+			</if>
+			<if test="diamond!=null and diamond!=''">
+				and diamond = #{diamond}
+			</if>
+			<if test="exp!=null and exp!=''">
+				and exp = #{exp}
+			</if>
+			<if test="vipExp!=null and vipExp!=''">
+				and vipExp = #{vipExp}
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="actDay!=null and actDay!=''">
+				and actDay = #{actDay}
+			</if>
+			<if test="towerCodeId!=null and towerCodeId!=''">
+				and towerCodeId = #{towerCodeId}
+			</if>
+			<if test="towerRateId!=null and towerRateId!=''">
+				and towerRateId = #{towerRateId}
+			</if>
+			<if test="towerSeatId!=null and towerSeatId!=''">
+				and towerSeatId = #{towerSeatId}
+			</if>
+			<if test="towerFuncId!=null and towerFuncId!=''">
+				and towerFuncId = #{towerFuncId}
+			</if>
+			<if test="skillBulletNum!=null and skillBulletNum!=''">
+				and skillBulletNum = #{skillBulletNum}
+			</if>
+			<if test="lastRecTimeBegin!=null and lastRecTimeBegin!=''">
+				and lastRecTime <![CDATA[ >= ]]> str_to_date(#{lastRecTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="lastRecTimeEnd!=null and lastRecTimeEnd!=''">
+				and lastRecTime <![CDATA[ <= ]]> str_to_date(#{lastRecTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and createTime <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and createTime <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="loginTimeBegin!=null and loginTimeBegin!=''">
+				and loginTime <![CDATA[ >= ]]> str_to_date(#{loginTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="loginTimeEnd!=null and loginTimeEnd!=''">
+				and loginTime <![CDATA[ <= ]]> str_to_date(#{loginTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="logoutTimeBegin!=null and logoutTimeBegin!=''">
+				and logoutTime <![CDATA[ >= ]]> str_to_date(#{logoutTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="logoutTimeEnd!=null and logoutTimeEnd!=''">
+				and logoutTime <![CDATA[ <= ]]> str_to_date(#{logoutTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="addLogin!=null and addLogin!=''">
+				and addLogin = #{addLogin}
+			</if>
+			<if test="cardGainCount!=null and cardGainCount!=''">
+				and cardGainCount = #{cardGainCount}
+			</if>
+			<if test="giftGiveCount!=null and giftGiveCount!=''">
+				and giftGiveCount = #{giftGiveCount}
+			</if>
+			<if test="giftGainCount!=null and giftGainCount!=''">
+				and giftGainCount = #{giftGainCount}
+			</if>
+			<if test="sevenBox!=null and sevenBox!=''">
+				and sevenBox like CONCAT('%',#{sevenBox},'%')
+			</if>
+			<if test="introduction!=null and introduction!=''">
+				and introduction like CONCAT('%',#{introduction},'%')
+			</if>
+			<if test="specialGunCount!=null and specialGunCount!=''">
+				and specialGunCount = #{specialGunCount}
+			</if>
+			<if test="dropCardRefresh!=null and dropCardRefresh!=''">
+				and dropCardRefresh like CONCAT('%',#{dropCardRefresh},'%')
+			</if>
+			<if test="payBackRefresh!=null and payBackRefresh!=''">
+				and payBackRefresh like CONCAT('%',#{payBackRefresh},'%')
+			</if>
+			<if test="cardDemandCount!=null and cardDemandCount!=''">
+				and cardDemandCount = #{cardDemandCount}
+			</if>
+			<if test="cardGiveCount!=null and cardGiveCount!=''">
+				and cardGiveCount = #{cardGiveCount}
+			</if>
+			<if test="isNew!=null and isNew!=''">
+				and isNew = #{isNew}
+			</if>
+			<if test="smallGameId!=null and smallGameId!=''">
+				and smallGameId = #{smallGameId}
+			</if>
+			<if test="smallGameMoney!=null and smallGameMoney!=''">
+				and smallGameMoney = #{smallGameMoney}
+			</if>
+			<if test="piggyBankMoney!=null and piggyBankMoney!=''">
+				and piggyBankMoney like CONCAT('%',#{piggyBankMoney},'%')
+			</if>
+			<if test="fishBookNodeId!=null and fishBookNodeId!=''">
+				and fishBookNodeId like CONCAT('%',#{fishBookNodeId},'%')
+			</if>
+			<if test="firstRecharge!=null and firstRecharge!=''">
+				and firstRecharge = #{firstRecharge}
+			</if>
+			<if test="firstRechargeData!=null and firstRechargeData!=''">
+				and firstRechargeData like CONCAT('%',#{firstRechargeData},'%')
+			</if>
+			<if test="firstRechargeTimeBegin!=null and firstRechargeTimeBegin!=''">
+				and firstRechargeTime <![CDATA[ >= ]]> str_to_date(#{firstRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="firstRechargeTimeEnd!=null and firstRechargeTimeEnd!=''">
+				and firstRechargeTime <![CDATA[ <= ]]> str_to_date(#{firstRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="secondRechargeTimeBegin!=null and secondRechargeTimeBegin!=''">
+				and secondRechargeTime <![CDATA[ >= ]]> str_to_date(#{secondRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="secondRechargeTimeEnd!=null and secondRechargeTimeEnd!=''">
+				and secondRechargeTime <![CDATA[ <= ]]> str_to_date(#{secondRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="thirdRechargeTimeBegin!=null and thirdRechargeTimeBegin!=''">
+				and thirdRechargeTime <![CDATA[ >= ]]> str_to_date(#{thirdRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="thirdRechargeTimeEnd!=null and thirdRechargeTimeEnd!=''">
+				and thirdRechargeTime <![CDATA[ <= ]]> str_to_date(#{thirdRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsTimeBegin!=null and luckyGiftsTimeBegin!=''">
+				and luckyGiftsTime <![CDATA[ >= ]]> str_to_date(#{luckyGiftsTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsTimeEnd!=null and luckyGiftsTimeEnd!=''">
+				and luckyGiftsTime <![CDATA[ <= ]]> str_to_date(#{luckyGiftsTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsIsGet!=null and luckyGiftsIsGet!=''">
+				and luckyGiftsIsGet = #{luckyGiftsIsGet}
+			</if>
+			<if test="luckyGiftsRe!=null and luckyGiftsRe!=''">
+				and luckyGiftsRe = #{luckyGiftsRe}
+			</if>
+			<if test="dayGainMoney!=null and dayGainMoney!=''">
+				and dayGainMoney = #{dayGainMoney}
+			</if>
+			<if test="isYesterdayLogin!=null and isYesterdayLogin!=''">
+				and isYesterdayLogin = #{isYesterdayLogin}
+			</if>
+			<if test="gunPower!=null and gunPower!=''">
+				and gunPower = #{gunPower}
+			</if>
+			<if test="sevenDay!=null and sevenDay!=''">
+				and sevenDay = #{sevenDay}
+			</if>
+			<if test="addOnlineTime!=null and addOnlineTime!=''">
+				and addOnlineTime = #{addOnlineTime}
+			</if>
+			<if test="onlineRd!=null and onlineRd!=''">
+				and onlineRd = #{onlineRd}
+			</if>
+			<if test="isLogin!=null and isLogin!=''">
+				and isLogin = #{isLogin}
+			</if>
+			<if test="clubId!=null and clubId!=''">
+				and clubId = #{clubId}
+			</if>
+			<if test="clubName!=null and clubName!=''">
+				and clubName like CONCAT('%',#{clubName},'%')
+			</if>
+			<if test="dayAct!=null and dayAct!=''">
+				and dayAct = #{dayAct}
+			</if>
+			<if test="weekAct!=null and weekAct!=''">
+				and weekAct = #{weekAct}
+			</if>
+			<if test="dayActBox!=null and dayActBox!=''">
+				and dayActBox = #{dayActBox}
+			</if>
+			<if test="weekActBox!=null and weekActBox!=''">
+				and weekActBox = #{weekActBox}
+			</if>
+			<if test="makeUp!=null and makeUp!=''">
+				and makeUp = #{makeUp}
+			</if>
+			<if test="catchMoneyTree!=null and catchMoneyTree!=''">
+				and catchMoneyTree = #{catchMoneyTree}
+			</if>
+			<if test="nodes!=null and nodes!=''">
+				and nodes like CONCAT('%',#{nodes},'%')
+			</if>
+			<if test="maxCatch!=null and maxCatch!=''">
+				and maxCatch = #{maxCatch}
+			</if>
+			<if test="seaGodBill!=null and seaGodBill!=''">
+				and seaGodBill = #{seaGodBill}
+			</if>
+			<if test="isValidate!=null and isValidate!=''">
+				and isValidate = #{isValidate}
+			</if>
+			<if test="onlineTime!=null and onlineTime!=''">
+				and onlineTime = #{onlineTime}
+			</if>
+			<if test="income!=null and income!=''">
+				and income = #{income}
+			</if>
+			<if test="antiOutTime!=null and antiOutTime!=''">
+				and antiOutTime = #{antiOutTime}
+			</if>
+			<if test="recGradeValue!=null and recGradeValue!=''">
+				and recGradeValue = #{recGradeValue}
+			</if>
+			<if test="actGradeValue!=null and actGradeValue!=''">
+				and actGradeValue = #{actGradeValue}
+			</if>
+			<if test="pearlFieldId!=null and pearlFieldId!=''">
+				and pearlFieldId = #{pearlFieldId}
+			</if>
+			<if test="cardScore!=null and cardScore!=''">
+				and cardScore = #{cardScore}
+			</if>
+			<if test="cardContorlTimeBegin!=null and cardContorlTimeBegin!=''">
+				and cardContorlTime <![CDATA[ >= ]]> str_to_date(#{cardContorlTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="cardContorlTimeEnd!=null and cardContorlTimeEnd!=''">
+				and cardContorlTime <![CDATA[ <= ]]> str_to_date(#{cardContorlTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="carnivalGunPower!=null and carnivalGunPower!=''">
+				and carnivalGunPower = #{carnivalGunPower}
+			</if>
+			<if test="prizeCardBulletNum!=null and prizeCardBulletNum!=''">
+				and prizeCardBulletNum = #{prizeCardBulletNum}
+			</if>
+			<if test="jackpotCardBulletNum!=null and jackpotCardBulletNum!=''">
+				and jackpotCardBulletNum = #{jackpotCardBulletNum}
+			</if>
+			<if test="recPackBackBulletNum!=null and recPackBackBulletNum!=''">
+				and recPackBackBulletNum = #{recPackBackBulletNum}
+			</if>
+			<if test="discountGiftTimeBegin!=null and discountGiftTimeBegin!=''">
+				and discountGiftTime <![CDATA[ >= ]]> str_to_date(#{discountGiftTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="discountGiftTimeEnd!=null and discountGiftTimeEnd!=''">
+				and discountGiftTime <![CDATA[ <= ]]> str_to_date(#{discountGiftTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="discountGiftCount!=null and discountGiftCount!=''">
+				and discountGiftCount = #{discountGiftCount}
+			</if>
+			<if test="hasDoGuide!=null and hasDoGuide!=''">
+				and hasDoGuide = #{hasDoGuide}
+			</if>
+			<if test="ttgtBulletNum!=null and ttgtBulletNum!=''">
+				and ttgtBulletNum = #{ttgtBulletNum}
+			</if>
+			<if test="shellTag!=null and shellTag!=''">
+				and shellTag = #{shellTag}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.cn.jay.business.data2.entity.Guser" useGeneratedKeys="true" keyProperty="id">
+		insert into g_user
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="userId!=null ">
+				userId,
+			</if>
+      		<if test="userName!=null ">
+				userName,
+			</if>
+      		<if test="headUrl!=null ">
+				headUrl,
+			</if>
+      		<if test="state!=null ">
+				state,
+			</if>
+      		<if test="costMoney!=null ">
+				costMoney,
+			</if>
+      		<if test="money!=null ">
+				money,
+			</if>
+      		<if test="diamond!=null ">
+				diamond,
+			</if>
+      		<if test="exp!=null ">
+				exp,
+			</if>
+      		<if test="vipExp!=null ">
+				vipExp,
+			</if>
+      		<if test="amount!=null ">
+				amount,
+			</if>
+      		<if test="actDay!=null ">
+				actDay,
+			</if>
+      		<if test="towerCodeId!=null ">
+				towerCodeId,
+			</if>
+      		<if test="towerRateId!=null ">
+				towerRateId,
+			</if>
+      		<if test="towerSeatId!=null ">
+				towerSeatId,
+			</if>
+      		<if test="towerFuncId!=null ">
+				towerFuncId,
+			</if>
+      		<if test="skillBulletNum!=null ">
+				skillBulletNum,
+			</if>
+      		<if test="lastRecTime!=null ">
+				lastRecTime,
+			</if>
+      		<if test="createTime!=null ">
+				createTime,
+			</if>
+      		<if test="loginTime!=null ">
+				loginTime,
+			</if>
+      		<if test="logoutTime!=null ">
+				logoutTime,
+			</if>
+      		<if test="addLogin!=null ">
+				addLogin,
+			</if>
+      		<if test="cardGainCount!=null ">
+				cardGainCount,
+			</if>
+      		<if test="giftGiveCount!=null ">
+				giftGiveCount,
+			</if>
+      		<if test="giftGainCount!=null ">
+				giftGainCount,
+			</if>
+      		<if test="sevenBox!=null ">
+				sevenBox,
+			</if>
+      		<if test="introduction!=null ">
+				introduction,
+			</if>
+      		<if test="specialGunCount!=null ">
+				specialGunCount,
+			</if>
+      		<if test="dropCardRefresh!=null ">
+				dropCardRefresh,
+			</if>
+      		<if test="payBackRefresh!=null ">
+				payBackRefresh,
+			</if>
+      		<if test="cardDemandCount!=null ">
+				cardDemandCount,
+			</if>
+      		<if test="cardGiveCount!=null ">
+				cardGiveCount,
+			</if>
+      		<if test="isNew!=null ">
+				isNew,
+			</if>
+      		<if test="smallGameId!=null ">
+				smallGameId,
+			</if>
+      		<if test="smallGameMoney!=null ">
+				smallGameMoney,
+			</if>
+      		<if test="piggyBankMoney!=null ">
+				piggyBankMoney,
+			</if>
+      		<if test="fishBookNodeId!=null ">
+				fishBookNodeId,
+			</if>
+      		<if test="firstRecharge!=null ">
+				firstRecharge,
+			</if>
+      		<if test="firstRechargeData!=null ">
+				firstRechargeData,
+			</if>
+      		<if test="firstRechargeTime!=null ">
+				firstRechargeTime,
+			</if>
+      		<if test="secondRechargeTime!=null ">
+				secondRechargeTime,
+			</if>
+      		<if test="thirdRechargeTime!=null ">
+				thirdRechargeTime,
+			</if>
+      		<if test="luckyGiftsTime!=null ">
+				luckyGiftsTime,
+			</if>
+      		<if test="luckyGiftsIsGet!=null ">
+				luckyGiftsIsGet,
+			</if>
+      		<if test="luckyGiftsRe!=null ">
+				luckyGiftsRe,
+			</if>
+      		<if test="dayGainMoney!=null ">
+				dayGainMoney,
+			</if>
+      		<if test="isYesterdayLogin!=null ">
+				isYesterdayLogin,
+			</if>
+      		<if test="gunPower!=null ">
+				gunPower,
+			</if>
+      		<if test="sevenDay!=null ">
+				sevenDay,
+			</if>
+      		<if test="addOnlineTime!=null ">
+				addOnlineTime,
+			</if>
+      		<if test="onlineRd!=null ">
+				onlineRd,
+			</if>
+      		<if test="isLogin!=null ">
+				isLogin,
+			</if>
+      		<if test="clubId!=null ">
+				clubId,
+			</if>
+      		<if test="clubName!=null ">
+				clubName,
+			</if>
+      		<if test="dayAct!=null ">
+				dayAct,
+			</if>
+      		<if test="weekAct!=null ">
+				weekAct,
+			</if>
+      		<if test="dayActBox!=null ">
+				dayActBox,
+			</if>
+      		<if test="weekActBox!=null ">
+				weekActBox,
+			</if>
+      		<if test="makeUp!=null ">
+				makeUp,
+			</if>
+      		<if test="catchMoneyTree!=null ">
+				catchMoneyTree,
+			</if>
+      		<if test="nodes!=null ">
+				nodes,
+			</if>
+      		<if test="maxCatch!=null ">
+				maxCatch,
+			</if>
+      		<if test="seaGodBill!=null ">
+				seaGodBill,
+			</if>
+      		<if test="isValidate!=null ">
+				isValidate,
+			</if>
+      		<if test="onlineTime!=null ">
+				onlineTime,
+			</if>
+      		<if test="income!=null ">
+				income,
+			</if>
+      		<if test="antiOutTime!=null ">
+				antiOutTime,
+			</if>
+      		<if test="recGradeValue!=null ">
+				recGradeValue,
+			</if>
+      		<if test="actGradeValue!=null ">
+				actGradeValue,
+			</if>
+      		<if test="pearlFieldId!=null ">
+				pearlFieldId,
+			</if>
+      		<if test="cardScore!=null ">
+				cardScore,
+			</if>
+      		<if test="cardContorlTime!=null ">
+				cardContorlTime,
+			</if>
+      		<if test="carnivalGunPower!=null ">
+				carnivalGunPower,
+			</if>
+      		<if test="prizeCardBulletNum!=null ">
+				prizeCardBulletNum,
+			</if>
+      		<if test="jackpotCardBulletNum!=null ">
+				jackpotCardBulletNum,
+			</if>
+      		<if test="recPackBackBulletNum!=null ">
+				recPackBackBulletNum,
+			</if>
+      		<if test="discountGiftTime!=null ">
+				discountGiftTime,
+			</if>
+      		<if test="discountGiftCount!=null ">
+				discountGiftCount,
+			</if>
+      		<if test="hasDoGuide!=null ">
+				hasDoGuide,
+			</if>
+      		<if test="ttgtBulletNum!=null ">
+				ttgtBulletNum,
+			</if>
+      		<if test="shellTag!=null ">
+				shellTag,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="userId!=null ">
+      			#{userId},
+			</if>
+      		<if test="userName!=null ">
+      			#{userName},
+			</if>
+      		<if test="headUrl!=null ">
+      			#{headUrl},
+			</if>
+      		<if test="state!=null ">
+      			#{state},
+			</if>
+      		<if test="costMoney!=null ">
+      			#{costMoney},
+			</if>
+      		<if test="money!=null ">
+      			#{money},
+			</if>
+      		<if test="diamond!=null ">
+      			#{diamond},
+			</if>
+      		<if test="exp!=null ">
+      			#{exp},
+			</if>
+      		<if test="vipExp!=null ">
+      			#{vipExp},
+			</if>
+      		<if test="amount!=null ">
+      			#{amount},
+			</if>
+      		<if test="actDay!=null ">
+      			#{actDay},
+			</if>
+      		<if test="towerCodeId!=null ">
+      			#{towerCodeId},
+			</if>
+      		<if test="towerRateId!=null ">
+      			#{towerRateId},
+			</if>
+      		<if test="towerSeatId!=null ">
+      			#{towerSeatId},
+			</if>
+      		<if test="towerFuncId!=null ">
+      			#{towerFuncId},
+			</if>
+      		<if test="skillBulletNum!=null ">
+      			#{skillBulletNum},
+			</if>
+      		<if test="lastRecTime!=null ">
+      			#{lastRecTime},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+      		<if test="loginTime!=null ">
+      			#{loginTime},
+			</if>
+      		<if test="logoutTime!=null ">
+      			#{logoutTime},
+			</if>
+      		<if test="addLogin!=null ">
+      			#{addLogin},
+			</if>
+      		<if test="cardGainCount!=null ">
+      			#{cardGainCount},
+			</if>
+      		<if test="giftGiveCount!=null ">
+      			#{giftGiveCount},
+			</if>
+      		<if test="giftGainCount!=null ">
+      			#{giftGainCount},
+			</if>
+      		<if test="sevenBox!=null ">
+      			#{sevenBox},
+			</if>
+      		<if test="introduction!=null ">
+      			#{introduction},
+			</if>
+      		<if test="specialGunCount!=null ">
+      			#{specialGunCount},
+			</if>
+      		<if test="dropCardRefresh!=null ">
+      			#{dropCardRefresh},
+			</if>
+      		<if test="payBackRefresh!=null ">
+      			#{payBackRefresh},
+			</if>
+      		<if test="cardDemandCount!=null ">
+      			#{cardDemandCount},
+			</if>
+      		<if test="cardGiveCount!=null ">
+      			#{cardGiveCount},
+			</if>
+      		<if test="isNew!=null ">
+      			#{isNew},
+			</if>
+      		<if test="smallGameId!=null ">
+      			#{smallGameId},
+			</if>
+      		<if test="smallGameMoney!=null ">
+      			#{smallGameMoney},
+			</if>
+      		<if test="piggyBankMoney!=null ">
+      			#{piggyBankMoney},
+			</if>
+      		<if test="fishBookNodeId!=null ">
+      			#{fishBookNodeId},
+			</if>
+      		<if test="firstRecharge!=null ">
+      			#{firstRecharge},
+			</if>
+      		<if test="firstRechargeData!=null ">
+      			#{firstRechargeData},
+			</if>
+      		<if test="firstRechargeTime!=null ">
+      			#{firstRechargeTime},
+			</if>
+      		<if test="secondRechargeTime!=null ">
+      			#{secondRechargeTime},
+			</if>
+      		<if test="thirdRechargeTime!=null ">
+      			#{thirdRechargeTime},
+			</if>
+      		<if test="luckyGiftsTime!=null ">
+      			#{luckyGiftsTime},
+			</if>
+      		<if test="luckyGiftsIsGet!=null ">
+      			#{luckyGiftsIsGet},
+			</if>
+      		<if test="luckyGiftsRe!=null ">
+      			#{luckyGiftsRe},
+			</if>
+      		<if test="dayGainMoney!=null ">
+      			#{dayGainMoney},
+			</if>
+      		<if test="isYesterdayLogin!=null ">
+      			#{isYesterdayLogin},
+			</if>
+      		<if test="gunPower!=null ">
+      			#{gunPower},
+			</if>
+      		<if test="sevenDay!=null ">
+      			#{sevenDay},
+			</if>
+      		<if test="addOnlineTime!=null ">
+      			#{addOnlineTime},
+			</if>
+      		<if test="onlineRd!=null ">
+      			#{onlineRd},
+			</if>
+      		<if test="isLogin!=null ">
+      			#{isLogin},
+			</if>
+      		<if test="clubId!=null ">
+      			#{clubId},
+			</if>
+      		<if test="clubName!=null ">
+      			#{clubName},
+			</if>
+      		<if test="dayAct!=null ">
+      			#{dayAct},
+			</if>
+      		<if test="weekAct!=null ">
+      			#{weekAct},
+			</if>
+      		<if test="dayActBox!=null ">
+      			#{dayActBox},
+			</if>
+      		<if test="weekActBox!=null ">
+      			#{weekActBox},
+			</if>
+      		<if test="makeUp!=null ">
+      			#{makeUp},
+			</if>
+      		<if test="catchMoneyTree!=null ">
+      			#{catchMoneyTree},
+			</if>
+      		<if test="nodes!=null ">
+      			#{nodes},
+			</if>
+      		<if test="maxCatch!=null ">
+      			#{maxCatch},
+			</if>
+      		<if test="seaGodBill!=null ">
+      			#{seaGodBill},
+			</if>
+      		<if test="isValidate!=null ">
+      			#{isValidate},
+			</if>
+      		<if test="onlineTime!=null ">
+      			#{onlineTime},
+			</if>
+      		<if test="income!=null ">
+      			#{income},
+			</if>
+      		<if test="antiOutTime!=null ">
+      			#{antiOutTime},
+			</if>
+      		<if test="recGradeValue!=null ">
+      			#{recGradeValue},
+			</if>
+      		<if test="actGradeValue!=null ">
+      			#{actGradeValue},
+			</if>
+      		<if test="pearlFieldId!=null ">
+      			#{pearlFieldId},
+			</if>
+      		<if test="cardScore!=null ">
+      			#{cardScore},
+			</if>
+      		<if test="cardContorlTime!=null ">
+      			#{cardContorlTime},
+			</if>
+      		<if test="carnivalGunPower!=null ">
+      			#{carnivalGunPower},
+			</if>
+      		<if test="prizeCardBulletNum!=null ">
+      			#{prizeCardBulletNum},
+			</if>
+      		<if test="jackpotCardBulletNum!=null ">
+      			#{jackpotCardBulletNum},
+			</if>
+      		<if test="recPackBackBulletNum!=null ">
+      			#{recPackBackBulletNum},
+			</if>
+      		<if test="discountGiftTime!=null ">
+      			#{discountGiftTime},
+			</if>
+      		<if test="discountGiftCount!=null ">
+      			#{discountGiftCount},
+			</if>
+      		<if test="hasDoGuide!=null ">
+      			#{hasDoGuide},
+			</if>
+      		<if test="ttgtBulletNum!=null ">
+      			#{ttgtBulletNum},
+			</if>
+      		<if test="shellTag!=null ">
+      			#{shellTag},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.cn.jay.business.data2.entity.Guser">
+		delete from g_user
+		<where>
+      		<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+      		<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+      		<if test="headUrl!=null ">
+				and headUrl=#{headUrl}
+			</if>
+      		<if test="state!=null ">
+				and state=#{state}
+			</if>
+      		<if test="costMoney!=null ">
+				and costMoney=#{costMoney}
+			</if>
+      		<if test="money!=null ">
+				and money=#{money}
+			</if>
+      		<if test="diamond!=null ">
+				and diamond=#{diamond}
+			</if>
+      		<if test="exp!=null ">
+				and exp=#{exp}
+			</if>
+      		<if test="vipExp!=null ">
+				and vipExp=#{vipExp}
+			</if>
+      		<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+      		<if test="actDay!=null ">
+				and actDay=#{actDay}
+			</if>
+      		<if test="towerCodeId!=null ">
+				and towerCodeId=#{towerCodeId}
+			</if>
+      		<if test="towerRateId!=null ">
+				and towerRateId=#{towerRateId}
+			</if>
+      		<if test="towerSeatId!=null ">
+				and towerSeatId=#{towerSeatId}
+			</if>
+      		<if test="towerFuncId!=null ">
+				and towerFuncId=#{towerFuncId}
+			</if>
+      		<if test="skillBulletNum!=null ">
+				and skillBulletNum=#{skillBulletNum}
+			</if>
+      		<if test="lastRecTime!=null ">
+				and lastRecTime=#{lastRecTime}
+			</if>
+      		<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+      		<if test="loginTime!=null ">
+				and loginTime=#{loginTime}
+			</if>
+      		<if test="logoutTime!=null ">
+				and logoutTime=#{logoutTime}
+			</if>
+      		<if test="addLogin!=null ">
+				and addLogin=#{addLogin}
+			</if>
+      		<if test="cardGainCount!=null ">
+				and cardGainCount=#{cardGainCount}
+			</if>
+      		<if test="giftGiveCount!=null ">
+				and giftGiveCount=#{giftGiveCount}
+			</if>
+      		<if test="giftGainCount!=null ">
+				and giftGainCount=#{giftGainCount}
+			</if>
+      		<if test="sevenBox!=null ">
+				and sevenBox=#{sevenBox}
+			</if>
+      		<if test="introduction!=null ">
+				and introduction=#{introduction}
+			</if>
+      		<if test="specialGunCount!=null ">
+				and specialGunCount=#{specialGunCount}
+			</if>
+      		<if test="dropCardRefresh!=null ">
+				and dropCardRefresh=#{dropCardRefresh}
+			</if>
+      		<if test="payBackRefresh!=null ">
+				and payBackRefresh=#{payBackRefresh}
+			</if>
+      		<if test="cardDemandCount!=null ">
+				and cardDemandCount=#{cardDemandCount}
+			</if>
+      		<if test="cardGiveCount!=null ">
+				and cardGiveCount=#{cardGiveCount}
+			</if>
+      		<if test="isNew!=null ">
+				and isNew=#{isNew}
+			</if>
+      		<if test="smallGameId!=null ">
+				and smallGameId=#{smallGameId}
+			</if>
+      		<if test="smallGameMoney!=null ">
+				and smallGameMoney=#{smallGameMoney}
+			</if>
+      		<if test="piggyBankMoney!=null ">
+				and piggyBankMoney=#{piggyBankMoney}
+			</if>
+      		<if test="fishBookNodeId!=null ">
+				and fishBookNodeId=#{fishBookNodeId}
+			</if>
+      		<if test="firstRecharge!=null ">
+				and firstRecharge=#{firstRecharge}
+			</if>
+      		<if test="firstRechargeData!=null ">
+				and firstRechargeData=#{firstRechargeData}
+			</if>
+      		<if test="firstRechargeTime!=null ">
+				and firstRechargeTime=#{firstRechargeTime}
+			</if>
+      		<if test="secondRechargeTime!=null ">
+				and secondRechargeTime=#{secondRechargeTime}
+			</if>
+      		<if test="thirdRechargeTime!=null ">
+				and thirdRechargeTime=#{thirdRechargeTime}
+			</if>
+      		<if test="luckyGiftsTime!=null ">
+				and luckyGiftsTime=#{luckyGiftsTime}
+			</if>
+      		<if test="luckyGiftsIsGet!=null ">
+				and luckyGiftsIsGet=#{luckyGiftsIsGet}
+			</if>
+      		<if test="luckyGiftsRe!=null ">
+				and luckyGiftsRe=#{luckyGiftsRe}
+			</if>
+      		<if test="dayGainMoney!=null ">
+				and dayGainMoney=#{dayGainMoney}
+			</if>
+      		<if test="isYesterdayLogin!=null ">
+				and isYesterdayLogin=#{isYesterdayLogin}
+			</if>
+      		<if test="gunPower!=null ">
+				and gunPower=#{gunPower}
+			</if>
+      		<if test="sevenDay!=null ">
+				and sevenDay=#{sevenDay}
+			</if>
+      		<if test="addOnlineTime!=null ">
+				and addOnlineTime=#{addOnlineTime}
+			</if>
+      		<if test="onlineRd!=null ">
+				and onlineRd=#{onlineRd}
+			</if>
+      		<if test="isLogin!=null ">
+				and isLogin=#{isLogin}
+			</if>
+      		<if test="clubId!=null ">
+				and clubId=#{clubId}
+			</if>
+      		<if test="clubName!=null ">
+				and clubName=#{clubName}
+			</if>
+      		<if test="dayAct!=null ">
+				and dayAct=#{dayAct}
+			</if>
+      		<if test="weekAct!=null ">
+				and weekAct=#{weekAct}
+			</if>
+      		<if test="dayActBox!=null ">
+				and dayActBox=#{dayActBox}
+			</if>
+      		<if test="weekActBox!=null ">
+				and weekActBox=#{weekActBox}
+			</if>
+      		<if test="makeUp!=null ">
+				and makeUp=#{makeUp}
+			</if>
+      		<if test="catchMoneyTree!=null ">
+				and catchMoneyTree=#{catchMoneyTree}
+			</if>
+      		<if test="nodes!=null ">
+				and nodes=#{nodes}
+			</if>
+      		<if test="maxCatch!=null ">
+				and maxCatch=#{maxCatch}
+			</if>
+      		<if test="seaGodBill!=null ">
+				and seaGodBill=#{seaGodBill}
+			</if>
+      		<if test="isValidate!=null ">
+				and isValidate=#{isValidate}
+			</if>
+      		<if test="onlineTime!=null ">
+				and onlineTime=#{onlineTime}
+			</if>
+      		<if test="income!=null ">
+				and income=#{income}
+			</if>
+      		<if test="antiOutTime!=null ">
+				and antiOutTime=#{antiOutTime}
+			</if>
+      		<if test="recGradeValue!=null ">
+				and recGradeValue=#{recGradeValue}
+			</if>
+      		<if test="actGradeValue!=null ">
+				and actGradeValue=#{actGradeValue}
+			</if>
+      		<if test="pearlFieldId!=null ">
+				and pearlFieldId=#{pearlFieldId}
+			</if>
+      		<if test="cardScore!=null ">
+				and cardScore=#{cardScore}
+			</if>
+      		<if test="cardContorlTime!=null ">
+				and cardContorlTime=#{cardContorlTime}
+			</if>
+      		<if test="carnivalGunPower!=null ">
+				and carnivalGunPower=#{carnivalGunPower}
+			</if>
+      		<if test="prizeCardBulletNum!=null ">
+				and prizeCardBulletNum=#{prizeCardBulletNum}
+			</if>
+      		<if test="jackpotCardBulletNum!=null ">
+				and jackpotCardBulletNum=#{jackpotCardBulletNum}
+			</if>
+      		<if test="recPackBackBulletNum!=null ">
+				and recPackBackBulletNum=#{recPackBackBulletNum}
+			</if>
+      		<if test="discountGiftTime!=null ">
+				and discountGiftTime=#{discountGiftTime}
+			</if>
+      		<if test="discountGiftCount!=null ">
+				and discountGiftCount=#{discountGiftCount}
+			</if>
+      		<if test="hasDoGuide!=null ">
+				and hasDoGuide=#{hasDoGuide}
+			</if>
+      		<if test="ttgtBulletNum!=null ">
+				and ttgtBulletNum=#{ttgtBulletNum}
+			</if>
+      		<if test="shellTag!=null ">
+				and shellTag=#{shellTag}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.cn.jay.business.data2.entity.Guser">
+		update g_user
+		<set>
+			<if test="userId!=null ">
+				userId=#{userId},
+			</if>
+			<if test="userName!=null ">
+				userName=#{userName},
+			</if>
+			<if test="headUrl!=null ">
+				headUrl=#{headUrl},
+			</if>
+			<if test="state!=null ">
+				state=#{state},
+			</if>
+			<if test="costMoney!=null ">
+				costMoney=#{costMoney},
+			</if>
+			<if test="money!=null ">
+				money=#{money},
+			</if>
+			<if test="diamond!=null ">
+				diamond=#{diamond},
+			</if>
+			<if test="exp!=null ">
+				exp=#{exp},
+			</if>
+			<if test="vipExp!=null ">
+				vipExp=#{vipExp},
+			</if>
+			<if test="amount!=null ">
+				amount=#{amount},
+			</if>
+			<if test="actDay!=null ">
+				actDay=#{actDay},
+			</if>
+			<if test="towerCodeId!=null ">
+				towerCodeId=#{towerCodeId},
+			</if>
+			<if test="towerRateId!=null ">
+				towerRateId=#{towerRateId},
+			</if>
+			<if test="towerSeatId!=null ">
+				towerSeatId=#{towerSeatId},
+			</if>
+			<if test="towerFuncId!=null ">
+				towerFuncId=#{towerFuncId},
+			</if>
+			<if test="skillBulletNum!=null ">
+				skillBulletNum=#{skillBulletNum},
+			</if>
+			<if test="lastRecTime!=null ">
+				lastRecTime=#{lastRecTime},
+			</if>
+			<if test="createTime!=null ">
+				createTime=#{createTime},
+			</if>
+			<if test="loginTime!=null ">
+				loginTime=#{loginTime},
+			</if>
+			<if test="logoutTime!=null ">
+				logoutTime=#{logoutTime},
+			</if>
+			<if test="addLogin!=null ">
+				addLogin=#{addLogin},
+			</if>
+			<if test="cardGainCount!=null ">
+				cardGainCount=#{cardGainCount},
+			</if>
+			<if test="giftGiveCount!=null ">
+				giftGiveCount=#{giftGiveCount},
+			</if>
+			<if test="giftGainCount!=null ">
+				giftGainCount=#{giftGainCount},
+			</if>
+			<if test="sevenBox!=null ">
+				sevenBox=#{sevenBox},
+			</if>
+			<if test="introduction!=null ">
+				introduction=#{introduction},
+			</if>
+			<if test="specialGunCount!=null ">
+				specialGunCount=#{specialGunCount},
+			</if>
+			<if test="dropCardRefresh!=null ">
+				dropCardRefresh=#{dropCardRefresh},
+			</if>
+			<if test="payBackRefresh!=null ">
+				payBackRefresh=#{payBackRefresh},
+			</if>
+			<if test="cardDemandCount!=null ">
+				cardDemandCount=#{cardDemandCount},
+			</if>
+			<if test="cardGiveCount!=null ">
+				cardGiveCount=#{cardGiveCount},
+			</if>
+			<if test="isNew!=null ">
+				isNew=#{isNew},
+			</if>
+			<if test="smallGameId!=null ">
+				smallGameId=#{smallGameId},
+			</if>
+			<if test="smallGameMoney!=null ">
+				smallGameMoney=#{smallGameMoney},
+			</if>
+			<if test="piggyBankMoney!=null ">
+				piggyBankMoney=#{piggyBankMoney},
+			</if>
+			<if test="fishBookNodeId!=null ">
+				fishBookNodeId=#{fishBookNodeId},
+			</if>
+			<if test="firstRecharge!=null ">
+				firstRecharge=#{firstRecharge},
+			</if>
+			<if test="firstRechargeData!=null ">
+				firstRechargeData=#{firstRechargeData},
+			</if>
+			<if test="firstRechargeTime!=null ">
+				firstRechargeTime=#{firstRechargeTime},
+			</if>
+			<if test="secondRechargeTime!=null ">
+				secondRechargeTime=#{secondRechargeTime},
+			</if>
+			<if test="thirdRechargeTime!=null ">
+				thirdRechargeTime=#{thirdRechargeTime},
+			</if>
+			<if test="luckyGiftsTime!=null ">
+				luckyGiftsTime=#{luckyGiftsTime},
+			</if>
+			<if test="luckyGiftsIsGet!=null ">
+				luckyGiftsIsGet=#{luckyGiftsIsGet},
+			</if>
+			<if test="luckyGiftsRe!=null ">
+				luckyGiftsRe=#{luckyGiftsRe},
+			</if>
+			<if test="dayGainMoney!=null ">
+				dayGainMoney=#{dayGainMoney},
+			</if>
+			<if test="isYesterdayLogin!=null ">
+				isYesterdayLogin=#{isYesterdayLogin},
+			</if>
+			<if test="gunPower!=null ">
+				gunPower=#{gunPower},
+			</if>
+			<if test="sevenDay!=null ">
+				sevenDay=#{sevenDay},
+			</if>
+			<if test="addOnlineTime!=null ">
+				addOnlineTime=#{addOnlineTime},
+			</if>
+			<if test="onlineRd!=null ">
+				onlineRd=#{onlineRd},
+			</if>
+			<if test="isLogin!=null ">
+				isLogin=#{isLogin},
+			</if>
+			<if test="clubId!=null ">
+				clubId=#{clubId},
+			</if>
+			<if test="clubName!=null ">
+				clubName=#{clubName},
+			</if>
+			<if test="dayAct!=null ">
+				dayAct=#{dayAct},
+			</if>
+			<if test="weekAct!=null ">
+				weekAct=#{weekAct},
+			</if>
+			<if test="dayActBox!=null ">
+				dayActBox=#{dayActBox},
+			</if>
+			<if test="weekActBox!=null ">
+				weekActBox=#{weekActBox},
+			</if>
+			<if test="makeUp!=null ">
+				makeUp=#{makeUp},
+			</if>
+			<if test="catchMoneyTree!=null ">
+				catchMoneyTree=#{catchMoneyTree},
+			</if>
+			<if test="nodes!=null ">
+				nodes=#{nodes},
+			</if>
+			<if test="maxCatch!=null ">
+				maxCatch=#{maxCatch},
+			</if>
+			<if test="seaGodBill!=null ">
+				seaGodBill=#{seaGodBill},
+			</if>
+			<if test="isValidate!=null ">
+				isValidate=#{isValidate},
+			</if>
+			<if test="onlineTime!=null ">
+				onlineTime=#{onlineTime},
+			</if>
+			<if test="income!=null ">
+				income=#{income},
+			</if>
+			<if test="antiOutTime!=null ">
+				antiOutTime=#{antiOutTime},
+			</if>
+			<if test="recGradeValue!=null ">
+				recGradeValue=#{recGradeValue},
+			</if>
+			<if test="actGradeValue!=null ">
+				actGradeValue=#{actGradeValue},
+			</if>
+			<if test="pearlFieldId!=null ">
+				pearlFieldId=#{pearlFieldId},
+			</if>
+			<if test="cardScore!=null ">
+				cardScore=#{cardScore},
+			</if>
+			<if test="cardContorlTime!=null ">
+				cardContorlTime=#{cardContorlTime},
+			</if>
+			<if test="carnivalGunPower!=null ">
+				carnivalGunPower=#{carnivalGunPower},
+			</if>
+			<if test="prizeCardBulletNum!=null ">
+				prizeCardBulletNum=#{prizeCardBulletNum},
+			</if>
+			<if test="jackpotCardBulletNum!=null ">
+				jackpotCardBulletNum=#{jackpotCardBulletNum},
+			</if>
+			<if test="recPackBackBulletNum!=null ">
+				recPackBackBulletNum=#{recPackBackBulletNum},
+			</if>
+			<if test="discountGiftTime!=null ">
+				discountGiftTime=#{discountGiftTime},
+			</if>
+			<if test="discountGiftCount!=null ">
+				discountGiftCount=#{discountGiftCount},
+			</if>
+			<if test="hasDoGuide!=null ">
+				hasDoGuide=#{hasDoGuide},
+			</if>
+			<if test="ttgtBulletNum!=null ">
+				ttgtBulletNum=#{ttgtBulletNum},
+			</if>
+			<if test="shellTag!=null ">
+				shellTag=#{shellTag},
+			</if>
+		</set>
+		<where>
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.cn.jay.business.data2.entity.Guser" resultMap="guser_result_map">
+		select userId,userName,headUrl,state,costMoney,money,diamond,exp,vipExp,amount,actDay,towerCodeId,towerRateId,towerSeatId,towerFuncId,skillBulletNum,lastRecTime,createTime,loginTime,logoutTime,addLogin,cardGainCount,giftGiveCount,giftGainCount,sevenBox,introduction,specialGunCount,dropCardRefresh,payBackRefresh,cardDemandCount,cardGiveCount,isNew,smallGameId,smallGameMoney,piggyBankMoney,fishBookNodeId,firstRecharge,firstRechargeData,firstRechargeTime,secondRechargeTime,thirdRechargeTime,luckyGiftsTime,luckyGiftsIsGet,luckyGiftsRe,dayGainMoney,isYesterdayLogin,gunPower,sevenDay,addOnlineTime,onlineRd,isLogin,clubId,clubName,dayAct,weekAct,dayActBox,weekActBox,makeUp,catchMoneyTree,nodes,maxCatch,seaGodBill,isValidate,onlineTime,income,antiOutTime,recGradeValue,actGradeValue,pearlFieldId,cardScore,cardContorlTime,carnivalGunPower,prizeCardBulletNum,jackpotCardBulletNum,recPackBackBulletNum,discountGiftTime,discountGiftCount,hasDoGuide,ttgtBulletNum,shellTag from g_user
+		<where>
+			<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+			<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+			<if test="headUrl!=null ">
+				and headUrl=#{headUrl}
+			</if>
+			<if test="state!=null ">
+				and state=#{state}
+			</if>
+			<if test="costMoney!=null ">
+				and costMoney=#{costMoney}
+			</if>
+			<if test="money!=null ">
+				and money=#{money}
+			</if>
+			<if test="diamond!=null ">
+				and diamond=#{diamond}
+			</if>
+			<if test="exp!=null ">
+				and exp=#{exp}
+			</if>
+			<if test="vipExp!=null ">
+				and vipExp=#{vipExp}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="actDay!=null ">
+				and actDay=#{actDay}
+			</if>
+			<if test="towerCodeId!=null ">
+				and towerCodeId=#{towerCodeId}
+			</if>
+			<if test="towerRateId!=null ">
+				and towerRateId=#{towerRateId}
+			</if>
+			<if test="towerSeatId!=null ">
+				and towerSeatId=#{towerSeatId}
+			</if>
+			<if test="towerFuncId!=null ">
+				and towerFuncId=#{towerFuncId}
+			</if>
+			<if test="skillBulletNum!=null ">
+				and skillBulletNum=#{skillBulletNum}
+			</if>
+			<if test="lastRecTime!=null ">
+				and lastRecTime=#{lastRecTime}
+			</if>
+			<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+			<if test="loginTime!=null ">
+				and loginTime=#{loginTime}
+			</if>
+			<if test="logoutTime!=null ">
+				and logoutTime=#{logoutTime}
+			</if>
+			<if test="addLogin!=null ">
+				and addLogin=#{addLogin}
+			</if>
+			<if test="cardGainCount!=null ">
+				and cardGainCount=#{cardGainCount}
+			</if>
+			<if test="giftGiveCount!=null ">
+				and giftGiveCount=#{giftGiveCount}
+			</if>
+			<if test="giftGainCount!=null ">
+				and giftGainCount=#{giftGainCount}
+			</if>
+			<if test="sevenBox!=null ">
+				and sevenBox=#{sevenBox}
+			</if>
+			<if test="introduction!=null ">
+				and introduction=#{introduction}
+			</if>
+			<if test="specialGunCount!=null ">
+				and specialGunCount=#{specialGunCount}
+			</if>
+			<if test="dropCardRefresh!=null ">
+				and dropCardRefresh=#{dropCardRefresh}
+			</if>
+			<if test="payBackRefresh!=null ">
+				and payBackRefresh=#{payBackRefresh}
+			</if>
+			<if test="cardDemandCount!=null ">
+				and cardDemandCount=#{cardDemandCount}
+			</if>
+			<if test="cardGiveCount!=null ">
+				and cardGiveCount=#{cardGiveCount}
+			</if>
+			<if test="isNew!=null ">
+				and isNew=#{isNew}
+			</if>
+			<if test="smallGameId!=null ">
+				and smallGameId=#{smallGameId}
+			</if>
+			<if test="smallGameMoney!=null ">
+				and smallGameMoney=#{smallGameMoney}
+			</if>
+			<if test="piggyBankMoney!=null ">
+				and piggyBankMoney=#{piggyBankMoney}
+			</if>
+			<if test="fishBookNodeId!=null ">
+				and fishBookNodeId=#{fishBookNodeId}
+			</if>
+			<if test="firstRecharge!=null ">
+				and firstRecharge=#{firstRecharge}
+			</if>
+			<if test="firstRechargeData!=null ">
+				and firstRechargeData=#{firstRechargeData}
+			</if>
+			<if test="firstRechargeTime!=null ">
+				and firstRechargeTime=#{firstRechargeTime}
+			</if>
+			<if test="secondRechargeTime!=null ">
+				and secondRechargeTime=#{secondRechargeTime}
+			</if>
+			<if test="thirdRechargeTime!=null ">
+				and thirdRechargeTime=#{thirdRechargeTime}
+			</if>
+			<if test="luckyGiftsTime!=null ">
+				and luckyGiftsTime=#{luckyGiftsTime}
+			</if>
+			<if test="luckyGiftsIsGet!=null ">
+				and luckyGiftsIsGet=#{luckyGiftsIsGet}
+			</if>
+			<if test="luckyGiftsRe!=null ">
+				and luckyGiftsRe=#{luckyGiftsRe}
+			</if>
+			<if test="dayGainMoney!=null ">
+				and dayGainMoney=#{dayGainMoney}
+			</if>
+			<if test="isYesterdayLogin!=null ">
+				and isYesterdayLogin=#{isYesterdayLogin}
+			</if>
+			<if test="gunPower!=null ">
+				and gunPower=#{gunPower}
+			</if>
+			<if test="sevenDay!=null ">
+				and sevenDay=#{sevenDay}
+			</if>
+			<if test="addOnlineTime!=null ">
+				and addOnlineTime=#{addOnlineTime}
+			</if>
+			<if test="onlineRd!=null ">
+				and onlineRd=#{onlineRd}
+			</if>
+			<if test="isLogin!=null ">
+				and isLogin=#{isLogin}
+			</if>
+			<if test="clubId!=null ">
+				and clubId=#{clubId}
+			</if>
+			<if test="clubName!=null ">
+				and clubName=#{clubName}
+			</if>
+			<if test="dayAct!=null ">
+				and dayAct=#{dayAct}
+			</if>
+			<if test="weekAct!=null ">
+				and weekAct=#{weekAct}
+			</if>
+			<if test="dayActBox!=null ">
+				and dayActBox=#{dayActBox}
+			</if>
+			<if test="weekActBox!=null ">
+				and weekActBox=#{weekActBox}
+			</if>
+			<if test="makeUp!=null ">
+				and makeUp=#{makeUp}
+			</if>
+			<if test="catchMoneyTree!=null ">
+				and catchMoneyTree=#{catchMoneyTree}
+			</if>
+			<if test="nodes!=null ">
+				and nodes=#{nodes}
+			</if>
+			<if test="maxCatch!=null ">
+				and maxCatch=#{maxCatch}
+			</if>
+			<if test="seaGodBill!=null ">
+				and seaGodBill=#{seaGodBill}
+			</if>
+			<if test="isValidate!=null ">
+				and isValidate=#{isValidate}
+			</if>
+			<if test="onlineTime!=null ">
+				and onlineTime=#{onlineTime}
+			</if>
+			<if test="income!=null ">
+				and income=#{income}
+			</if>
+			<if test="antiOutTime!=null ">
+				and antiOutTime=#{antiOutTime}
+			</if>
+			<if test="recGradeValue!=null ">
+				and recGradeValue=#{recGradeValue}
+			</if>
+			<if test="actGradeValue!=null ">
+				and actGradeValue=#{actGradeValue}
+			</if>
+			<if test="pearlFieldId!=null ">
+				and pearlFieldId=#{pearlFieldId}
+			</if>
+			<if test="cardScore!=null ">
+				and cardScore=#{cardScore}
+			</if>
+			<if test="cardContorlTime!=null ">
+				and cardContorlTime=#{cardContorlTime}
+			</if>
+			<if test="carnivalGunPower!=null ">
+				and carnivalGunPower=#{carnivalGunPower}
+			</if>
+			<if test="prizeCardBulletNum!=null ">
+				and prizeCardBulletNum=#{prizeCardBulletNum}
+			</if>
+			<if test="jackpotCardBulletNum!=null ">
+				and jackpotCardBulletNum=#{jackpotCardBulletNum}
+			</if>
+			<if test="recPackBackBulletNum!=null ">
+				and recPackBackBulletNum=#{recPackBackBulletNum}
+			</if>
+			<if test="discountGiftTime!=null ">
+				and discountGiftTime=#{discountGiftTime}
+			</if>
+			<if test="discountGiftCount!=null ">
+				and discountGiftCount=#{discountGiftCount}
+			</if>
+			<if test="hasDoGuide!=null ">
+				and hasDoGuide=#{hasDoGuide}
+			</if>
+			<if test="ttgtBulletNum!=null ">
+				and ttgtBulletNum=#{ttgtBulletNum}
+			</if>
+			<if test="shellTag!=null ">
+				and shellTag=#{shellTag}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="guser_result_map" >
+		select userId,userName,headUrl,state,costMoney,money,diamond,exp,vipExp,amount,actDay,towerCodeId,towerRateId,towerSeatId,towerFuncId,skillBulletNum,lastRecTime,createTime,loginTime,logoutTime,addLogin,cardGainCount,giftGiveCount,giftGainCount,sevenBox,introduction,specialGunCount,dropCardRefresh,payBackRefresh,cardDemandCount,cardGiveCount,isNew,smallGameId,smallGameMoney,piggyBankMoney,fishBookNodeId,firstRecharge,firstRechargeData,firstRechargeTime,secondRechargeTime,thirdRechargeTime,luckyGiftsTime,luckyGiftsIsGet,luckyGiftsRe,dayGainMoney,isYesterdayLogin,gunPower,sevenDay,addOnlineTime,onlineRd,isLogin,clubId,clubName,dayAct,weekAct,dayActBox,weekActBox,makeUp,catchMoneyTree,nodes,maxCatch,seaGodBill,isValidate,onlineTime,income,antiOutTime,recGradeValue,actGradeValue,pearlFieldId,cardScore,cardContorlTime,carnivalGunPower,prizeCardBulletNum,jackpotCardBulletNum,recPackBackBulletNum,discountGiftTime,discountGiftCount,hasDoGuide,ttgtBulletNum,shellTag from g_user
+		<where>
+			<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+			<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+			<if test="headUrl!=null ">
+				and headUrl=#{headUrl}
+			</if>
+			<if test="state!=null ">
+				and state=#{state}
+			</if>
+			<if test="costMoney!=null ">
+				and costMoney=#{costMoney}
+			</if>
+			<if test="money!=null ">
+				and money=#{money}
+			</if>
+			<if test="diamond!=null ">
+				and diamond=#{diamond}
+			</if>
+			<if test="exp!=null ">
+				and exp=#{exp}
+			</if>
+			<if test="vipExp!=null ">
+				and vipExp=#{vipExp}
+			</if>
+			<if test="amount!=null ">
+				and amount=#{amount}
+			</if>
+			<if test="actDay!=null ">
+				and actDay=#{actDay}
+			</if>
+			<if test="towerCodeId!=null ">
+				and towerCodeId=#{towerCodeId}
+			</if>
+			<if test="towerRateId!=null ">
+				and towerRateId=#{towerRateId}
+			</if>
+			<if test="towerSeatId!=null ">
+				and towerSeatId=#{towerSeatId}
+			</if>
+			<if test="towerFuncId!=null ">
+				and towerFuncId=#{towerFuncId}
+			</if>
+			<if test="skillBulletNum!=null ">
+				and skillBulletNum=#{skillBulletNum}
+			</if>
+			<if test="lastRecTime!=null ">
+				and lastRecTime=#{lastRecTime}
+			</if>
+			<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+			<if test="loginTime!=null ">
+				and loginTime=#{loginTime}
+			</if>
+			<if test="logoutTime!=null ">
+				and logoutTime=#{logoutTime}
+			</if>
+			<if test="addLogin!=null ">
+				and addLogin=#{addLogin}
+			</if>
+			<if test="cardGainCount!=null ">
+				and cardGainCount=#{cardGainCount}
+			</if>
+			<if test="giftGiveCount!=null ">
+				and giftGiveCount=#{giftGiveCount}
+			</if>
+			<if test="giftGainCount!=null ">
+				and giftGainCount=#{giftGainCount}
+			</if>
+			<if test="sevenBox!=null ">
+				and sevenBox=#{sevenBox}
+			</if>
+			<if test="introduction!=null ">
+				and introduction=#{introduction}
+			</if>
+			<if test="specialGunCount!=null ">
+				and specialGunCount=#{specialGunCount}
+			</if>
+			<if test="dropCardRefresh!=null ">
+				and dropCardRefresh=#{dropCardRefresh}
+			</if>
+			<if test="payBackRefresh!=null ">
+				and payBackRefresh=#{payBackRefresh}
+			</if>
+			<if test="cardDemandCount!=null ">
+				and cardDemandCount=#{cardDemandCount}
+			</if>
+			<if test="cardGiveCount!=null ">
+				and cardGiveCount=#{cardGiveCount}
+			</if>
+			<if test="isNew!=null ">
+				and isNew=#{isNew}
+			</if>
+			<if test="smallGameId!=null ">
+				and smallGameId=#{smallGameId}
+			</if>
+			<if test="smallGameMoney!=null ">
+				and smallGameMoney=#{smallGameMoney}
+			</if>
+			<if test="piggyBankMoney!=null ">
+				and piggyBankMoney=#{piggyBankMoney}
+			</if>
+			<if test="fishBookNodeId!=null ">
+				and fishBookNodeId=#{fishBookNodeId}
+			</if>
+			<if test="firstRecharge!=null ">
+				and firstRecharge=#{firstRecharge}
+			</if>
+			<if test="firstRechargeData!=null ">
+				and firstRechargeData=#{firstRechargeData}
+			</if>
+			<if test="firstRechargeTime!=null ">
+				and firstRechargeTime=#{firstRechargeTime}
+			</if>
+			<if test="secondRechargeTime!=null ">
+				and secondRechargeTime=#{secondRechargeTime}
+			</if>
+			<if test="thirdRechargeTime!=null ">
+				and thirdRechargeTime=#{thirdRechargeTime}
+			</if>
+			<if test="luckyGiftsTime!=null ">
+				and luckyGiftsTime=#{luckyGiftsTime}
+			</if>
+			<if test="luckyGiftsIsGet!=null ">
+				and luckyGiftsIsGet=#{luckyGiftsIsGet}
+			</if>
+			<if test="luckyGiftsRe!=null ">
+				and luckyGiftsRe=#{luckyGiftsRe}
+			</if>
+			<if test="dayGainMoney!=null ">
+				and dayGainMoney=#{dayGainMoney}
+			</if>
+			<if test="isYesterdayLogin!=null ">
+				and isYesterdayLogin=#{isYesterdayLogin}
+			</if>
+			<if test="gunPower!=null ">
+				and gunPower=#{gunPower}
+			</if>
+			<if test="sevenDay!=null ">
+				and sevenDay=#{sevenDay}
+			</if>
+			<if test="addOnlineTime!=null ">
+				and addOnlineTime=#{addOnlineTime}
+			</if>
+			<if test="onlineRd!=null ">
+				and onlineRd=#{onlineRd}
+			</if>
+			<if test="isLogin!=null ">
+				and isLogin=#{isLogin}
+			</if>
+			<if test="clubId!=null ">
+				and clubId=#{clubId}
+			</if>
+			<if test="clubName!=null ">
+				and clubName=#{clubName}
+			</if>
+			<if test="dayAct!=null ">
+				and dayAct=#{dayAct}
+			</if>
+			<if test="weekAct!=null ">
+				and weekAct=#{weekAct}
+			</if>
+			<if test="dayActBox!=null ">
+				and dayActBox=#{dayActBox}
+			</if>
+			<if test="weekActBox!=null ">
+				and weekActBox=#{weekActBox}
+			</if>
+			<if test="makeUp!=null ">
+				and makeUp=#{makeUp}
+			</if>
+			<if test="catchMoneyTree!=null ">
+				and catchMoneyTree=#{catchMoneyTree}
+			</if>
+			<if test="nodes!=null ">
+				and nodes=#{nodes}
+			</if>
+			<if test="maxCatch!=null ">
+				and maxCatch=#{maxCatch}
+			</if>
+			<if test="seaGodBill!=null ">
+				and seaGodBill=#{seaGodBill}
+			</if>
+			<if test="isValidate!=null ">
+				and isValidate=#{isValidate}
+			</if>
+			<if test="onlineTime!=null ">
+				and onlineTime=#{onlineTime}
+			</if>
+			<if test="income!=null ">
+				and income=#{income}
+			</if>
+			<if test="antiOutTime!=null ">
+				and antiOutTime=#{antiOutTime}
+			</if>
+			<if test="recGradeValue!=null ">
+				and recGradeValue=#{recGradeValue}
+			</if>
+			<if test="actGradeValue!=null ">
+				and actGradeValue=#{actGradeValue}
+			</if>
+			<if test="pearlFieldId!=null ">
+				and pearlFieldId=#{pearlFieldId}
+			</if>
+			<if test="cardScore!=null ">
+				and cardScore=#{cardScore}
+			</if>
+			<if test="cardContorlTime!=null ">
+				and cardContorlTime=#{cardContorlTime}
+			</if>
+			<if test="carnivalGunPower!=null ">
+				and carnivalGunPower=#{carnivalGunPower}
+			</if>
+			<if test="prizeCardBulletNum!=null ">
+				and prizeCardBulletNum=#{prizeCardBulletNum}
+			</if>
+			<if test="jackpotCardBulletNum!=null ">
+				and jackpotCardBulletNum=#{jackpotCardBulletNum}
+			</if>
+			<if test="recPackBackBulletNum!=null ">
+				and recPackBackBulletNum=#{recPackBackBulletNum}
+			</if>
+			<if test="discountGiftTime!=null ">
+				and discountGiftTime=#{discountGiftTime}
+			</if>
+			<if test="discountGiftCount!=null ">
+				and discountGiftCount=#{discountGiftCount}
+			</if>
+			<if test="hasDoGuide!=null ">
+				and hasDoGuide=#{hasDoGuide}
+			</if>
+			<if test="ttgtBulletNum!=null ">
+				and ttgtBulletNum=#{ttgtBulletNum}
+			</if>
+			<if test="shellTag!=null ">
+				and shellTag=#{shellTag}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="guser_result_map" >
+		
+		SELECT userId,userName,headUrl,state,costMoney,money,diamond,exp,vipExp,amount,actDay,towerCodeId,towerRateId,towerSeatId,towerFuncId,skillBulletNum,lastRecTime,createTime,loginTime,logoutTime,addLogin,cardGainCount,giftGiveCount,giftGainCount,sevenBox,introduction,specialGunCount,dropCardRefresh,payBackRefresh,cardDemandCount,cardGiveCount,isNew,smallGameId,smallGameMoney,piggyBankMoney,fishBookNodeId,firstRecharge,firstRechargeData,firstRechargeTime,secondRechargeTime,thirdRechargeTime,luckyGiftsTime,luckyGiftsIsGet,luckyGiftsRe,dayGainMoney,isYesterdayLogin,gunPower,sevenDay,addOnlineTime,onlineRd,isLogin,clubId,clubName,dayAct,weekAct,dayActBox,weekActBox,makeUp,catchMoneyTree,nodes,maxCatch,seaGodBill,isValidate,onlineTime,income,antiOutTime,recGradeValue,actGradeValue,pearlFieldId,cardScore,cardContorlTime,carnivalGunPower,prizeCardBulletNum,jackpotCardBulletNum,recPackBackBulletNum,discountGiftTime,discountGiftCount,hasDoGuide,ttgtBulletNum,shellTag FROM g_user 
+		<where>
+			<if test="userId!=null and userId!=''">
+				and userId = #{userId}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and userName like  CONCAT('%',#{userName},'%')
+			</if>
+			<if test="headUrl!=null and headUrl!=''">
+				and headUrl like  CONCAT('%',#{headUrl},'%')
+			</if>
+			<if test="state!=null and state!=''">
+				and state = #{state}
+			</if>
+			<if test="costMoney!=null and costMoney!=''">
+				and costMoney = #{costMoney}
+			</if>
+			<if test="money!=null and money!=''">
+				and money = #{money}
+			</if>
+			<if test="diamond!=null and diamond!=''">
+				and diamond = #{diamond}
+			</if>
+			<if test="exp!=null and exp!=''">
+				and exp = #{exp}
+			</if>
+			<if test="vipExp!=null and vipExp!=''">
+				and vipExp = #{vipExp}
+			</if>
+			<if test="amount!=null and amount!=''">
+				and amount = #{amount}
+			</if>
+			<if test="actDay!=null and actDay!=''">
+				and actDay = #{actDay}
+			</if>
+			<if test="towerCodeId!=null and towerCodeId!=''">
+				and towerCodeId = #{towerCodeId}
+			</if>
+			<if test="towerRateId!=null and towerRateId!=''">
+				and towerRateId = #{towerRateId}
+			</if>
+			<if test="towerSeatId!=null and towerSeatId!=''">
+				and towerSeatId = #{towerSeatId}
+			</if>
+			<if test="towerFuncId!=null and towerFuncId!=''">
+				and towerFuncId = #{towerFuncId}
+			</if>
+			<if test="skillBulletNum!=null and skillBulletNum!=''">
+				and skillBulletNum = #{skillBulletNum}
+			</if>
+			<if test="lastRecTimeBegin!=null and lastRecTimeBegin!=''">
+				and lastRecTime <![CDATA[ >= ]]> str_to_date(#{lastRecTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="lastRecTimeEnd!=null and lastRecTimeEnd!=''">
+				and lastRecTime <![CDATA[ <= ]]> str_to_date(#{lastRecTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and createTime <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and createTime <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="loginTimeBegin!=null and loginTimeBegin!=''">
+				and loginTime <![CDATA[ >= ]]> str_to_date(#{loginTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="loginTimeEnd!=null and loginTimeEnd!=''">
+				and loginTime <![CDATA[ <= ]]> str_to_date(#{loginTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="logoutTimeBegin!=null and logoutTimeBegin!=''">
+				and logoutTime <![CDATA[ >= ]]> str_to_date(#{logoutTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="logoutTimeEnd!=null and logoutTimeEnd!=''">
+				and logoutTime <![CDATA[ <= ]]> str_to_date(#{logoutTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="addLogin!=null and addLogin!=''">
+				and addLogin = #{addLogin}
+			</if>
+			<if test="cardGainCount!=null and cardGainCount!=''">
+				and cardGainCount = #{cardGainCount}
+			</if>
+			<if test="giftGiveCount!=null and giftGiveCount!=''">
+				and giftGiveCount = #{giftGiveCount}
+			</if>
+			<if test="giftGainCount!=null and giftGainCount!=''">
+				and giftGainCount = #{giftGainCount}
+			</if>
+			<if test="sevenBox!=null and sevenBox!=''">
+				and sevenBox like  CONCAT('%',#{sevenBox},'%')
+			</if>
+			<if test="introduction!=null and introduction!=''">
+				and introduction like  CONCAT('%',#{introduction},'%')
+			</if>
+			<if test="specialGunCount!=null and specialGunCount!=''">
+				and specialGunCount = #{specialGunCount}
+			</if>
+			<if test="dropCardRefresh!=null and dropCardRefresh!=''">
+				and dropCardRefresh like  CONCAT('%',#{dropCardRefresh},'%')
+			</if>
+			<if test="payBackRefresh!=null and payBackRefresh!=''">
+				and payBackRefresh like  CONCAT('%',#{payBackRefresh},'%')
+			</if>
+			<if test="cardDemandCount!=null and cardDemandCount!=''">
+				and cardDemandCount = #{cardDemandCount}
+			</if>
+			<if test="cardGiveCount!=null and cardGiveCount!=''">
+				and cardGiveCount = #{cardGiveCount}
+			</if>
+			<if test="isNew!=null and isNew!=''">
+				and isNew = #{isNew}
+			</if>
+			<if test="smallGameId!=null and smallGameId!=''">
+				and smallGameId = #{smallGameId}
+			</if>
+			<if test="smallGameMoney!=null and smallGameMoney!=''">
+				and smallGameMoney = #{smallGameMoney}
+			</if>
+			<if test="piggyBankMoney!=null and piggyBankMoney!=''">
+				and piggyBankMoney like  CONCAT('%',#{piggyBankMoney},'%')
+			</if>
+			<if test="fishBookNodeId!=null and fishBookNodeId!=''">
+				and fishBookNodeId like  CONCAT('%',#{fishBookNodeId},'%')
+			</if>
+			<if test="firstRecharge!=null and firstRecharge!=''">
+				and firstRecharge = #{firstRecharge}
+			</if>
+			<if test="firstRechargeData!=null and firstRechargeData!=''">
+				and firstRechargeData like  CONCAT('%',#{firstRechargeData},'%')
+			</if>
+			<if test="firstRechargeTimeBegin!=null and firstRechargeTimeBegin!=''">
+				and firstRechargeTime <![CDATA[ >= ]]> str_to_date(#{firstRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="firstRechargeTimeEnd!=null and firstRechargeTimeEnd!=''">
+				and firstRechargeTime <![CDATA[ <= ]]> str_to_date(#{firstRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="secondRechargeTimeBegin!=null and secondRechargeTimeBegin!=''">
+				and secondRechargeTime <![CDATA[ >= ]]> str_to_date(#{secondRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="secondRechargeTimeEnd!=null and secondRechargeTimeEnd!=''">
+				and secondRechargeTime <![CDATA[ <= ]]> str_to_date(#{secondRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="thirdRechargeTimeBegin!=null and thirdRechargeTimeBegin!=''">
+				and thirdRechargeTime <![CDATA[ >= ]]> str_to_date(#{thirdRechargeTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="thirdRechargeTimeEnd!=null and thirdRechargeTimeEnd!=''">
+				and thirdRechargeTime <![CDATA[ <= ]]> str_to_date(#{thirdRechargeTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsTimeBegin!=null and luckyGiftsTimeBegin!=''">
+				and luckyGiftsTime <![CDATA[ >= ]]> str_to_date(#{luckyGiftsTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsTimeEnd!=null and luckyGiftsTimeEnd!=''">
+				and luckyGiftsTime <![CDATA[ <= ]]> str_to_date(#{luckyGiftsTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="luckyGiftsIsGet!=null and luckyGiftsIsGet!=''">
+				and luckyGiftsIsGet = #{luckyGiftsIsGet}
+			</if>
+			<if test="luckyGiftsRe!=null and luckyGiftsRe!=''">
+				and luckyGiftsRe = #{luckyGiftsRe}
+			</if>
+			<if test="dayGainMoney!=null and dayGainMoney!=''">
+				and dayGainMoney = #{dayGainMoney}
+			</if>
+			<if test="isYesterdayLogin!=null and isYesterdayLogin!=''">
+				and isYesterdayLogin = #{isYesterdayLogin}
+			</if>
+			<if test="gunPower!=null and gunPower!=''">
+				and gunPower = #{gunPower}
+			</if>
+			<if test="sevenDay!=null and sevenDay!=''">
+				and sevenDay = #{sevenDay}
+			</if>
+			<if test="addOnlineTime!=null and addOnlineTime!=''">
+				and addOnlineTime = #{addOnlineTime}
+			</if>
+			<if test="onlineRd!=null and onlineRd!=''">
+				and onlineRd = #{onlineRd}
+			</if>
+			<if test="isLogin!=null and isLogin!=''">
+				and isLogin = #{isLogin}
+			</if>
+			<if test="clubId!=null and clubId!=''">
+				and clubId = #{clubId}
+			</if>
+			<if test="clubName!=null and clubName!=''">
+				and clubName like  CONCAT('%',#{clubName},'%')
+			</if>
+			<if test="dayAct!=null and dayAct!=''">
+				and dayAct = #{dayAct}
+			</if>
+			<if test="weekAct!=null and weekAct!=''">
+				and weekAct = #{weekAct}
+			</if>
+			<if test="dayActBox!=null and dayActBox!=''">
+				and dayActBox = #{dayActBox}
+			</if>
+			<if test="weekActBox!=null and weekActBox!=''">
+				and weekActBox = #{weekActBox}
+			</if>
+			<if test="makeUp!=null and makeUp!=''">
+				and makeUp = #{makeUp}
+			</if>
+			<if test="catchMoneyTree!=null and catchMoneyTree!=''">
+				and catchMoneyTree = #{catchMoneyTree}
+			</if>
+			<if test="nodes!=null and nodes!=''">
+				and nodes like  CONCAT('%',#{nodes},'%')
+			</if>
+			<if test="maxCatch!=null and maxCatch!=''">
+				and maxCatch = #{maxCatch}
+			</if>
+			<if test="seaGodBill!=null and seaGodBill!=''">
+				and seaGodBill = #{seaGodBill}
+			</if>
+			<if test="isValidate!=null and isValidate!=''">
+				and isValidate = #{isValidate}
+			</if>
+			<if test="onlineTime!=null and onlineTime!=''">
+				and onlineTime = #{onlineTime}
+			</if>
+			<if test="income!=null and income!=''">
+				and income = #{income}
+			</if>
+			<if test="antiOutTime!=null and antiOutTime!=''">
+				and antiOutTime = #{antiOutTime}
+			</if>
+			<if test="recGradeValue!=null and recGradeValue!=''">
+				and recGradeValue = #{recGradeValue}
+			</if>
+			<if test="actGradeValue!=null and actGradeValue!=''">
+				and actGradeValue = #{actGradeValue}
+			</if>
+			<if test="pearlFieldId!=null and pearlFieldId!=''">
+				and pearlFieldId = #{pearlFieldId}
+			</if>
+			<if test="cardScore!=null and cardScore!=''">
+				and cardScore = #{cardScore}
+			</if>
+			<if test="cardContorlTimeBegin!=null and cardContorlTimeBegin!=''">
+				and cardContorlTime <![CDATA[ >= ]]> str_to_date(#{cardContorlTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="cardContorlTimeEnd!=null and cardContorlTimeEnd!=''">
+				and cardContorlTime <![CDATA[ <= ]]> str_to_date(#{cardContorlTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="carnivalGunPower!=null and carnivalGunPower!=''">
+				and carnivalGunPower = #{carnivalGunPower}
+			</if>
+			<if test="prizeCardBulletNum!=null and prizeCardBulletNum!=''">
+				and prizeCardBulletNum = #{prizeCardBulletNum}
+			</if>
+			<if test="jackpotCardBulletNum!=null and jackpotCardBulletNum!=''">
+				and jackpotCardBulletNum = #{jackpotCardBulletNum}
+			</if>
+			<if test="recPackBackBulletNum!=null and recPackBackBulletNum!=''">
+				and recPackBackBulletNum = #{recPackBackBulletNum}
+			</if>
+			<if test="discountGiftTimeBegin!=null and discountGiftTimeBegin!=''">
+				and discountGiftTime <![CDATA[ >= ]]> str_to_date(#{discountGiftTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="discountGiftTimeEnd!=null and discountGiftTimeEnd!=''">
+				and discountGiftTime <![CDATA[ <= ]]> str_to_date(#{discountGiftTimeEnd},  '%Y-%m-%d') 
+			</if>
+			<if test="discountGiftCount!=null and discountGiftCount!=''">
+				and discountGiftCount = #{discountGiftCount}
+			</if>
+			<if test="hasDoGuide!=null and hasDoGuide!=''">
+				and hasDoGuide = #{hasDoGuide}
+			</if>
+			<if test="ttgtBulletNum!=null and ttgtBulletNum!=''">
+				and ttgtBulletNum = #{ttgtBulletNum}
+			</if>
+			<if test="shellTag!=null and shellTag!=''">
+				and shellTag = #{shellTag}
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+</mapper>

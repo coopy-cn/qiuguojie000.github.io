@@ -1,0 +1,26 @@
+server:
+  port: 2020
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+     active: native
+
+security:
+  user:
+    password: pass
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.125:2000/eureka/
+
+logging:
+  file: ./log/config.log
+

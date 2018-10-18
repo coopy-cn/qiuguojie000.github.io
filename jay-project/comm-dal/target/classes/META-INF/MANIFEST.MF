@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: comm-dal
+Implementation-Version: 1.0.0
+Implementation-Vendor-Id: com.cn.jay.comm-dal
+Build-Jdk: 1.7.0_45
+Built-By: User
+Created-By: Maven Integration for Eclipse
+Implementation-URL: http://maven.apache.org/comm-dal
+

@@ -1,0 +1,36 @@
+server:
+  port: 3000
+
+datasource:
+  user-server:
+    url: jdbc:mysql://192.168.1.182:3306/gamecity?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: zuzhang202
+    driver-class-name: com.mysql.jdbc.Driver
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 18800
+  user-server-separate:
+    url: jdbc:mysql://192.168.1.182:3306/gamecity_fish?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: zuzhang202
+    driver-class-name: com.mysql.jdbc.Driver
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 18800
+
+logging:
+  file: ./log/service-face.log
+
+
+

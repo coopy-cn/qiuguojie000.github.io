@@ -1,0 +1,18 @@
+register-server：服务注册中心
+config:配置中心
+comm:公共项目，主要是工具类util文件
+comm-dal:公共持久化项目
+admin:管理后台项目模板（前后端没分离）
+service-face:核心服务-供其他项目client连接
+api-web:接口项目，调用service-face接口
+
+admin、service-face有双数据源配置，主要文件UcDataSourceConfig.java、UcSeparateDataSourceConfig.java，根据comm-dal中包名data1、data2来切换数据源
+
+启动顺序register-server、config、service-face、api-web、admin（api-web、admin是独立的，随意顺序）
+register-server:http://192.168.1.125:2000    register-server这个我放内网启动的
+admin:http://localhost:3010
+api-web:http://localhost:3030
+service-face:http://localhost:3000
+
+
+仅供参考，具体情况具体分析

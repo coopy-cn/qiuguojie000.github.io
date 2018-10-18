@@ -1,0 +1,160 @@
+2018-10-17 18:19:56.398  INFO 14608 --- [main] com.cn.jay.service.Application           : No active profile set, falling back to default profiles: default
+2018-10-17 18:19:56.418  INFO 14608 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2127e66e: startup date [Wed Oct 17 18:19:56 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@33c911a1
+2018-10-17 18:19:57.343  INFO 14608 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=b9f24bcb-3bf7-30d2-911c-62b705669a4c
+2018-10-17 18:19:57.355  INFO 14608 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-10-17 18:19:57.468  INFO 14608 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b9de41be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-10-17 18:19:57.636  INFO 14608 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d5f844bb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-10-17 18:19:57.900  INFO 14608 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 3000 (http)
+2018-10-17 18:19:57.912  INFO 14608 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-10-17 18:19:57.915  INFO 14608 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2018-10-17 18:19:58.051  INFO 14608 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-10-17 18:19:58.051  INFO 14608 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1633 ms
+2018-10-17 18:19:58.196  INFO 14608 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-10-17 18:19:58.200  INFO 14608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-10-17 18:19:58.201  INFO 14608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-10-17 18:19:58.201  INFO 14608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-10-17 18:19:58.201  INFO 14608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-10-17 18:19:58.999  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo]}" onto public java.lang.String com.cn.jay.service.controller.DemoController.demo(java.lang.String)
+2018-10-17 18:19:59.000  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String)
+2018-10-17 18:19:59.002  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-10-17 18:19:59.003  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-10-17 18:19:59.003  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-10-17 18:19:59.006  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-10-17 18:19:59.007  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-10-17 18:19:59.215  WARN 14608 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-10-17 18:19:59.215  INFO 14608 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-10-17 18:19:59.221  WARN 14608 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-10-17 18:19:59.222  INFO 14608 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-10-17 18:19:59.382  INFO 14608 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2127e66e: startup date [Wed Oct 17 18:19:56 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@33c911a1
+2018-10-17 18:19:59.434  INFO 14608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-17 18:19:59.434  INFO 14608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-17 18:19:59.474  INFO 14608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-17 18:19:59.844  INFO 14608 --- [main] o.s.ui.freemarker.SpringTemplateLoader   : SpringTemplateLoader for FreeMarker: using resource loader [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2127e66e: startup date [Wed Oct 17 18:19:56 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@33c911a1] and template loader path [classpath:/templates/]
+2018-10-17 18:19:59.845  INFO 14608 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2018-10-17 18:19:59.862  WARN 14608 --- [main] o.s.b.a.f.FreeMarkerAutoConfiguration    : Cannot find template location(s): [classpath:/templates/] (please add some templates, check your FreeMarker configuration, or set spring.freemarker.checkTemplateLocation=false)
+2018-10-17 18:20:00.055  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2018-10-17 18:20:00.061  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2018-10-17 18:20:00.137  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-10-17 18:20:00.145  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-10-17 18:20:00.146  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-10-17 18:20:00.147  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-10-17 18:20:00.149  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-10-17 18:20:00.161  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-10-17 18:20:00.169  INFO 14608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=2127e66e,type=ConfigurationPropertiesRebinder]
+2018-10-17 18:20:00.512  INFO 14608 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2018-10-17 18:20:00.517  INFO 14608 --- [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2018-10-17 18:20:00.525  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2018-10-17 18:20:00.528  INFO 14608 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2018-10-17 18:20:00.528  INFO 14608 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2018-10-17 18:20:00.528  INFO 14608 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2018-10-17 18:20:00.528  INFO 14608 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2018-10-17 18:20:00.571  INFO 14608 --- [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-10-17 18:20:00.572  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2018-10-17 18:20:00.572  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2018-10-17 18:20:00.572  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2018-10-17 18:20:00.572  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2018-10-17 18:20:00.573  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2018-10-17 18:20:00.573  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2018-10-17 18:20:00.573  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2018-10-17 18:20:00.578  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2018-10-17 18:20:00.580  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2018-10-17 18:20:00.582  INFO 14608 --- [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-10-17 18:20:00.583  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1539771600583 with initial instances count: 4
+2018-10-17 18:20:00.601  INFO 14608 --- [main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application service-face with eureka with status UP
+2018-10-17 18:20:00.601  INFO 14608 --- [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1539771600601, current=UP, previous=STARTING]
+2018-10-17 18:20:00.605  INFO 14608 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SERVICE-FACE/DESKTOP-SDJUN3L:service-face:3000: registering service...
+2018-10-17 18:20:00.609  INFO 14608 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2018-10-17 18:20:00.639  INFO 14608 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SERVICE-FACE/DESKTOP-SDJUN3L:service-face:3000 - registration status: 204
+2018-10-17 18:20:00.640  INFO 14608 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found {0} custom documentation plugin(s)
+2018-10-17 18:20:00.647  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2018-10-17 18:20:00.649  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.651  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: demo belongs to groups: [[ResourceGroup{groupName='demo-controller', position=0, controller=com.cn.jay.service.controller.DemoController}]] 
+2018-10-17 18:20:00.652  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.653  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: error belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-10-17 18:20:00.653  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.653  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: errorHtml belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-10-17 18:20:00.656  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /default/demo-controller Description: demo-controller Position: 0
+2018-10-17 18:20:00.657  INFO 14608 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /default/basic-error-controller Description: basic-error-controller Position: 0
+2018-10-17 18:20:00.675  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-10-17 18:20:00.675  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-10-17 18:20:00.683  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-10-17 18:20:00.683  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-10-17 18:20:00.689  INFO 14608 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.690  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.701  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.704  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.707  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.708  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.709  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.711  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.712  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.712  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.713  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.714  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.716  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.717  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.717  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.718  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.719  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.720  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-10-17 18:20:00.725  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.725  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.727  INFO 14608 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.727  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.742  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.742  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.744  INFO 14608 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.744  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-10-17 18:20:00.745  INFO 14608 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-10-17 18:20:00.745  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-10-17 18:20:00.747  INFO 14608 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-10-17 18:20:00.747  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-10-17 18:20:00.747  INFO 14608 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.747  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.748  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.748  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.749  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.750  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.751  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.751  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.752  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.753  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.754  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.755  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.755  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.756  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.756  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.757  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.757  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.758  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.String(true)
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.lang.String(true)
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.String(true)
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /demo.com.cn.jay.service.controller.DemoController.demo.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.773  INFO 14608 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /demo.com.cn.jay.service.controller.DemoController.demo.DefaultGenericTypeNamingStrategy
+2018-10-17 18:20:00.784  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.786  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.790  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.793  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.794  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.795  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.796  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.797  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.797  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.798  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.798  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.799  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.800  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.800  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.801  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.802  INFO 14608 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method demo was demo-controller
+2018-10-17 18:20:00.859  INFO 14608 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 3000 (http)
+2018-10-17 18:20:00.861  INFO 14608 --- [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 3000
+2018-10-17 18:20:00.865  INFO 14608 --- [main] com.cn.jay.service.Application           : Started Application in 6.92 seconds (JVM running for 7.287)
+2018-10-17 18:20:03.025  INFO 14608 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-10-17 18:20:03.025  INFO 14608 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-10-17 18:20:03.049  INFO 14608 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 24 ms
+2018-10-17 18:25:00.575  INFO 14608 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-10-17 18:30:00.577  INFO 14608 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-10-17 18:35:00.580  INFO 14608 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

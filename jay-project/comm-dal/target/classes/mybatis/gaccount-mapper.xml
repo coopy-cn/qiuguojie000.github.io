@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.cn.jay.business.data1.mapper.GaccountMapper">
+
+	<resultMap id="gaccount_result_map" type="com.cn.jay.business.data1.entity.Gaccount" >
+		<id column="account" property="account" />
+		<result column="id" property="id"/>
+		<result column="userId" property="userId"/>
+		<result column="pwd" property="pwd"/>
+		<result column="userName" property="userName"/>
+		<result column="cardId" property="cardId"/>
+		<result column="createTime" property="createTime"/>
+	</resultMap>
+	
+	<!-- 分页limit -->
+	<sql id="base_page_query_end">
+		<![CDATA[
+			LIMIT #{curPage},#{pageData}
+		]]>
+	</sql>
+	
+	<!-- 获取总数 -->
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from g_account  
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="account!=null and account!=''">
+				and account like CONCAT('%',#{account},'%')
+			</if>
+			<if test="userId!=null and userId!=''">
+				and userId = #{userId}
+			</if>
+			<if test="pwd!=null and pwd!=''">
+				and pwd = #{pwd}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and userName like CONCAT('%',#{userName},'%')
+			</if>
+			<if test="cardId!=null and cardId!=''">
+				and cardId like CONCAT('%',#{cardId},'%')
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and createTime <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and createTime <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增对象 如果需要在新增的时候返回id 就加入这个: useGeneratedKeys="true" keyProperty="id"   -->
+	<insert id="insertByEntity" parameterType="com.cn.jay.business.data1.entity.Gaccount" useGeneratedKeys="true" keyProperty="id">
+		insert into g_account
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+				id,
+			</if>
+      		<if test="account!=null ">
+				account,
+			</if>
+      		<if test="userId!=null ">
+				userId,
+			</if>
+      		<if test="pwd!=null ">
+				pwd,
+			</if>
+      		<if test="userName!=null ">
+				userName,
+			</if>
+      		<if test="cardId!=null ">
+				cardId,
+			</if>
+      		<if test="createTime!=null ">
+				createTime,
+			</if>
+    	</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id!=null ">
+      			#{id},
+			</if>
+      		<if test="account!=null ">
+      			#{account},
+			</if>
+      		<if test="userId!=null ">
+      			#{userId},
+			</if>
+      		<if test="pwd!=null ">
+      			#{pwd},
+			</if>
+      		<if test="userName!=null ">
+      			#{userName},
+			</if>
+      		<if test="cardId!=null ">
+      			#{cardId},
+			</if>
+      		<if test="createTime!=null ">
+      			#{createTime},
+			</if>
+    	</trim>
+	</insert>
+	
+	<!-- 根据删除 -->
+	<delete id="deleteByEntity" parameterType="com.cn.jay.business.data1.entity.Gaccount">
+		delete from g_account
+		<where>
+      		<if test="id!=null ">
+				and id=#{id}
+			</if>
+      		<if test="account!=null ">
+				and account=#{account}
+			</if>
+      		<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+      		<if test="pwd!=null ">
+				and pwd=#{pwd}
+			</if>
+      		<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+      		<if test="cardId!=null ">
+				and cardId=#{cardId}
+			</if>
+      		<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 根据对象修改 -->
+	<update id="updateByEntity" parameterType="com.cn.jay.business.data1.entity.Gaccount">
+		update g_account
+		<set>
+			<if test="id!=null ">
+				id=#{id},
+			</if>
+			<if test="userId!=null ">
+				userId=#{userId},
+			</if>
+			<if test="pwd!=null ">
+				pwd=#{pwd},
+			</if>
+			<if test="userName!=null ">
+				userName=#{userName},
+			</if>
+			<if test="cardId!=null ">
+				cardId=#{cardId},
+			</if>
+			<if test="createTime!=null ">
+				createTime=#{createTime},
+			</if>
+		</set>
+		<where>
+				account=#{account}
+		</where>
+	</update>
+
+	<!-- 根据对象查询单个 -->
+	<select id="selectSingle" resultType="com.cn.jay.business.data1.entity.Gaccount" resultMap="gaccount_result_map">
+		select id,account,userId,pwd,userName,cardId,createTime from g_account
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="account!=null ">
+				and account=#{account}
+			</if>
+			<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+			<if test="pwd!=null ">
+				and pwd=#{pwd}
+			</if>
+			<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+			<if test="cardId!=null ">
+				and cardId=#{cardId}
+			</if>
+			<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据对象查询列表-->
+	<select id="selectByObject" resultMap="gaccount_result_map" >
+		select id,account,userId,pwd,userName,cardId,createTime from g_account
+		<where>
+			<if test="id!=null ">
+				and id=#{id}
+			</if>
+			<if test="account!=null ">
+				and account=#{account}
+			</if>
+			<if test="userId!=null ">
+				and userId=#{userId}
+			</if>
+			<if test="pwd!=null ">
+				and pwd=#{pwd}
+			</if>
+			<if test="userName!=null ">
+				and userName=#{userName}
+			</if>
+			<if test="cardId!=null ">
+				and cardId=#{cardId}
+			</if>
+			<if test="createTime!=null ">
+				and createTime=#{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageQueryByObject" resultMap="gaccount_result_map" >
+		
+		SELECT id,account,userId,pwd,userName,cardId,createTime FROM g_account 
+		<where>
+			<if test="id!=null and id!=''">
+				and id = #{id}
+			</if>
+			<if test="account!=null and account!=''">
+				and account like  CONCAT('%',#{account},'%')
+			</if>
+			<if test="userId!=null and userId!=''">
+				and userId = #{userId}
+			</if>
+			<if test="pwd!=null and pwd!=''">
+				and pwd = #{pwd}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and userName like  CONCAT('%',#{userName},'%')
+			</if>
+			<if test="cardId!=null and cardId!=''">
+				and cardId like  CONCAT('%',#{cardId},'%')
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				and createTime <![CDATA[ >= ]]> str_to_date(#{createTimeBegin},  '%Y-%m-%d') 
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				and createTime <![CDATA[ <= ]]> str_to_date(#{createTimeEnd},  '%Y-%m-%d') 
+			</if>
+		</where>
+			<if test="sortName!=null and sortName!=''">
+				ORDER BY ${sortName} ${sortOrder}
+			</if>
+		<include refid="base_page_query_end"/>
+	</select>
+	
+</mapper>
